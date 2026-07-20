@@ -1,0 +1,23 @@
+dataset:
+  name: plasticc_test_metadata
+  url: https://zenodo.org/records/2539456/files/plasticc_test_metadata.csv.gz?download=1
+  filename: plasticc_test_metadata.csv.gz
+  license: CC-BY-4.0
+paths:
+  raw_dir: data/raw
+  interim_dir: data/interim
+  processed_dir: data/processed
+classes:
+  kilonova: 64
+  sn_ia: 90
+  slsn_i: 95
+# Logistic proxy for spectroscopic follow-up selection (ADR 004).
+# MODELING ASSUMPTION: all numeric values below are not a measured survey
+# selection function. They are a versioned, literature-motivated proxy.
+# See docs/data/selection_function.md for full justification.
+selection:
+  seed: 42
+  p_floor: 0.10
+  p_bright: 0.80
+  z_50: 0.5
+  w_z: 0.15

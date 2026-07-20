@@ -13,15 +13,23 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "MIT" }
 authors = [{ name = "Ghanashyam", email = "ghanashyamvn@gmail.com" }]
-dependencies = ["pydantic>=2.10,<3"]
+dependencies = [
+  "numpy>=2.2,<3",
+  "pandas>=2.2,<3",
+  "pandera>=0.23,<1",
+  "pydantic>=2.10,<3",
+  "pyyaml>=6.0,<7",
+]
 
 [dependency-groups]
 dev = [
   "mypy>=1.14,<2",
+  "pandas-stubs>=3.0.3.260530",
   "pre-commit>=4.0,<5",
   "pytest>=8.3,<9",
   "pytest-cov>=6.0,<7",
   "ruff>=0.9,<1",
+  "types-pyyaml>=6.0.12.20260518",
 ]
 
 [tool.ruff]
