@@ -65,7 +65,7 @@ def build_true_population(config: PopulationConfig, interim_path: Path) -> Path:
     """Filter validated interim table to study classes and produce the TRUE population.
 
     The TRUE population (ADR 004) contains every object in the released test
-    metadata whose ``target`` value is one of the three pre-registered study
+    metadata whose ``true_target`` value is one of the three pre-registered study
     classes: kilonova (64), Type Ia supernova (90), superluminous Type I
     supernova (95).  No other filtering is applied; all objects are treated as
     if they had been observed with no follow-up bias.
@@ -83,7 +83,7 @@ def build_true_population(config: PopulationConfig, interim_path: Path) -> Path:
     """
     frame = pd.read_csv(interim_path, compression="gzip")
     study_ids = list(config.classes.values())  # [64, 90, 95]
-    true_frame = frame[frame["target"].isin(study_ids)].reset_index(drop=True)
+    true_frame = frame[frame["true_target"].isin(study_ids)].reset_index(drop=True)
     # Re-validate with the strict TRUE-population schema (class membership check)
     true_frame = validate_true_population(true_frame)
 

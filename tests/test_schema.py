@@ -25,7 +25,7 @@ def _valid_raw_frame() -> pd.DataFrame:
             "object_id": [1, 2, 3, 4],
             "hostgal_photoz": [0.1, 0.2, 0.5, 0.8],
             "hostgal_photoz_err": [0.01, 0.02, 0.05, 0.08],
-            "target": [64, 90, 95, 15],  # 15 is NOT a study class
+            "true_target": [64, 90, 95, 15],  # 15 is NOT a study class
         }
     )
 
@@ -37,7 +37,7 @@ def _valid_true_frame() -> pd.DataFrame:
             "object_id": [1, 2, 3],
             "hostgal_photoz": [0.1, 0.2, 0.5],
             "hostgal_photoz_err": [0.01, 0.02, 0.05],
-            "target": [64, 90, 95],
+            "true_target": [64, 90, 95],
         }
     )
 
@@ -60,7 +60,7 @@ def test_valid_raw_frame_passes() -> None:
 
 def test_missing_required_field_fails_loudly() -> None:
     with pytest.raises(SchemaErrors):
-        validate_raw_metadata(_valid_raw_frame().drop(columns=["target"]))
+        validate_raw_metadata(_valid_raw_frame().drop(columns=["true_target"]))
 
 
 def test_negative_photoz_fails_loudly() -> None:
@@ -99,7 +99,7 @@ def test_duplicate_object_id_fails_loudly() -> None:
 def test_valid_true_population_passes() -> None:
     result = validate_true_population(_valid_true_frame())
     assert len(result) == 3
-    assert set(result["target"].unique()) == {64, 90, 95}
+    assert set(result["true_target"].unique()) == {64, 90, 95}
 
 
 def test_non_study_class_excluded_from_true_population() -> None:
@@ -110,7 +110,7 @@ def test_non_study_class_excluded_from_true_population() -> None:
             "object_id": [99],
             "hostgal_photoz": [0.3],
             "hostgal_photoz_err": [0.03],
-            "target": [15],
+            "true_target": [15],
         }
     )
     bad_frame = pd.concat([frame_with_tde, extra], ignore_index=True)

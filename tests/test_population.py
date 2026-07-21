@@ -44,7 +44,7 @@ def _true_frame(n: int = 200, seed: int = 0) -> pd.DataFrame:
             "object_id": np.arange(1, n + 1, dtype=int),
             "hostgal_photoz": rng.uniform(0.0, 2.0, size=n),
             "hostgal_photoz_err": rng.uniform(0.01, 0.2, size=n),
-            "target": rng.choice([64, 90, 95], size=n),
+            "true_target": rng.choice([64, 90, 95], size=n),
         }
     )
 

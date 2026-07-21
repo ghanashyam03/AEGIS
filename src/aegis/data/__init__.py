@@ -1,1 +1,1 @@
-"""Data interfaces (not yet implemented)."""
+"""Data ingestion and population construction."""

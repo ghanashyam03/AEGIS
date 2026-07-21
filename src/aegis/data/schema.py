@@ -1,4 +1,13 @@
-"""Strict schema validation for released PLAsTiCC test metadata."""
+"""Strict schema validation for released PLAsTiCC test metadata.
+
+Column-naming note
+------------------
+The PLAsTiCC test release uses ``true_target`` for the unblinded class label.
+The ``target`` column in the released CSV contains placeholder zeros from the
+original competition (labels were withheld during the challenge); it carries no
+information and is ignored by the AEGIS pipeline.  All class-membership checks
+and filtering operate on ``true_target``.
+"""
 
 from __future__ import annotations
 
@@ -14,9 +23,8 @@ STUDY_CLASS_IDS: list[int] = [64, 90, 95]
 
 # ---------------------------------------------------------------------------
 # Raw / interim schema — applied to the full downloaded table.
-# The ``target`` column may contain any integer present in the release; we
-# validate its type but not its membership because the interim stage preserves
-# all rows before the TRUE-population filter is applied.
+# Validates the unblinded label column (true_target) along with the fields
+# needed for selection-function computation.
 # ---------------------------------------------------------------------------
 _FINITE_CHECK = Check(
     lambda s: np.isfinite(s),
@@ -44,7 +52,7 @@ RAW_METADATA_SCHEMA = pa.DataFrameSchema(
             coerce=True,
             checks=Check.ge(0),
         ),
-        "target": pa.Column(int, nullable=False, coerce=True),
+        "true_target": pa.Column(int, nullable=False, coerce=True),
     },
     strict=False,
     coerce=True,
@@ -74,7 +82,7 @@ TRUE_POPULATION_SCHEMA = pa.DataFrameSchema(
             coerce=True,
             checks=Check.ge(0),
         ),
-        "target": pa.Column(
+        "true_target": pa.Column(
             int,
             nullable=False,
             coerce=True,

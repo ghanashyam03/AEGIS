@@ -55,24 +55,24 @@ def main() -> None:
     true_path = config.paths.processed_dir / "true_population.csv.gz"
 
     if stage in ("raw", "all"):
-        print("[1/4] Downloading raw metadata …")
+        print("[1/4] Downloading raw metadata...")
         raw_path = download_raw_metadata(config)
-        print(f"      → {raw_path}")
+        print(f"      -> {raw_path}")
 
     if stage in ("interim", "all"):
-        print("[2/4] Validating → interim …")
+        print("[2/4] Validating -> interim...")
         interim_path = validate_to_interim(config, raw_path)
-        print(f"      → {interim_path}")
+        print(f"      -> {interim_path}")
 
     if stage in ("true", "all"):
-        print("[3/4] Building TRUE population …")
+        print("[3/4] Building TRUE population...")
         true_path = build_true_population(config, interim_path)
-        print(f"      → {true_path}")
+        print(f"      -> {true_path}")
 
     if stage in ("biased", "all"):
-        print("[4/4] Applying selection function → BIASED population …")
+        print("[4/4] Applying selection function -> BIASED population...")
         biased_path = apply_selection_function(config, true_path)
-        print(f"      → {biased_path}")
+        print(f"      -> {biased_path}")
 
     print("Done.")
 

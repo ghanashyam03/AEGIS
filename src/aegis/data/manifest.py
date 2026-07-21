@@ -21,11 +21,11 @@ def sha256sum(path: Path) -> str:
 
 
 def class_balance(frame: pd.DataFrame) -> dict[str, int]:
-    """Return JSON-safe target counts, sorted by class identifier."""
+    """Return JSON-safe true_target counts, sorted by class identifier."""
 
     return {
         str(label): int(count)
-        for label, count in frame["target"].value_counts().sort_index().items()
+        for label, count in frame["true_target"].value_counts().sort_index().items()
     }
 
 
