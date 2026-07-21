@@ -1,0 +1,38 @@
+[
+  {
+    "class_id": 64,
+    "class_name": "Kilonova (KN)",
+    "true_count": 133,
+    "biased_count": 78,
+    "retention_rate": 0.5865,
+    "true_mean_photoz": 0.4063,
+    "true_median_photoz": 0.14,
+    "biased_mean_photoz": 0.1829,
+    "mean_expected_pspec": 0.6538,
+    "fraction_below_z50": 0.8647
+  },
+  {
+    "class_id": 90,
+    "class_name": "Type Ia Supernova (SN Ia)",
+    "true_count": 1659831,
+    "biased_count": 644876,
+    "retention_rate": 0.3885,
+    "true_mean_photoz": 0.611,
+    "true_median_photoz": 0.573,
+    "biased_mean_photoz": 0.4814,
+    "mean_expected_pspec": 0.3887,
+    "fraction_below_z50": 0.3776
+  },
+  {
+    "class_id": 95,
+    "class_name": "Superluminous SN (SLSN-I)",
+    "true_count": 35782,
+    "biased_count": 5405,
+    "retention_rate": 0.1511,
+    "true_mean_photoz": 1.4175,
+    "true_median_photoz": 1.385,
+    "biased_mean_photoz": 1.1231,
+    "mean_expected_pspec": 0.151,
+    "fraction_below_z50": 0.0536
+  }
+]

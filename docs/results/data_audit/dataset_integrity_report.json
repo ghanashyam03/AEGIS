@@ -1,0 +1,17 @@
+{
+  "raw_total": 3492890,
+  "raw_unique_ids": 3492890,
+  "interim_total": 3492890,
+  "interim_unique_ids": 3492890,
+  "interim_study_classes_count": 1695746,
+  "true_total": 1695746,
+  "true_unique_ids": 1695746,
+  "true_duplicates": 0,
+  "biased_total": 650359,
+  "biased_unique_ids": 650359,
+  "biased_duplicates": 0,
+  "biased_is_strict_subset_of_true": true,
+  "reverse_leakage_count": 0,
+  "id_type_true": "int64",
+  "id_type_biased": "int64"
+}

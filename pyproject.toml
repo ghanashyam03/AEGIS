@@ -23,12 +23,14 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+  "matplotlib>=3.11.1",
   "mypy>=1.14,<2",
   "pandas-stubs>=3.0.3.260530",
   "pre-commit>=4.0,<5",
   "pytest>=8.3,<9",
   "pytest-cov>=6.0,<7",
   "ruff>=0.9,<1",
+  "scipy>=1.18.0",
   "types-pyyaml>=6.0.12.20260518",
 ]
 
