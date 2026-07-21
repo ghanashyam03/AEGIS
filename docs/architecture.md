@@ -54,9 +54,26 @@ be present in feature construction, calibration fitting, or trigger decisions.
 5. Preserve raw data immutably and write derived artifacts into run-specific
    paths outside Git.
 
+## Observation Truncation & Alert-Stream Simulation
+
+The observation truncation harness (`src/aegis/data/observation.py`) transforms full light curves into "as-of-day-$N$" partial observation sequences ($e \in \{0, 2, 7\}$ days) without future-information leakage.
+
+### Key Guarantees
+- **Strict Timestamp Filtering**: Retains only observation rows with $\text{MJD} \le T_{\rm cutoff}$ or $\text{MJD} \le t_0 + e$.
+- **Chronological Alert Detection ($t_0$)**: $t_0$ is computed as the first observation where $\text{flux}/\text{flux\_err} \ge 5.0$ or $\text{detected\_bool} = 1$. It never looks at peak flux or global light curve properties.
+- **Cadence Preservation**: Pulls actual observation timestamps, passbands, fluxes, and measurement noise from the data. Fake uniform grids and interpolation are strictly prohibited.
+- **Forbidden Summary Field Stripping**: Global light curve statistics (`peak_mjd`, `peak_flux`, `total_obs_count`, `max_snr`, `final_flux`) and simulation truth columns (`true_target`, `true_z`) are automatically stripped.
+- **Append-Only Consistency**: Truncating at epoch $e_1$ and extending to epoch $e_2 > e_1$ returns an exact prefix without altering historical observation values.
+
+### Open Questions: Alert-Time Metadata Availability
+> [!WARNING]
+> **Open Question: Spectroscopic Redshift (`hostgal_specz`)**  
+> Host galaxy spectroscopic redshifts (`hostgal_specz`) are frequently obtained post-alert via follow-up spectroscopy or cross-matching after transient discovery. Including `hostgal_specz` at alert time ($e=0, 2, 7$ days) would introduce look-ahead leakage. `hostgal_specz` is classified as **FORBIDDEN** for early classifier feature extraction until an alert-time catalog availability audit verifies its pre-alert presence in survey catalogs.
+
 ## Quality gates
 
 `pyproject.toml` defines Python 3.12+, uv dependency management, Ruff, mypy,
 pytest with coverage, and Pydantic v2. The pre-commit configuration and GitHub
 Actions workflow run formatting, linting, type checking, and tests. The CI job
 uses the committed `uv.lock`; changes to dependencies must update that lockfile.
+

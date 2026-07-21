@@ -10,28 +10,29 @@ confidence threshold.
 
 ## Status
 
-The data ingestion pipeline is implemented and tested. The repository now contains:
+The data ingestion pipeline and observation truncation harness are implemented and tested. The repository now contains:
 
 - **Ingestion pipeline** (`src/aegis/data/`): three independently re-runnable stages —
   raw download → schema-validated interim → TRUE population (class-filtered) →
   BIASED population (logistic proxy selection function applied). Each stage writes a
   JSON manifest with SHA-256 checksums, row counts, and class balance.
+- **Observation truncation harness** (`src/aegis/data/observation.py`): alert-stream simulation
+  that truncates light curves to "as-of-day-$N$" partial observation sequences ($e \in \{0, 2, 7\}$ days)
+  guaranteeing no future-information leakage by construction.
 - **Config-driven** (`configs/data_population.yaml`): all pipeline parameters are
   Pydantic-validated (`SelectionConfig`, `PopulationConfig`). Hardcoded constants
   do not exist in the pipeline.
 - **Schema validation** (`src/aegis/data/schema.py`): pandera enforces required
-  fields, finite photo-z values, unique object IDs, and study-class membership.
+  fields, finite photo-z values, unique object IDs, study-class membership, and observation column types (`OBSERVATION_SCHEMA`).
   Malformed rows fail loudly.
 - **Selection function** (`src/aegis/data/population.py`): logistic proxy for
   spectroscopic follow-up selection (ADR 004). Explicitly documented as a
   modeling assumption, not a measured survey selection function.
   See [`docs/data/selection_function.md`](docs/data/selection_function.md).
-- **Test suite** (`tests/`): 36 tests — schema validation, Pydantic config
-  validation, logistic function properties, strict-subset contract, no-leakage
-  contract, determinism (same seed → identical output), and manifest completeness.
-- **Documentation** (`docs/data/`): dataset provenance and license, field
-  definitions, and selection function formula with its explicit "MODELING
-  ASSUMPTION" labeling and literature motivation.
+- **Test suite** (`tests/`): 50 tests — schema validation, Pydantic config
+  validation, logistic function properties, strict-subset contract, hypothesis property-based
+  leakage tests (cutoff bounds, append-only consistency, future invariance), concrete light-curve regression tests, and manifest completeness.
+- **Documentation & Audits** (`docs/audits/`): formal data pipeline audit (`docs/audits/data_pipeline_audit.md`) and formal alert-stream leakage audit (`docs/audits/alert_stream_leakage_audit.md`).
 
 The next phase (feature extraction, classifier training, calibration, and decision
 policy) has not yet begun. The pipeline produces data files in `data/processed/`
@@ -91,16 +92,19 @@ and test commands on pushes and pull requests.
 | `docs/problem_statement.md` | Fixed question, required findings, and non-goals |
 | `docs/decisions/` | Architecture decision records (ADR 001–004) |
 | `docs/data/` | Dataset provenance, field definitions, selection function formula |
-| `docs/architecture.md` | Planned component boundaries and reproducibility rules |
-| `configs/data_population.yaml` | Pydantic-validated pipeline configuration (classes, paths, selection params) |
+| `docs/audits/` | Formal pipeline audit and alert-stream leakage audit |
+| `docs/architecture.md` | Component boundaries, reproducibility rules, and truncation harness |
+| `configs/data_population.yaml` | Pydantic-validated pipeline configuration |
 | `src/aegis/config/data.py` | `PopulationConfig`, `SelectionConfig`, `load_population_config` |
-| `src/aegis/data/schema.py` | `RAW_METADATA_SCHEMA`, `TRUE_POPULATION_SCHEMA`, validation functions |
+| `src/aegis/data/schema.py` | `RAW_METADATA_SCHEMA`, `TRUE_POPULATION_SCHEMA`, `OBSERVATION_SCHEMA` |
 | `src/aegis/data/ingest.py` | `download_raw_metadata`, `validate_to_interim`, `build_true_population` |
 | `src/aegis/data/population.py` | `logistic_spec_probability`, `apply_selection_function` |
+| `src/aegis/data/observation.py` | Observation truncation, $t_0$ calculation, epoch sequence generation |
 | `src/aegis/data/manifest.py` | `sha256sum`, `class_balance`, `selection_summary`, `write_manifest` |
 | `scripts/ingest_population.py` | CLI entry point; `--stage raw|interim|true|biased|all` |
-| `tests/` | 36 tests: schema, config, logistic function, population contract |
-| `data/` | Ignored downloaded and derived artifacts; see its README |
+| `tests/` | 50 tests: schema, config, logistic function, property leakage tests, regression tests |
+| `data/` | Ignored downloaded and derived artifacts |
+
 
 ## Data policy
 
