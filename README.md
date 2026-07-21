@@ -32,7 +32,7 @@ The data ingestion pipeline and observation truncation harness are implemented a
 - **Test suite** (`tests/`): 50 tests — schema validation, Pydantic config
   validation, logistic function properties, strict-subset contract, hypothesis property-based
   leakage tests (cutoff bounds, append-only consistency, future invariance), concrete light-curve regression tests, and manifest completeness.
-- **Documentation & Audits** (`docs/audits/`): formal data pipeline audit (`docs/audits/data_pipeline_audit.md`) and formal alert-stream leakage audit (`docs/audits/alert_stream_leakage_audit.md`).
+- **Documentation & Audits** (`docs/audits/`, `docs/results/`): formal data pipeline audit (`docs/audits/data_pipeline_audit.md`), alert-stream leakage audit (`docs/audits/alert_stream_leakage_audit.md`), and quantified selection-bias characterization report ([`docs/results/selection_bias_characterization.md`](docs/results/selection_bias_characterization.md)).
 
 The next phase (feature extraction, classifier training, calibration, and decision
 policy) has not yet begun. The pipeline produces data files in `data/processed/`
@@ -102,6 +102,8 @@ and test commands on pushes and pull requests.
 | `src/aegis/data/observation.py` | Observation truncation, $t_0$ calculation, epoch sequence generation |
 | `src/aegis/data/manifest.py` | `sha256sum`, `class_balance`, `selection_summary`, `write_manifest` |
 | `scripts/ingest_population.py` | CLI entry point; `--stage raw|interim|true|biased|all` |
+| `scripts/analyze_selection_bias.py` | Reproducible quantitative selection bias analyzer ($B=1,000$ bootstrap CIs) |
+| `docs/results/selection_bias_characterization.md` | Quantified selection-bias characterization report & publication figures |
 | `tests/` | 50 tests: schema, config, logistic function, property leakage tests, regression tests |
 | `data/` | Ignored downloaded and derived artifacts |
 
