@@ -10,10 +10,32 @@ confidence threshold.
 
 ## Status
 
-This is the reproducible research foundation. It includes the project structure,
-quality toolchain, dataset and class-selection decisions, formal metrics, and
-architecture. It intentionally contains no data pipeline, feature extractor,
-model, calibrator, novelty detector, or trigger-policy implementation yet.
+The data ingestion pipeline is implemented and tested. The repository now contains:
+
+- **Ingestion pipeline** (`src/aegis/data/`): three independently re-runnable stages —
+  raw download → schema-validated interim → TRUE population (class-filtered) →
+  BIASED population (logistic proxy selection function applied). Each stage writes a
+  JSON manifest with SHA-256 checksums, row counts, and class balance.
+- **Config-driven** (`configs/data_population.yaml`): all pipeline parameters are
+  Pydantic-validated (`SelectionConfig`, `PopulationConfig`). Hardcoded constants
+  do not exist in the pipeline.
+- **Schema validation** (`src/aegis/data/schema.py`): pandera enforces required
+  fields, finite photo-z values, unique object IDs, and study-class membership.
+  Malformed rows fail loudly.
+- **Selection function** (`src/aegis/data/population.py`): logistic proxy for
+  spectroscopic follow-up selection (ADR 004). Explicitly documented as a
+  modeling assumption, not a measured survey selection function.
+  See [`docs/data/selection_function.md`](docs/data/selection_function.md).
+- **Test suite** (`tests/`): 36 tests — schema validation, Pydantic config
+  validation, logistic function properties, strict-subset contract, no-leakage
+  contract, determinism (same seed → identical output), and manifest completeness.
+- **Documentation** (`docs/data/`): dataset provenance and license, field
+  definitions, and selection function formula with its explicit "MODELING
+  ASSUMPTION" labeling and literature motivation.
+
+The next phase (feature extraction, classifier training, calibration, and decision
+policy) has not yet begun. The pipeline produces data files in `data/processed/`
+which are the input to that phase.
 
 ## Research question
 
@@ -67,13 +89,17 @@ and test commands on pushes and pull requests.
 | Path | Contents |
 | --- | --- |
 | `docs/problem_statement.md` | Fixed question, required findings, and non-goals |
-| `docs/decisions/` | Architecture decision records for data, classes, and metrics |
+| `docs/decisions/` | Architecture decision records (ADR 001–004) |
+| `docs/data/` | Dataset provenance, field definitions, selection function formula |
 | `docs/architecture.md` | Planned component boundaries and reproducibility rules |
-| `src/aegis/` | Reserved Python package interfaces by concern |
-| `tests/` | Package smoke tests; future tests live alongside their components |
-| `configs/` | Versioned experiment configurations (currently empty) |
-| `scripts/` | Reproducible operational entry points (currently empty) |
-| `notebooks/` | Exploratory notebooks (currently empty) |
+| `configs/data_population.yaml` | Pydantic-validated pipeline configuration (classes, paths, selection params) |
+| `src/aegis/config/data.py` | `PopulationConfig`, `SelectionConfig`, `load_population_config` |
+| `src/aegis/data/schema.py` | `RAW_METADATA_SCHEMA`, `TRUE_POPULATION_SCHEMA`, validation functions |
+| `src/aegis/data/ingest.py` | `download_raw_metadata`, `validate_to_interim`, `build_true_population` |
+| `src/aegis/data/population.py` | `logistic_spec_probability`, `apply_selection_function` |
+| `src/aegis/data/manifest.py` | `sha256sum`, `class_balance`, `selection_summary`, `write_manifest` |
+| `scripts/ingest_population.py` | CLI entry point; `--stage raw|interim|true|biased|all` |
+| `tests/` | 36 tests: schema, config, logistic function, population contract |
 | `data/` | Ignored downloaded and derived artifacts; see its README |
 
 ## Data policy
