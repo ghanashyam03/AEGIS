@@ -12,8 +12,8 @@ from __future__ import annotations
 
 import argparse
 import json
-import time
 from pathlib import Path
+import time
 from typing import Any
 
 import matplotlib.pyplot as plt
@@ -29,7 +29,7 @@ CLASS_NAMES: dict[int, str] = {
     95: "Superluminous SN (SLSN-I)",
 }
 
-# Peak absolute r-band magnitude M_r by class
+# Peak absolute r-band magnitude M_r by class for derived physical approximations
 CLASS_ABS_MAG_R: dict[int, float] = {
     64: -15.5,  # Faint kilonova
     90: -19.3,  # Standard candle SN Ia
@@ -116,7 +116,9 @@ def analyze_feature(
     s_pooled = np.sqrt(
         ((sz_t - 1) * boot_s1**2 + (sz_b - 1) * boot_s2**2) / (sz_t + sz_b - 2)
     )
-    boot_cohen_ds = np.where(s_pooled > 0, (boot_mean_b - boot_mean_t) / s_pooled, 0.0)
+    boot_cohen_ds = np.where(
+        s_pooled > 0, (boot_mean_b - boot_mean_t) / s_pooled, 0.0
+    )
 
     eval_reps = 100
     boot_w1 = np.zeros(eval_reps)
@@ -183,13 +185,13 @@ def analyze_class_proportions(
         prop_biased = cnt_biased / total_biased
         prop_shift = prop_biased - prop_true
 
-        # Proper bootstrap CI for class retention under selection probability p_spec(z)
-        z_true_cls = sub_true["hostgal_photoz"].to_numpy()
-        p_spec_cls = 0.10 + (0.80 - 0.10) / (1.0 + np.exp((z_true_cls - 0.50) / 0.15))
+        # Direct empirical sample retention binary array (cnt_biased ones out of cnt_true)
+        y_ret = np.zeros(cnt_true, dtype=float)
+        y_ret[:cnt_biased] = 1.0
 
         sz_c = min(cnt_true, subsample_size)
         boot_idx = rng.choice(cnt_true, size=(n_bootstrap, sz_c), replace=True)
-        boot_retention = np.mean(p_spec_cls[boot_idx], axis=1)
+        boot_retention = np.mean(y_ret[boot_idx], axis=1)
         low_ret, high_ret = np.percentile(boot_retention, [2.5, 97.5])
 
         # Proportion shift bootstrap
@@ -381,7 +383,7 @@ def plot_fig2_brightness(
     )
 
     ax = axes[1]
-    # Derive peak apparent r-band magnitude m_r = M_r_eff + distmod + 3.1 * mwebv
+    # Derived physical approximation: m_r = M_r_eff + distmod + 3.1 * mwebv
     m_r_true = -19.3 + df_true["distmod"] + 3.1 * df_true["mwebv"]
     m_r_biased = -19.3 + df_biased["distmod"] + 3.1 * df_biased["mwebv"]
 
@@ -401,13 +403,11 @@ def plot_fig2_brightness(
         color="#e377c2",
         label=f"BIASED (Mean m_r={m_r_biased.mean():.2f})",
     )
-    ax.axvline(
-        24.5, color="red", linestyle="--", label="Survey Limit $r \\approx 24.5$ mag"
-    )
-    ax.set_xlabel("Derived Peak Apparent $r$-band Magnitude $m_r$ (mag)", fontsize=11)
+    ax.axvline(24.5, color="red", linestyle="--", label="Survey Limit $r \\approx 24.5$ mag")
+    ax.set_xlabel("Derived Peak Apparent $r$-band Mag $m_r$ (mag) [Physical Approx]", fontsize=10)
     ax.set_ylabel("Probability Density", fontsize=11)
     ax.set_title(
-        "B. Peak Apparent Magnitude Distribution", fontsize=12, fontweight="bold"
+        "B. Derived Peak Apparent Magnitude Distribution", fontsize=12, fontweight="bold"
     )
     ax.legend(frameon=True, facecolor="white", edgecolor="none")
     ax.grid(alpha=0.2, linestyle="--")
@@ -416,7 +416,7 @@ def plot_fig2_brightness(
     ax.text(
         0.05,
         0.65,
-        f"Mean Shift $\\Delta m_r = {mag_shift:.2f}$ mag\n(Brighter Selected Sample)",
+        f"Derived Shift $\\Delta m_r = {mag_shift:.2f}$ mag\n(Brighter Selected Sample)",
         transform=ax.transAxes,
         bbox=dict(
             boxstyle="round,pad=0.5",
@@ -477,9 +477,9 @@ def plot_fig3_class_retention(
             fontsize=10,
         )
 
-    ax.set_ylabel("Spectroscopic Retention Rate (%)", fontsize=11)
+    ax.set_ylabel("Empirical Spectroscopic Retention Rate (%)", fontsize=11)
     ax.set_title(
-        "A. Spectroscopic Label Retention by Class", fontsize=12, fontweight="bold"
+        "A. Empirical Label Retention Rate by Class", fontsize=12, fontweight="bold"
     )
     ax.set_ylim(0, 80)
     ax.grid(axis="y", alpha=0.2, linestyle="--")
@@ -529,7 +529,8 @@ def plot_fig4_cadence_snr(df_true: pd.DataFrame, output_dir: Path) -> None:
     for c in cids:
         sub = df_true[df_true["true_target"] == c]
         counts = [
-            (sub["libid_cadence"] == cad).sum() / len(sub) * 100 for cad in top_cadences
+            (sub["libid_cadence"] == cad).sum() / len(sub) * 100
+            for cad in top_cadences
         ]
         cadence_matrix.append(counts)
 
@@ -559,6 +560,7 @@ def plot_fig4_cadence_snr(df_true: pd.DataFrame, output_dir: Path) -> None:
     ax = axes[1]
     for c, col in zip(cids, colors, strict=False):
         sub = df_true[df_true["true_target"] == c]
+        # Derived physical approximation of peak r-band S/N from absolute magnitude
         m_abs = CLASS_ABS_MAG_R[c]
         m_r = m_abs + sub["distmod"] + 3.1 * sub["mwebv"]
         flux_r = 10.0 ** (-0.4 * (m_r - 27.5))
@@ -576,13 +578,11 @@ def plot_fig4_cadence_snr(df_true: pd.DataFrame, output_dir: Path) -> None:
             label=CLASS_NAMES[c],
         )
 
-    ax.axhline(
-        np.log10(5.0), color="red", linestyle="--", label="Detection Limit (S/N = 5)"
-    )
+    ax.axhline(np.log10(5.0), color="red", linestyle="--", label="Detection Limit (S/N = 5)")
     ax.set_xlabel("Host Photometric Redshift ($z_{\\rm phot}$)", fontsize=11)
-    ax.set_ylabel("Log10 Estimated Peak S/N ($r$-band)", fontsize=11)
+    ax.set_ylabel("Log10 Estimated Peak S/N ($r$-band) [Physical Approx]", fontsize=10)
     ax.set_title(
-        "B. Peak Signal-to-Noise Ratio vs Redshift", fontsize=12, fontweight="bold"
+        "B. Derived Peak Signal-to-Noise Ratio vs Redshift", fontsize=12, fontweight="bold"
     )
     ax.legend(frameon=True, facecolor="white", edgecolor="none")
     ax.grid(alpha=0.2, linestyle="--")
@@ -626,7 +626,9 @@ def plot_fig5_effect_size_ranking(metrics: dict[str, Any], output_dir: Path) -> 
     sorted_cis = [ks_cis[i] for i in sorted_indices]
 
     y_pos = np.arange(len(sorted_labels))
-    ci_lows = [max(0.0, sorted_ks[i] - sorted_cis[i][0]) for i in range(len(sorted_ks))]
+    ci_lows = [
+        max(0.0, sorted_ks[i] - sorted_cis[i][0]) for i in range(len(sorted_ks))
+    ]
     ci_highs = [
         max(0.0, sorted_cis[i][1] - sorted_ks[i]) for i in range(len(sorted_ks))
     ]
@@ -671,7 +673,9 @@ def plot_fig5_effect_size_ranking(metrics: dict[str, Any], output_dir: Path) -> 
     plt.close()
 
 
-def load_data(true_path: str, biased_path: str) -> tuple[pd.DataFrame, pd.DataFrame]:
+def load_data(
+    true_path: str, biased_path: str
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Load population data from binary .npy cache if present, else from csv.gz."""
     cache_dir = Path("data/interim/cache")
     cols = [
@@ -741,7 +745,9 @@ def main() -> None:
 
     metrics: dict[str, Any] = {}
 
-    print(f"\nComputing feature shift metrics with B={args.n_bootstrap} bootstrap...")
+    print(
+        f"\nComputing feature shift metrics with B={args.n_bootstrap} bootstrap..."
+    )
     for feat in features_to_analyze:
         print(f"  - Analyzing feature: {feat}...")
         x_t = df_true[feat].to_numpy()

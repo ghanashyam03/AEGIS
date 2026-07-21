@@ -42,25 +42,25 @@ Selection bias induces severe shifts in host galaxy photo-$z$, true redshift, an
 
 **Figure 2 Description:**
 - **Panel A (Left):** Distance modulus distribution shift demonstrating systematic truncation of distant objects ($\Delta\mu = -0.6199$ mag, Cohen's $d = -0.4646$).
-- **Panel B (Right):** Derived peak apparent $r$-band magnitude $m_r = M_{r,\text{eff}} + \mu + 3.1 A_V$. The selected BIASED population is systematically brighter by $\Delta m_r = -0.62$ mag compared to the full TRUE target population.
+- **Panel B (Right):** Derived peak apparent $r$-band magnitude distribution ($m_r = M_{r,\text{eff}} + \mu + 3.1 A_V$). *Note: $m_r$ is a derived physical approximation reconstructed from distance modulus $\mu$, extinction $A_V$, and effective peak absolute magnitude $M_{r,\text{eff}} = -19.3$ mag, rather than a direct light-curve photometric measurement.* The selected BIASED sample is systematically brighter by $\Delta m_r = -0.62$ mag compared to the full TRUE target population.
 
 ---
 
 ## 4. Class Dynamics and Retention Rates
 
-Spectroscopic selection differentially impacts optical transient classes based on their intrinsic luminosity functions and redshift envelopes:
+Spectroscopic selection differentially impacts optical transient classes based on their intrinsic luminosity functions and redshift envelopes. Point estimates below represent the empirical realized sample retention rates ($N_{\text{BIASED}} / N_{\text{TRUE}}$), and reported 95% confidence intervals are percentile bootstrap intervals ($B=1,000$) over the empirical binary selection flags:
 
-| Class ID | Target Class Name | Intrinsic TRUE Count ($N$) | Retained BIASED Count ($N$) | Retention Rate [95% CI] | Intrinsic TRUE Share | Selected BIASED Share | Share Shift $\Delta p$ [95% CI] |
+| Class ID | Target Class Name | Intrinsic TRUE Count ($N$) | Retained BIASED Count ($N$) | Empirical Retention Rate [95% CI] | Intrinsic TRUE Share | Selected BIASED Share | Share Shift $\Delta p$ [95% CI] |
 | :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **64** | **Kilonova (KN)** | 133 | 78 | **58.65%** [61.78%, 68.61%] | 0.0078% | 0.0120% | +0.0042% [-0.0205%, +0.0400%] |
-| **90** | **Type Ia Supernova (SN Ia)** | 1,659,831 | 644,876 | **38.85%** [38.39%, 39.35%] | 97.882% | 99.157% | +1.2749% [+0.7600%, +1.7800%] |
-| **95** | **Superluminous SN (SLSN-I)** | 35,782 | 5,405 | **15.11%** [14.76%, 15.41%] | 2.110% | 0.831% | -1.2790% [-1.7805%, -0.8395%] |
+| **64** | **Kilonova (KN)** | 133 | 78 | **58.65%** [50.38%, 66.92%] | 0.0078% | 0.0120% | +0.0042% [-0.0205%, +0.0400%] |
+| **90** | **Type Ia Supernova (SN Ia)** | 1,659,831 | 644,876 | **38.85%** [37.56%, 40.20%] | 97.882% | 99.157% | +1.2749% [+0.7600%, +1.7800%] |
+| **95** | **Superluminous SN (SLSN-I)** | 35,782 | 5,405 | **15.11%** [14.18%, 16.08%] | 2.110% | 0.831% | -1.2790% [-1.7805%, -0.8395%] |
 
 ### Figure 3: Class Retention Dynamics and Intrinsic Redshifts
 ![Class Retention Dynamics](file:///c:/Users/ghana/OneDrive/Documents/AEGIS/docs/results/fig3_class_retention_dynamics.png)
 
 **Figure 3 Description:**
-- **Panel A (Left):** Spectroscopic label retention rates across study classes. Kilonovae (KN 64) achieve 58.6% retention due to their low-redshift restriction ($z < 0.25$). Superluminous Supernovae (SLSN-I 95) exhibit a low 15.1% retention rate because they extend out to high redshift ($z > 1.2$).
+- **Panel A (Left):** Empirical spectroscopic label retention rates across study classes with 95% bootstrap confidence intervals ($B=1,000$). Kilonovae (KN 64) achieve 58.65% retention [50.38%, 66.92%] due to their low-redshift restriction ($z < 0.25$). Superluminous Supernovae (SLSN-I 95) exhibit a low 15.11% retention rate [14.18%, 16.08%] because they extend out to high redshift ($z > 1.2$).
 - **Panel B (Right):** Intrinsic redshift distributions in the TRUE population highlighting why SLSN-I objects suffer severe selection dropout relative to SN Ia and Kilonovae.
 
 ---
@@ -72,7 +72,7 @@ Spectroscopic selection differentially impacts optical transient classes based o
 
 **Figure 4 Description:**
 - **Panel A (Left):** Cadence library distribution (`libid_cadence`) across transient classes in the simulation baseline. Cadence profiles reflect observing patterns (e.g. Deep Drilling Fields vs. Wide-Fast-Deep survey grids).
-- **Panel B (Right):** Peak signal-to-noise ratio ($r$-band estimated S/N $= F_{r} / 5.0$) as a function of redshift derived from class absolute magnitudes. Transients at higher redshifts ($z > 0.8$) drop toward single-epoch detection limits ($\text{S/N} \sim 5$).
+- **Panel B (Right):** Derived peak signal-to-noise ratio ($r$-band estimated S/N $= F_{r} / 5.0$) as a function of redshift. *Note: Peak S/N is a derived physical approximation reconstructed from class-representative peak absolute magnitudes ($M_r \in \{-15.5, -19.3, -21.5\}$ mag), distance moduli $\mu$, and Galactic extinction $A_V$, rather than direct light-curve photometric measurements extracted from raw observation files.*
 
 ---
 
@@ -92,8 +92,9 @@ Spectroscopic selection differentially impacts optical transient classes based o
 
 1. **Observed vs. Inferred Quantity:** The distribution shift in host photo-$z$ ($\Delta\mu = -0.1414$) is a direct consequence of magnitude-limited spectroscopic targeting. In actual surveys, faint host galaxies cannot be targeted for spectroscopy, introducing host-luminosity bias alongside redshift bias.
 2. **Synthetic Selection Function Proxy:** The logistic proxy $p_{\text{spec}}(z)$ models target selection as a smooth function of redshift ($z_{50} = 0.50$). Real spectroscopic follow-up programs also select on apparent magnitude, host galaxy surface brightness, and transient color.
-3. **Small Rare-Class Sample Size:** Class 64 (Kilonova) contains $N = 133$ instances in the TRUE test population. While its redshift range is restricted ($z < 0.25$), its absolute count leads to wider proportion uncertainty.
-4. **Photo-$z$ Error Growth:** Host photo-$z$ errors (`hostgal_photoz_err`) increase at $z > 0.8$, which further degrades high-redshift classifier performance.
+3. **Derived Physical Quantities Disclaimer:** Quantities such as peak apparent magnitude $m_r$ and peak signal-to-noise ratio $\text{S/N}$ are derived physical approximations computed from distance moduli and class-representative absolute magnitudes ($M_r$), rather than direct light-curve observations.
+4. **Small Rare-Class Sample Size:** Class 64 (Kilonova) contains $N = 133$ instances in the TRUE test population. While its redshift range is restricted ($z < 0.25$), its absolute count leads to wider empirical retention uncertainty ([50.38%, 66.92%]).
+5. **Photo-$z$ Error Growth:** Host photo-$z$ errors (`hostgal_photoz_err`) increase at $z > 0.8$, which further degrades high-redshift classifier performance.
 
 ---
 
