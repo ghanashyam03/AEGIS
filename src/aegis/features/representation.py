@@ -230,20 +230,18 @@ def _compute_single_epoch_color(
             },
         )
 
-    # Find pair with minimum time difference |t1 - t2|
-    best_dt = float("inf")
-    best_row1 = None
-    best_row2 = None
+    mjd1 = det1["mjd"].to_numpy(dtype=float)
+    mjd2 = det2["mjd"].to_numpy(dtype=float)
+    flux1 = det1["flux"].to_numpy(dtype=float)
+    flux2 = det2["flux"].to_numpy(dtype=float)
+    flux1_err = det1["flux_err"].to_numpy(dtype=float)
+    flux2_err = det2["flux_err"].to_numpy(dtype=float)
 
-    for _, r1 in det1.iterrows():
-        for _, r2 in det2.iterrows():
-            dt = abs(r1["mjd"] - r2["mjd"])
-            if dt < best_dt:
-                best_dt = dt
-                best_row1 = r1
-                best_row2 = r2
+    dts = np.abs(mjd1[:, None] - mjd2[None, :])
+    i, j = np.unravel_index(np.argmin(dts), dts.shape)
+    best_dt = float(dts[i, j])
 
-    if best_row1 is None or best_row2 is None or best_dt > config.max_color_dt_days:
+    if best_dt > config.max_color_dt_days:
         return SingleFeatureResult(
             value=float("nan"),
             uncertainty=float("nan"),
@@ -256,8 +254,8 @@ def _compute_single_epoch_color(
             },
         )
 
-    f1, f1_err = float(best_row1["flux"]), float(best_row1["flux_err"])
-    f2, f2_err = float(best_row2["flux"]), float(best_row2["flux_err"])
+    f1, f1_err = float(flux1[i]), float(flux1_err[i])
+    f2, f2_err = float(flux2[j]), float(flux2_err[j])
 
     if f1 <= 0.0 or f2 <= 0.0:
         return SingleFeatureResult(
@@ -353,11 +351,15 @@ def extract_early_representation(
         float(det_df["mjd"].max() - det_df["mjd"].min()) if n_det_total > 1 else 0.0
     )
 
+    # Pre-group observations by passband for fast lookup
+    pb_groups: dict[int, pd.DataFrame] = {}
+    if not df_obs.empty:
+        for pb_val in df_obs["passband"].unique():
+            pb_groups[int(pb_val)] = df_obs[df_obs["passband"] == pb_val]
+
     # 2. Per-passband rise rates (dF/dt)
     for pb in config.passbands:
-        pb_obs = (
-            df_obs[df_obs["passband"] == pb] if not df_obs.empty else pd.DataFrame()
-        )
+        pb_obs = pb_groups.get(pb, pd.DataFrame())
         features[f"rise_rate_pb{pb}"] = _compute_passband_rise_rate(pb_obs, pb, config)
 
     # 3. Single-epoch cross-band colors (m_b1 - m_b2) for adjacent passband pairs
@@ -365,12 +367,8 @@ def extract_early_representation(
     color_pairs = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)]
     for b1, b2 in color_pairs:
         if b1 in config.passbands and b2 in config.passbands:
-            pb1_obs = (
-                df_obs[df_obs["passband"] == b1] if not df_obs.empty else pd.DataFrame()
-            )
-            pb2_obs = (
-                df_obs[df_obs["passband"] == b2] if not df_obs.empty else pd.DataFrame()
-            )
+            pb1_obs = pb_groups.get(b1, pd.DataFrame())
+            pb2_obs = pb_groups.get(b2, pd.DataFrame())
             features[f"color_pb{b1}_pb{b2}"] = _compute_single_epoch_color(
                 pb1_obs, pb2_obs, b1, b2, config
             )
