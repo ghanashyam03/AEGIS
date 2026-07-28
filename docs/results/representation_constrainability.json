@@ -1,0 +1,554 @@
+[
+  {
+    "class_id": 64,
+    "class_name": "Kilonova (KN)",
+    "epoch": 0.0,
+    "n_evaluated_objects": 133,
+    "feature_constrainability": {
+      "alert_snr_0": {
+        "well_constrained_count": 2,
+        "unconstrained_count": 131,
+        "pct_constrained": 1.5037593984962405,
+        "pct_unconstrained": 98.49624060150376
+      },
+      "snr_growth_rate": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "hostgal_photoz": {
+        "well_constrained_count": 133,
+        "unconstrained_count": 0,
+        "pct_constrained": 100.0,
+        "pct_unconstrained": 0.0
+      },
+      "rise_rate_pb0": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb1": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb2": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb3": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb4": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb5": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb0_pb1": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb1_pb2": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb2_pb3": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb3_pb4": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb4_pb5": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      }
+    }
+  },
+  {
+    "class_id": 64,
+    "class_name": "Kilonova (KN)",
+    "epoch": 2.0,
+    "n_evaluated_objects": 133,
+    "feature_constrainability": {
+      "alert_snr_0": {
+        "well_constrained_count": 2,
+        "unconstrained_count": 131,
+        "pct_constrained": 1.5037593984962405,
+        "pct_unconstrained": 98.49624060150376
+      },
+      "snr_growth_rate": {
+        "well_constrained_count": 2,
+        "unconstrained_count": 131,
+        "pct_constrained": 1.5037593984962405,
+        "pct_unconstrained": 98.49624060150376
+      },
+      "hostgal_photoz": {
+        "well_constrained_count": 133,
+        "unconstrained_count": 0,
+        "pct_constrained": 100.0,
+        "pct_unconstrained": 0.0
+      },
+      "rise_rate_pb0": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb1": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb2": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb3": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb4": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb5": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb0_pb1": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb1_pb2": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb2_pb3": {
+        "well_constrained_count": 2,
+        "unconstrained_count": 131,
+        "pct_constrained": 1.5037593984962405,
+        "pct_unconstrained": 98.49624060150376
+      },
+      "color_pb3_pb4": {
+        "well_constrained_count": 2,
+        "unconstrained_count": 131,
+        "pct_constrained": 1.5037593984962405,
+        "pct_unconstrained": 98.49624060150376
+      },
+      "color_pb4_pb5": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 133,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      }
+    }
+  },
+  {
+    "class_id": 90,
+    "class_name": "Type Ia Supernova (SN Ia)",
+    "epoch": 0.0,
+    "n_evaluated_objects": 1659831,
+    "feature_constrainability": {
+      "alert_snr_0": {
+        "well_constrained_count": 12640,
+        "unconstrained_count": 1647191,
+        "pct_constrained": 0.76152331171065,
+        "pct_unconstrained": 99.23847668828935
+      },
+      "snr_growth_rate": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "hostgal_photoz": {
+        "well_constrained_count": 1659831,
+        "unconstrained_count": 0,
+        "pct_constrained": 100.0,
+        "pct_unconstrained": 0.0
+      },
+      "rise_rate_pb0": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb1": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb2": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb3": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb4": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb5": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb0_pb1": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb1_pb2": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb2_pb3": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb3_pb4": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb4_pb5": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      }
+    }
+  },
+  {
+    "class_id": 90,
+    "class_name": "Type Ia Supernova (SN Ia)",
+    "epoch": 2.0,
+    "n_evaluated_objects": 1659831,
+    "feature_constrainability": {
+      "alert_snr_0": {
+        "well_constrained_count": 12640,
+        "unconstrained_count": 1647191,
+        "pct_constrained": 0.76152331171065,
+        "pct_unconstrained": 99.23847668828935
+      },
+      "snr_growth_rate": {
+        "well_constrained_count": 9735,
+        "unconstrained_count": 1650096,
+        "pct_constrained": 0.5865054936315806,
+        "pct_unconstrained": 99.41349450636842
+      },
+      "hostgal_photoz": {
+        "well_constrained_count": 1659831,
+        "unconstrained_count": 0,
+        "pct_constrained": 100.0,
+        "pct_unconstrained": 0.0
+      },
+      "rise_rate_pb0": {
+        "well_constrained_count": 153,
+        "unconstrained_count": 1659678,
+        "pct_constrained": 0.009217805909155812,
+        "pct_unconstrained": 99.99078219409084
+      },
+      "rise_rate_pb1": {
+        "well_constrained_count": 55,
+        "unconstrained_count": 1659776,
+        "pct_constrained": 0.0033135903595004554,
+        "pct_unconstrained": 99.9966864096405
+      },
+      "rise_rate_pb2": {
+        "well_constrained_count": 170,
+        "unconstrained_count": 1659661,
+        "pct_constrained": 0.01024200656572868,
+        "pct_unconstrained": 99.98975799343427
+      },
+      "rise_rate_pb3": {
+        "well_constrained_count": 243,
+        "unconstrained_count": 1659588,
+        "pct_constrained": 0.014640044679247467,
+        "pct_unconstrained": 99.98535995532075
+      },
+      "rise_rate_pb4": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb5": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb0_pb1": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 1659831,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb1_pb2": {
+        "well_constrained_count": 2143,
+        "unconstrained_count": 1657688,
+        "pct_constrained": 0.12910952982562685,
+        "pct_unconstrained": 99.87089047017437
+      },
+      "color_pb2_pb3": {
+        "well_constrained_count": 6741,
+        "unconstrained_count": 1653090,
+        "pct_constrained": 0.40612568387986486,
+        "pct_unconstrained": 99.59387431612014
+      },
+      "color_pb3_pb4": {
+        "well_constrained_count": 8638,
+        "unconstrained_count": 1651193,
+        "pct_constrained": 0.5204144277339079,
+        "pct_unconstrained": 99.47958557226609
+      },
+      "color_pb4_pb5": {
+        "well_constrained_count": 2362,
+        "unconstrained_count": 1657469,
+        "pct_constrained": 0.14230364416618319,
+        "pct_unconstrained": 99.85769635583382
+      }
+    }
+  },
+  {
+    "class_id": 95,
+    "class_name": "Superluminous SN (SLSN-I)",
+    "epoch": 0.0,
+    "n_evaluated_objects": 35782,
+    "feature_constrainability": {
+      "alert_snr_0": {
+        "well_constrained_count": 98,
+        "unconstrained_count": 35684,
+        "pct_constrained": 0.2738807221508021,
+        "pct_unconstrained": 99.7261192778492
+      },
+      "snr_growth_rate": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "hostgal_photoz": {
+        "well_constrained_count": 35782,
+        "unconstrained_count": 0,
+        "pct_constrained": 100.0,
+        "pct_unconstrained": 0.0
+      },
+      "rise_rate_pb0": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb1": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb2": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb3": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb4": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb5": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb0_pb1": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb1_pb2": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb2_pb3": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb3_pb4": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb4_pb5": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      }
+    }
+  },
+  {
+    "class_id": 95,
+    "class_name": "Superluminous SN (SLSN-I)",
+    "epoch": 2.0,
+    "n_evaluated_objects": 35782,
+    "feature_constrainability": {
+      "alert_snr_0": {
+        "well_constrained_count": 98,
+        "unconstrained_count": 35684,
+        "pct_constrained": 0.2738807221508021,
+        "pct_unconstrained": 99.7261192778492
+      },
+      "snr_growth_rate": {
+        "well_constrained_count": 75,
+        "unconstrained_count": 35707,
+        "pct_constrained": 0.2096025934827567,
+        "pct_unconstrained": 99.79039740651724
+      },
+      "hostgal_photoz": {
+        "well_constrained_count": 35782,
+        "unconstrained_count": 0,
+        "pct_constrained": 100.0,
+        "pct_unconstrained": 0.0
+      },
+      "rise_rate_pb0": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb1": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb2": {
+        "well_constrained_count": 2,
+        "unconstrained_count": 35780,
+        "pct_constrained": 0.005589402492873512,
+        "pct_unconstrained": 99.99441059750713
+      },
+      "rise_rate_pb3": {
+        "well_constrained_count": 2,
+        "unconstrained_count": 35780,
+        "pct_constrained": 0.005589402492873512,
+        "pct_unconstrained": 99.99441059750713
+      },
+      "rise_rate_pb4": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "rise_rate_pb5": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb0_pb1": {
+        "well_constrained_count": 0,
+        "unconstrained_count": 35782,
+        "pct_constrained": 0.0,
+        "pct_unconstrained": 100.0
+      },
+      "color_pb1_pb2": {
+        "well_constrained_count": 42,
+        "unconstrained_count": 35740,
+        "pct_constrained": 0.11737745235034375,
+        "pct_unconstrained": 99.88262254764966
+      },
+      "color_pb2_pb3": {
+        "well_constrained_count": 66,
+        "unconstrained_count": 35716,
+        "pct_constrained": 0.1844502822648259,
+        "pct_unconstrained": 99.81554971773518
+      },
+      "color_pb3_pb4": {
+        "well_constrained_count": 64,
+        "unconstrained_count": 35718,
+        "pct_constrained": 0.1788608797719524,
+        "pct_unconstrained": 99.82113912022805
+      },
+      "color_pb4_pb5": {
+        "well_constrained_count": 33,
+        "unconstrained_count": 35749,
+        "pct_constrained": 0.09222514113241295,
+        "pct_unconstrained": 99.90777485886758
+      }
+    }
+  }
+]

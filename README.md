@@ -10,7 +10,7 @@ confidence threshold.
 
 ## Status
 
-The data ingestion pipeline and observation truncation harness are implemented and tested. The repository now contains:
+The data ingestion pipeline, observation truncation harness, early light-curve representation, baseline classifier, True-population calibration audit (Finding #1), and **Selection-Aware Recalibration (closing Phase 3)** are implemented and verified. The repository contains:
 
 - **Ingestion pipeline** (`src/aegis/data/`): three independently re-runnable stages —
   raw download → schema-validated interim → TRUE population (class-filtered) →
@@ -20,23 +20,21 @@ The data ingestion pipeline and observation truncation harness are implemented a
   that truncates light curves to "as-of-day-$N$" partial observation sequences ($e \in \{0, 2, 7\}$ days)
   guaranteeing no future-information leakage by construction.
 - **Config-driven** (`configs/data_population.yaml`): all pipeline parameters are
-  Pydantic-validated (`SelectionConfig`, `PopulationConfig`). Hardcoded constants
+  Pydantic-validated (`SelectionConfig`, `PopulationConfig`, `BaselineClassifierConfig`). Hardcoded constants
   do not exist in the pipeline.
-- **Schema validation** (`src/aegis/data/schema.py`): pandera enforces required
-  fields, finite photo-z values, unique object IDs, study-class membership, and observation column types (`OBSERVATION_SCHEMA`).
-  Malformed rows fail loudly.
-- **Selection function** (`src/aegis/data/population.py`): logistic proxy for
-  spectroscopic follow-up selection (ADR 004). Explicitly documented as a
-  modeling assumption, not a measured survey selection function.
-  See [`docs/data/selection_function.md`](docs/data/selection_function.md).
-- **Test suite** (`tests/`): 50 tests — schema validation, Pydantic config
+- **Early Representation** (`src/aegis/features/representation.py`): low-parameter, strictly identifiable
+  early light-curve feature extraction (rise rates, single-epoch colors, S/N growth) complying with ADR 005.
+- **Baseline Classifier** (`src/aegis/models/baseline.py`): epoch-indexed `HistGradientBoostingClassifier`
+  trained strictly on the spectroscopically selected ($S=1$) population.
+- **True-Population Calibration Audit (Finding #1)** ([`docs/results/calibration_audit_true_population.md`](docs/results/calibration_audit_true_population.md)):
+  quantifies probabilistic calibration on the full TRUE deployment population ($S=0$ and FULL TRUE) across decision epochs $e \in \{0, 2, 7\}$ days.
+  Establishes a quantitative **$2.11\text{--}2.17\times$ Brier score degradation** ($BS = 0.6323$ vs $0.3322$ at $e=2.0$d) driven overwhelmingly by calibration misfire ($REL = 0.6156$ vs $0.3184$).
+- **Selection-Aware Recalibration (Phase 3 Closed)** ([`docs/results/recalibration_true_population.md`](docs/results/recalibration_true_population.md)):
+  implements IPW Platt recalibration (`src/aegis/recalibration/`), weight diagnostics ($ESS = 1,931.1$, $CV = 0.6281$), covariate balance SMDs (reducing photo-$z$ SMD from $-0.5793$ to $-0.0039$), and positivity diagnostics (697 high-$z$ objects / 5.47% of TRUE masked from extrapolation). Empirically proves that post-hoc recalibration fails to close the residual gap ($BS = 0.7407$ vs $0.6323$ at $e=2.0$d) due to intrinsic early-epoch information limitations ($RES \approx 0.0001$).
+- **Test suite** (`tests/`): 63 tests — schema validation, Pydantic config
   validation, logistic function properties, strict-subset contract, hypothesis property-based
-  leakage tests (cutoff bounds, append-only consistency, future invariance), concrete light-curve regression tests, and manifest completeness.
-- **Documentation & Audits** (`docs/audits/`, `docs/results/`): formal data pipeline audit (`docs/audits/data_pipeline_audit.md`), alert-stream leakage audit (`docs/audits/alert_stream_leakage_audit.md`), and quantified selection-bias characterization report ([`docs/results/selection_bias_characterization.md`](docs/results/selection_bias_characterization.md)).
-
-The next phase (feature extraction, classifier training, calibration, and decision
-policy) has not yet begun. The pipeline produces data files in `data/processed/`
-which are the input to that phase.
+  leakage tests (cutoff bounds, append-only consistency, future invariance), concrete light-curve regression tests, baseline classifier fitting, selection-aware recalibration engine, positivity diagnostics, and manifest completeness.
+- **Documentation & Audits** (`docs/audits/`, `docs/results/`, `docs/methodology/`): formal data pipeline audit (`docs/audits/data_pipeline_audit.md`), alert-stream leakage audit (`docs/audits/alert_stream_leakage_audit.md`), selection-bias characterization report ([`docs/results/selection_bias_characterization.md`](docs/results/selection_bias_characterization.md)), True-population calibration audit report ([`docs/results/calibration_audit_true_population.md`](docs/results/calibration_audit_true_population.md)), recalibration methodology ([`docs/methodology/recalibration.md`](docs/methodology/recalibration.md)), and recalibration audit report ([`docs/results/recalibration_true_population.md`](docs/results/recalibration_true_population.md)).
 
 ## Research question
 
@@ -101,10 +99,18 @@ and test commands on pushes and pull requests.
 | `src/aegis/data/population.py` | `logistic_spec_probability`, `apply_selection_function` |
 | `src/aegis/data/observation.py` | Observation truncation, $t_0$ calculation, epoch sequence generation |
 | `src/aegis/data/manifest.py` | `sha256sum`, `class_balance`, `selection_summary`, `write_manifest` |
+| `src/aegis/recalibration/` | IPW weights, weight diagnostics ($ESS$), covariate balance ($SMD$), positivity diagnostic engine |
 | `scripts/ingest_population.py` | CLI entry point; `--stage raw|interim|true|biased|all` |
 | `scripts/analyze_selection_bias.py` | Reproducible quantitative selection bias analyzer ($B=1,000$ bootstrap CIs) |
+| `scripts/evaluate_true_population_calibration.py` | True-population calibration audit harness ($B=1,000$ bootstrap CIs) |
+| `scripts/plot_calibration_audit_figures.py` | Calibration audit figure generator (reliability diagrams, Brier decomposition, strata) |
+| `scripts/evaluate_recalibration.py` | Selection-aware recalibration evaluation harness ($B=1,000$ bootstrap CIs) |
+| `scripts/plot_recalibration_figures.py` | Recalibration figure generator (reliability, Brier reduction, positivity, SMDs) |
+| `docs/methodology/recalibration.md` | Formal recalibration methodology, causal assumptions, and residual error decomposition |
 | `docs/results/selection_bias_characterization.md` | Quantified selection-bias characterization report & publication figures |
-| `tests/` | 50 tests: schema, config, logistic function, property leakage tests, regression tests |
+| `docs/results/calibration_audit_true_population.md` | True-population calibration audit report (Finding #1) & figures |
+| `docs/results/recalibration_true_population.md` | Selection-aware recalibration audit report & residual gap characterization |
+| `tests/` | 63 tests: schema, config, logistic function, leakage, baseline model, recalibration, regression tests |
 | `data/` | Ignored downloaded and derived artifacts |
 
 
