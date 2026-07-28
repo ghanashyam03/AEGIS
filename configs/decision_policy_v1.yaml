@@ -1,0 +1,24 @@
+# Versioned Decision Policy Experiment Configuration (v1 Placeholder)
+# Freezes capacity K, decision threshold, novelty weight, and cost ratio parameters.
+# Any adjustment to this file is part of policy definition, not deployment evaluation.
+
+epochs:
+  - 0.0
+  - 2.0
+  - 7.0
+
+primary_deadline: 2.0
+target_class: 64 # Kilonova
+
+# Operational capacity K per epoch
+capacity_per_epoch: 5
+
+# Relative weight of normalized novelty score in combined decision score
+novelty_weight: 0.05
+
+# Minimum combined score threshold required to trigger an alert
+decision_threshold: 0.001
+
+# Reference cost ratio parameters (ADR 003: 2:1 ratio)
+u_tp: 2.0
+u_fp: -1.0
