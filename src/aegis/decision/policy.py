@@ -1,3 +1,4 @@
+# ruff: noqa: E501
 """Sequential early-alert triage decision policy for AEGIS.
 
 Implements ADR 007 sequential stopping rule and combined decision score:
@@ -171,38 +172,39 @@ class SequentialDecisionPolicy:
 
         cap = capacity if capacity is not None else self.config.capacity_per_epoch
 
-        scores = compute_combined_decision_score(
-            p_kn=p_arr,
-            novelty_score=nov_arr,
-            novelty_scale=novelty_scale,
-            w_nov=self.config.novelty_weight,
+        scores_arr = np.asarray(
+            compute_combined_decision_score(
+                p_kn=p_arr,
+                novelty_score=nov_arr,
+                novelty_scale=novelty_scale,
+                w_nov=self.config.novelty_weight,
+            ),
+            dtype=float,
         )
 
         n_samples = len(p_arr)
         actions = np.zeros(n_samples, dtype=int)
 
         if cap <= 0 or not np.any(available):
-            return scores, actions
+            return scores_arr, actions
 
         # Eligible candidates: untriggered AND score >= decision_threshold
-        eligible_mask = available & (scores >= self.config.decision_threshold)
+        eligible_mask = available & (scores_arr >= self.config.decision_threshold)
         eligible_indices = np.where(eligible_mask)[0]
 
         if len(eligible_indices) == 0:
-            return scores, actions
+            return scores_arr, actions
 
         # Sort eligible indices by score in descending order
-        sorted_indices = eligible_indices[np.argsort(-scores[eligible_indices])]
+        sorted_indices = eligible_indices[np.argsort(-scores_arr[eligible_indices])]
         selected_indices = sorted_indices[:cap]
 
         actions[selected_indices] = 1
-        return scores, actions
+        return scores_arr, actions
 
     def evaluate_sequential_trace(
         self,
-        epoch_predictions: dict[
-            float, tuple[npt.NDArray[Any], npt.NDArray[Any]]
-        ],
+        epoch_predictions: dict[float, tuple[npt.NDArray[Any], npt.NDArray[Any]]],
         y_true: npt.NDArray[Any] | pd.Series[Any],
         object_ids: npt.NDArray[Any] | pd.Series[Any] | None = None,
         novelty_scales: dict[float, float] | None = None,
@@ -239,7 +241,9 @@ class SequentialDecisionPolicy:
 
         epoch_traces: dict[float, dict[str, Any]] = {}
         eval_epochs = [
-            e for e in sorted(epoch_predictions.keys()) if e <= self.config.primary_deadline
+            e
+            for e in sorted(epoch_predictions.keys())
+            if e <= self.config.primary_deadline
         ]
 
         for epoch in eval_epochs:
