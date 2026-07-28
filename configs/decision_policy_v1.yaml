@@ -1,6 +1,15 @@
-# Versioned Decision Policy Experiment Configuration (v1 Placeholder)
-# Freezes capacity K, decision threshold, novelty weight, and cost ratio parameters.
-# Any adjustment to this file is part of policy definition, not deployment evaluation.
+# ==============================================================================
+# PRE-REGISTERED FROZEN EXPERIMENT CONFIGURATION (Phase 5 Locked)
+# Version: v1.0.0-frozen | Seed: 42 | Lock Status: LOCKED_PRE_EVALUATION
+# ==============================================================================
+# MANDATE: This configuration is pre-registered and FROZEN ahead of Phase 6.
+# It MUST NOT be altered based on results from upcoming evaluations against
+# the FULL TRUE deployment population labels.
+# ==============================================================================
+
+version: "v1.0.0-frozen"
+lock_status: "LOCKED_PRE_EVALUATION"
+random_seed: 42
 
 epochs:
   - 0.0
@@ -8,17 +17,78 @@ epochs:
   - 7.0
 
 primary_deadline: 2.0
-target_class: 64 # Kilonova
+target_class: 64 # Kilonova (PLAsTiCC class 64 per ADR 002)
 
-# Operational capacity K per epoch
+# Calibrated probability source selection (Step 0 Audit Choice)
+probability_source: "uncorrected_baseline"
+
+# Operational trigger capacity K per epoch
 capacity_per_epoch: 5
 
-# Relative weight of normalized novelty score in combined decision score
+# Relative weight of normalized novelty score in combined score S_e
 novelty_weight: 0.05
 
-# Minimum combined score threshold required to trigger an alert
+# Minimum score threshold tau_e required to trigger an alert
 decision_threshold: 0.001
 
-# Reference cost ratio parameters (ADR 003: 2:1 ratio)
+# Reference cost ratio parameters (ADR 003 Primary: 2:1 ratio)
 u_tp: 2.0
 u_fp: -1.0
+
+# Pre-specified sensitivity companion cost ratios (retained per ADR 003)
+sensitivity_cost_ratios:
+  - ratio_name: "1:1"
+    u_tp: 1.0
+    u_fp: -1.0
+  - ratio_name: "2:1"
+    u_tp: 2.0
+    u_fp: -1.0
+  - ratio_name: "5:1"
+    u_tp: 5.0
+    u_fp: -1.0
+
+# Pre-specified sensitivity companion capacities
+sensitivity_capacities:
+  - 1
+  - 5
+  - 10
+
+# Pre-specified sensitivity companion novelty weights
+sensitivity_novelty_weights:
+  - 0.00
+  - 0.05
+  - 0.10
+
+# ==============================================================================
+# CONFIGURATION FREEZE RECORD (Audit Trail)
+# ==============================================================================
+freeze_record:
+  capacity_per_epoch:
+    value: 5
+    origin: "ADR 003 operational resource allocation bounds"
+    rationale: "Reflects realistic nightly spectroscopic alert follow-up quotas"
+    permitted_evidence: "Operational resource constraints; never deployment event yields"
+
+  primary_cost_ratio:
+    value: "2:1 (u_tp=+2.0, u_fp=-1.0)"
+    origin: "ADR 003 reference utility definition"
+    rationale: "Standard reference valuation balancing target discovery gain against non-target cost"
+    permitted_evidence: "Pre-registered reference utility specification; never test set outcomes"
+
+  novelty_weight:
+    value: 0.05
+    origin: "ADR 007 decision policy design & S=1 training scale analysis"
+    rationale: "Matches unit variance of normalized novelty to top-decile baseline confidence scale"
+    permitted_evidence: "S=1 reference training distribution & Class 15 validation; never S=0 deployment labels"
+
+  decision_threshold:
+    value: 0.001
+    origin: "Baseline decile probability distribution on S=1"
+    rationale: "Filters uninformative background noise while permitting candidate alert ranking"
+    permitted_evidence: "S=1 probability distribution; never deployment evaluation labels"
+
+  probability_source:
+    value: "uncorrected_baseline"
+    origin: "Step 0 probability source audit (docs/results/probability_source_selection.md)"
+    rationale: "Achieves superior Brier score (0.6323 vs 0.7407) and Reliability (0.6156 vs 0.7243) at e=2.0d"
+    permitted_evidence: "Population-level Brier/Reliability/ECE audit metrics on FULL TRUE population"

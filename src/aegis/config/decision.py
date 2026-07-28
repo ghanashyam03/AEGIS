@@ -6,10 +6,16 @@ from pydantic import BaseModel, ConfigDict, field_validator
 
 
 class DecisionPolicyConfig(BaseModel):
-    """Configuration for sequential triage decision policy and reference utility.
+    """Frozen configuration for sequential triage decision policy and reference utility.
 
     Parameters
     ----------
+    version : str
+        Configuration version string (default: 'v1.0.0-frozen').
+    lock_status : str
+        Lock status string (default: 'LOCKED_PRE_EVALUATION').
+    probability_source : str
+        Selected calibrated confidence source (default: 'uncorrected_baseline').
     epochs : tuple[float, ...]
         Observer-frame decision epochs in days (default: (0.0, 2.0, 7.0)).
     primary_deadline : float
@@ -27,10 +33,15 @@ class DecisionPolicyConfig(BaseModel):
         Reference utility gain for triggering high-value event (default: +2.0).
     u_fp : float
         Reference utility cost for triggering non-target event (default: -1.0).
+    random_seed : int
+        Random seed for evaluation reproducibility (default: 42).
     """
 
     model_config = ConfigDict(frozen=True)
 
+    version: str = "v1.0.0-frozen"
+    lock_status: str = "LOCKED_PRE_EVALUATION"
+    probability_source: str = "uncorrected_baseline"
     epochs: tuple[float, ...] = (0.0, 2.0, 7.0)
     primary_deadline: float = 2.0
     target_class: int = 64
@@ -39,6 +50,7 @@ class DecisionPolicyConfig(BaseModel):
     decision_threshold: float = 0.001
     u_tp: float = 2.0
     u_fp: float = -1.0
+    random_seed: int = 42
 
     @field_validator("capacity_per_epoch")
     @classmethod
