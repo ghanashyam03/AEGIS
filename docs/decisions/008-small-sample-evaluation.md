@@ -64,3 +64,34 @@ For non-target background metrics (False Trigger Rate $FTR_e$, False Positive Co
 - Eliminates misleading bootstrap claims for $N_{\text{KN}} = 2$.
 - Guarantees full transparency regarding policy performance on individual kilonovae.
 - Preserves mathematical rigor without attempting post-hoc sample expansion.
+
+---
+
+# Addendum 008.1: Statistical Methodology Evolution for Expanded Target Populations
+
+- **Status:** Accepted as an extension to ADR 008
+- **Date:** 2026-07-29
+
+## Context & Motivation
+Following the Step 0 provenance investigation (`docs/results/evaluation_cohort_provenance.md`), the evaluation population was expanded from the preliminary 12,740-object slice ($N_{\text{KN}} = 2$) to the full disjoint survey population containing all **$N_{\text{KN}} = 133$ kilonova objects** and **$N_{\text{SLSN}} = 35,782$ SLSN-I objects**.
+
+With a 66.5-fold increase in target positive event count ($N_{\text{KN}} = 133 \ge 30$), the statistical regime changes fundamentally:
+1. **Bootstrap Validity:** Non-parametric percentile bootstrap resampling ($B = 1,000$) is no longer mathematically ill-posed or degenerate. With $N_{\text{KN}} = 133$, bootstrap draws sample a continuous distribution of target outcomes rather than 0, 1, or 2 discrete targets.
+2. **Exact Interval Power:** Exact Clopper-Pearson 95% binomial confidence intervals remain mathematically rigorous, but their width contracts from $[0.0250, 1.0000]$ (width 0.9750 at $N=2$) down to $[0.9726, 1.0000]$ (width 0.0274 at $N=133$ for a 100% miss rate).
+3. **Jackknife Distribution:** Leave-One-Target-Out jackknife re-evaluation scales from a 2-object per-target audit to an ensemble stability diagnostic across all 133 target objects.
+
+---
+
+## Methodology Decisions for Expanded Evaluation
+
+1. **Dual Uncertainty Reporting:**
+   - For positive target rates ($MHVER_e$, Target Trigger Rate), reports MUST provide **exact Clopper-Pearson 95% binomial CIs** as the primary exact bound.
+   - For aggregate utility metrics (Total Utility, Regret, Normalized Regret, False Trigger Rate), reports SHALL supplement point estimates with **95% non-parametric percentile bootstrap CIs** ($B = 1,000$ object-level resamples).
+
+2. **Per-Object Audit Aggregation:**
+   - While full per-object decision audit tables were explicitly itemized for $N_{\text{KN}} = 2$, itemizing all 133 kilonovae and 35,782 SLSN-I in markdown body text would be unreadable.
+   - Headline reports MUST provide summary statistics (mean, min, max score/rank/redshift evolution) across the target population, full JSON per-object audit logs saved as machine-readable artifacts, and explicit top-candidate itemizations.
+
+3. **Historical Continuity:**
+   - The original small-sample methodology ($N_{\text{KN}} = 2$) defined in ADR 008 remains an intact, valid historical record of the preliminary phase and is not erased. Addendum 008.1 explicitly supersedes it for all expanded-population findings.
+
