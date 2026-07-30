@@ -36,9 +36,9 @@
         0.0,
         0.00018320873820690698
       ],
-      "utility_regret": 20.0,
-      "normalized_regret": 2.0,
-      "policy_utility": -10.0
+      "utility_regret": -10.0,
+      "normalized_regret": -1.0,
+      "policy_utility": 20.0
     },
     "fused_policy": {
       "name": "fused_policy",
@@ -63,9 +63,9 @@
         0.0,
         0.00018320873820690698
       ],
-      "utility_regret": 20.0,
-      "normalized_regret": 2.0,
-      "policy_utility": -10.0
+      "utility_regret": -10.0,
+      "normalized_regret": -1.0,
+      "policy_utility": 20.0
     },
     "novelty_ablation": {
       "name": "novelty_ablation",
@@ -90,9 +90,9 @@
         0.0,
         0.00018320873820690698
       ],
-      "utility_regret": 20.0,
-      "normalized_regret": 2.0,
-      "policy_utility": -10.0
+      "utility_regret": -10.0,
+      "normalized_regret": -1.0,
+      "policy_utility": 20.0
     }
   }
 }

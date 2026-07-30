@@ -290,13 +290,22 @@ def run_slsn_evaluation() -> dict[str, Any]:
     capacity = 5
     policy_configs = {
         "naive_baseline": DecisionPolicyConfig(
-            novelty_weight=0.0, decision_threshold=0.001, capacity_per_epoch=capacity
+            novelty_weight=0.0,
+            decision_threshold=0.001,
+            capacity_per_epoch=capacity,
+            target_class=95,
         ),
         "fused_policy": DecisionPolicyConfig(
-            novelty_weight=0.05, decision_threshold=0.001, capacity_per_epoch=capacity
+            novelty_weight=0.05,
+            decision_threshold=0.001,
+            capacity_per_epoch=capacity,
+            target_class=95,
         ),
         "novelty_ablation": DecisionPolicyConfig(
-            novelty_weight=0.0, decision_threshold=0.001, capacity_per_epoch=capacity
+            novelty_weight=0.0,
+            decision_threshold=0.001,
+            capacity_per_epoch=capacity,
+            target_class=95,
         ),
     }
 
