@@ -1,1 +1,3766 @@
-test
+{
+  "evaluation_cohort": {
+    "total_objects": 55915,
+    "kilonovae_count": 133,
+    "slsn_i_count": 35782,
+    "sn_ia_count": 20000,
+    "population_type": "EXPANDED_TRUE_POPULATION",
+    "is_expanded_population": true
+  },
+  "naive_threshold_calibrated": 0.979503868904216,
+  "policies": {
+    "naive_baseline": {
+      "name": "Naive Fixed-Confidence Baseline",
+      "parameters": {
+        "w_nov": 0.0,
+        "tau": 0.979503868904216,
+        "capacity": 5
+      },
+      "performance": {
+        "triggered_kilonovae": 7,
+        "missed_kilonovae": 126,
+        "target_trigger_rate": 0.05263157894736842,
+        "target_trigger_rate_cp_ci_95": [
+          0.02141968024912915,
+          0.10543472857237658
+        ],
+        "mhver": 0.9473684210526315,
+        "mhver_cp_ci_95": [
+          0.8945652714276234,
+          0.9785803197508709
+        ],
+        "mhver_bootstrap_ci_95": [
+          0.9032197881559942,
+          0.9784172661870504
+        ],
+        "false_positive_triggers": 3,
+        "false_trigger_rate": 5.378078950198989e-05,
+        "false_trigger_rate_cp_ci_95": [
+          1.1091029062055897e-05,
+          0.00015716216446137312
+        ],
+        "utility_regret": -1.0,
+        "utility_regret_bootstrap_ci_95": [
+          -13.0,
+          9.0
+        ],
+        "normalized_regret": -0.1,
+        "policy_utility": 11.0,
+        "policy_utility_bootstrap_ci_95": [
+          1.0,
+          23.0
+        ],
+        "oracle_utility": 10.0
+      },
+      "loko_jackknife_summary": {
+        "regret_min": -1.0,
+        "regret_max": 1.0,
+        "norm_regret_min": -0.1,
+        "norm_regret_max": 0.1,
+        "mhver_min": 0.946969696969697,
+        "mhver_max": 0.9545454545454546
+      },
+      "kilonova_audit": [
+        {
+          "object_id": 156731,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00022128868039289175,
+          "prob_e2": 0.00023255079779590902,
+          "novelty_e0": 0.5090479618997177,
+          "novelty_e2": 0.8281973095571619
+        },
+        {
+          "object_id": 259823,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.02045307008126509,
+          "prob_e2": 0.004934645087064383,
+          "novelty_e0": 0.6118356358687804,
+          "novelty_e2": 0.7954817078255889
+        },
+        {
+          "object_id": 1053493,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0009241648405527982,
+          "prob_e2": 0.0012359515315624172,
+          "novelty_e0": 0.5206843023490455,
+          "novelty_e2": 0.4807553796331397
+        },
+        {
+          "object_id": 2176152,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0005228894694841074,
+          "prob_e2": 0.0007284593445748647,
+          "novelty_e0": 0.47413894055173406,
+          "novelty_e2": 0.4901818852640798
+        },
+        {
+          "object_id": 2793774,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.24116451784399867,
+          "prob_e2": 0.8270418263971804,
+          "novelty_e0": 0.7514717212607146,
+          "novelty_e2": 0.5275697459617966
+        },
+        {
+          "object_id": 4428523,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0007458312600447929,
+          "prob_e2": 0.000986123433077532,
+          "novelty_e0": 0.13862445759611433,
+          "novelty_e2": 0.43443340534160324
+        },
+        {
+          "object_id": 4683865,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.015984198969087166,
+          "prob_e2": 0.11680003975403068,
+          "novelty_e0": 0.7825019624589222,
+          "novelty_e2": 0.5414885376443974
+        },
+        {
+          "object_id": 4902783,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.31368981095991566,
+          "prob_e2": 0.7527871939409175,
+          "novelty_e0": 0.8290473242562336,
+          "novelty_e2": 0.6256399529403741
+        },
+        {
+          "object_id": 5262481,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.3395963632523239,
+          "prob_e2": 0.5615173422508134,
+          "novelty_e0": 3.7207617914309568,
+          "novelty_e2": 2.176822379763993
+        },
+        {
+          "object_id": 8071229,
+          "triggered": true,
+          "trigger_epoch": 0.0,
+          "prob_e0": 0.9356037990741674,
+          "prob_e2": 0.3791791748938154,
+          "novelty_e0": 0.8891684165777608,
+          "novelty_e2": 0.7388196055678375
+        },
+        {
+          "object_id": 11084451,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0038282960761472124,
+          "prob_e2": 0.013004353880734537,
+          "novelty_e0": 0.6331689266925481,
+          "novelty_e2": 0.5525544927031394
+        },
+        {
+          "object_id": 13783209,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.006626409842126026,
+          "prob_e2": 0.0016387685610946962,
+          "novelty_e0": 0.7340172105867228,
+          "novelty_e2": 0.6086268027306554
+        },
+        {
+          "object_id": 14740738,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0004894434068565956,
+          "prob_e2": 0.0004056978472943104,
+          "novelty_e0": 0.5943811251947886,
+          "novelty_e2": 0.5714874347286533
+        },
+        {
+          "object_id": 15805725,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.24832069516784333,
+          "prob_e2": 0.8629923267486171,
+          "novelty_e0": 0.8426230547804495,
+          "novelty_e2": 0.6400181014814089
+        },
+        {
+          "object_id": 15887434,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.08383647027296469,
+          "prob_e2": 0.11264981127933459,
+          "novelty_e0": 3.577246925889247,
+          "novelty_e2": 2.0916292481365706
+        },
+        {
+          "object_id": 16808559,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8694749712248322,
+          "prob_e2": 0.9312216341276889,
+          "novelty_e0": 0.8620169555293291,
+          "novelty_e2": 0.5581872810485754
+        },
+        {
+          "object_id": 17185635,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7446328079533884,
+          "prob_e2": 0.5157931160800108,
+          "novelty_e0": 0.8852896364279849,
+          "novelty_e2": 0.6783098486598496
+        },
+        {
+          "object_id": 17524511,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.40361746405628013,
+          "prob_e2": 0.6971261902543197,
+          "novelty_e0": 0.8542593952297772,
+          "novelty_e2": 0.7190235242823706
+        },
+        {
+          "object_id": 18770173,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00903194229983522,
+          "prob_e2": 0.006018669068134825,
+          "novelty_e0": 0.6234719763181081,
+          "novelty_e2": 0.5333960302098772
+        },
+        {
+          "object_id": 20470513,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.17722507553446845,
+          "prob_e2": 0.06617040741875503,
+          "novelty_e0": 0.8135322036571299,
+          "novelty_e2": 0.638636606210434
+        },
+        {
+          "object_id": 21087202,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.09014221868558228,
+          "prob_e2": 0.24766419112354035,
+          "novelty_e0": 0.7495323311858266,
+          "novelty_e2": 0.608884490271635
+        },
+        {
+          "object_id": 21120961,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.04605964572147156,
+          "prob_e2": 0.060313675292851573,
+          "novelty_e0": 4.217245650602278,
+          "novelty_e2": 2.4703220764442606
+        },
+        {
+          "object_id": 21600537,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0007183422115044525,
+          "prob_e2": 0.0011646594448458069,
+          "novelty_e0": 0.4993510115252778,
+          "novelty_e2": 0.5742022656811544
+        },
+        {
+          "object_id": 22691576,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.1010794673217258,
+          "prob_e2": 0.1123077638854047,
+          "novelty_e0": 3.600519606787902,
+          "novelty_e2": 2.7050794724140386
+        },
+        {
+          "object_id": 22741669,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.13056912569372084,
+          "prob_e2": 0.24841977640763638,
+          "novelty_e0": 0.7262596502871709,
+          "novelty_e2": 0.5330049825444462
+        },
+        {
+          "object_id": 22919207,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8071374023595308,
+          "prob_e2": 0.8665572936648447,
+          "novelty_e0": 0.8639563456042172,
+          "novelty_e2": 0.6801926002292852
+        },
+        {
+          "object_id": 23719686,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0777748618141396,
+          "prob_e2": 0.17679829823517046,
+          "novelty_e0": 0.7359566006616107,
+          "novelty_e2": 0.6002513229961705
+        },
+        {
+          "object_id": 27196252,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.032311232627210446,
+          "prob_e2": 0.050040065782173064,
+          "novelty_e0": 0.7437141609611626,
+          "novelty_e2": 0.6676975254922131
+        },
+        {
+          "object_id": 28011232,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.009309821005771554,
+          "prob_e2": 0.061128055925609354,
+          "novelty_e0": 0.798017083058026,
+          "novelty_e2": 0.6099333087501979
+        },
+        {
+          "object_id": 31089636,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.10150135503128124,
+          "prob_e2": 0.09364767065930188,
+          "novelty_e0": 0.7534111113356026,
+          "novelty_e2": 0.615867315063468
+        },
+        {
+          "object_id": 32086671,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.056829553028282895,
+          "prob_e2": 0.0847342671714712,
+          "novelty_e0": 3.4977319328188394,
+          "novelty_e2": 2.0612543051659524
+        },
+        {
+          "object_id": 32208438,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.11284565129188771,
+          "prob_e2": 0.0690952549962041,
+          "novelty_e0": 0.7029869693885151,
+          "novelty_e2": 0.5789843837300342
+        },
+        {
+          "object_id": 32920272,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.04172620328658956,
+          "prob_e2": 0.04767887237951406,
+          "novelty_e0": 4.021367253038592,
+          "novelty_e2": 2.3444473642432375
+        },
+        {
+          "object_id": 33107964,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.003043602793916985,
+          "prob_e2": 0.015973609792458165,
+          "novelty_e0": 0.6700173381154196,
+          "novelty_e2": 0.5595539737038754
+        },
+        {
+          "object_id": 33525366,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0008144289523508637,
+          "prob_e2": 0.0024754122654121217,
+          "novelty_e0": 0.22589701096607318,
+          "novelty_e2": 0.4562411962621029
+        },
+        {
+          "object_id": 37495525,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0006452778209338842,
+          "prob_e2": 0.0010756444901927043,
+          "novelty_e0": 0.5478357633974772,
+          "novelty_e2": 0.5536683093487268
+        },
+        {
+          "object_id": 38046883,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.07269695870039733,
+          "prob_e2": 0.12696137382101758,
+          "novelty_e0": 0.7456535510360507,
+          "novelty_e2": 0.6530653149963491
+        },
+        {
+          "object_id": 38176071,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.01899755141658063,
+          "prob_e2": 0.02547250630921332,
+          "novelty_e0": 4.263791012399589,
+          "novelty_e2": 3.0208807290700164
+        },
+        {
+          "object_id": 38657318,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.3504863416593105,
+          "prob_e2": 0.6590097973471781,
+          "novelty_e0": 0.8309867143311216,
+          "novelty_e2": 0.6553772865786884
+        },
+        {
+          "object_id": 39725806,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8719739124910965,
+          "prob_e2": 0.8798337857409446,
+          "novelty_e0": 0.8465018349302253,
+          "novelty_e2": 0.5872862189461926
+        },
+        {
+          "object_id": 40044478,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8101182606589525,
+          "prob_e2": 0.9083521274607284,
+          "novelty_e0": 0.8600775654544411,
+          "novelty_e2": 0.5860467928846368
+        },
+        {
+          "object_id": 40967400,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.005269561029879048,
+          "prob_e2": 0.02325563628706409,
+          "novelty_e0": 0.6292901465427722,
+          "novelty_e2": 0.5587990210581107
+        },
+        {
+          "object_id": 41486298,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.21408244067708887,
+          "prob_e2": 0.3783439498472938,
+          "novelty_e0": 0.7631080617100424,
+          "novelty_e2": 0.6261356912749989
+        },
+        {
+          "object_id": 43623629,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6272559982352239,
+          "prob_e2": 0.9285092207609732,
+          "novelty_e0": 0.9143804875513045,
+          "novelty_e2": 0.6928091236998516
+        },
+        {
+          "object_id": 43843517,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.005908499648496212,
+          "prob_e2": 0.024343861514023048,
+          "novelty_e0": 0.6448052671418759,
+          "novelty_e2": 0.5664071636817488
+        },
+        {
+          "object_id": 44039698,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.010318863333774301,
+          "prob_e2": 0.04311702327877824,
+          "novelty_e0": 0.7378959907364987,
+          "novelty_e2": 0.6164620416611029
+        },
+        {
+          "object_id": 44467865,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0004686216689679557,
+          "prob_e2": 0.0005319285714507768,
+          "novelty_e0": 0.5458963733225892,
+          "novelty_e2": 0.5040061790962654
+        },
+        {
+          "object_id": 44912814,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5500615399864953,
+          "prob_e2": 0.8001631213862607,
+          "novelty_e0": 0.8969259768773128,
+          "novelty_e2": 0.5664811208616026
+        },
+        {
+          "object_id": 45563525,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00039585206805968384,
+          "prob_e2": 0.000576050451336199,
+          "novelty_e0": 0.5090479618997177,
+          "novelty_e2": 0.4031676093016768
+        },
+        {
+          "object_id": 46005191,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.000764734485215126,
+          "prob_e2": 0.0007920984219452555,
+          "novelty_e0": 0.5071085718248297,
+          "novelty_e2": 0.5145263808022437
+        },
+        {
+          "object_id": 46309240,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8184518880775248,
+          "prob_e2": 0.6560216282436072,
+          "novelty_e0": 0.8581381753795532,
+          "novelty_e2": 0.7031932779194041
+        },
+        {
+          "object_id": 47369282,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0007951134047596765,
+          "prob_e2": 0.002202512770703414,
+          "novelty_e0": 0.028163088844251612,
+          "novelty_e2": 0.35080402079016293
+        },
+        {
+          "object_id": 47486590,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.15298698622604776,
+          "prob_e2": 0.16120753335304255,
+          "novelty_e0": 3.7886404440520365,
+          "novelty_e2": 2.687423381883546
+        },
+        {
+          "object_id": 52217172,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0004094052947078796,
+          "prob_e2": 0.0012267049124612577,
+          "novelty_e0": 0.5148661321243816,
+          "novelty_e2": 0.5412400769668997
+        },
+        {
+          "object_id": 52701896,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5976300251071907,
+          "prob_e2": 0.42131022010001734,
+          "novelty_e0": 0.8193503738817938,
+          "novelty_e2": 0.6094175625766157
+        },
+        {
+          "object_id": 53181529,
+          "triggered": true,
+          "trigger_epoch": 0.0,
+          "prob_e0": 0.9446646579500344,
+          "prob_e2": 0.9497175199046638,
+          "novelty_e0": 0.8445624448553374,
+          "novelty_e2": 0.6595871702788979
+        },
+        {
+          "object_id": 54576546,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.04632918411872381,
+          "prob_e2": 0.4993782225888348,
+          "novelty_e0": 0.7223808701373949,
+          "novelty_e2": 0.6248137055586827
+        },
+        {
+          "object_id": 54857603,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.006347550697031115,
+          "prob_e2": 0.008545125083519704,
+          "novelty_e0": 0.7844413525338102,
+          "novelty_e2": 0.6228210007952814
+        },
+        {
+          "object_id": 56498084,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0015600137014050515,
+          "prob_e2": 0.0018659066497190297,
+          "novelty_e0": 0.5808053946705728,
+          "novelty_e2": 0.5827272838948161
+        },
+        {
+          "object_id": 57921774,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7900622460297689,
+          "prob_e2": 0.9306760655780522,
+          "novelty_e0": 0.8406836647055616,
+          "novelty_e2": 0.6014554054531804
+        },
+        {
+          "object_id": 58673309,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0023218496319242768,
+          "prob_e2": 0.00427077616193614,
+          "novelty_e0": 0.6913506289391873,
+          "novelty_e2": 0.5881310041407963
+        },
+        {
+          "object_id": 58987552,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.001006365755515431,
+          "prob_e2": 0.0022203475982125287,
+          "novelty_e0": 0.09216296131555464,
+          "novelty_e2": 0.2262850350883756
+        },
+        {
+          "object_id": 59948874,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6349369654164861,
+          "prob_e2": 0.7132479741243075,
+          "novelty_e0": 0.873653295978657,
+          "novelty_e2": 0.6752312671215998
+        },
+        {
+          "object_id": 61290425,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6436895460547167,
+          "prob_e2": 0.8827080175024837,
+          "novelty_e0": 0.8465018349302253,
+          "novelty_e2": 0.5724334894584603
+        },
+        {
+          "object_id": 63263529,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.4658030626723123,
+          "prob_e2": 0.5884525843979764,
+          "novelty_e0": 0.8193503738817938,
+          "novelty_e2": 0.702379380617608
+        },
+        {
+          "object_id": 63331532,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0005552504190418407,
+          "prob_e2": 0.001461565573092696,
+          "novelty_e0": 0.43922991920375054,
+          "novelty_e2": 0.46778537894081756
+        },
+        {
+          "object_id": 64724318,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.05657744039837135,
+          "prob_e2": 0.07439680239111247,
+          "novelty_e0": 0.7049263594634031,
+          "novelty_e2": 0.6047809473232804
+        },
+        {
+          "object_id": 65711410,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0023430282651889438,
+          "prob_e2": 0.0026909286941628665,
+          "novelty_e0": 0.557532713771917,
+          "novelty_e2": 0.47739303591071
+        },
+        {
+          "object_id": 66462779,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.04467172854414437,
+          "prob_e2": 0.042697241209799994,
+          "novelty_e0": 0.7805625723840343,
+          "novelty_e2": 0.6075919021726165
+        },
+        {
+          "object_id": 69302706,
+          "triggered": true,
+          "trigger_epoch": 2.0,
+          "prob_e0": 0.6546619135320156,
+          "prob_e2": 0.9537723844089723,
+          "novelty_e0": 0.9085623173266406,
+          "novelty_e2": 0.6025221767972502
+        },
+        {
+          "object_id": 69402900,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0018176789312740107,
+          "prob_e2": 0.0018302564436910866,
+          "novelty_e0": 0.5439569832477013,
+          "novelty_e2": 0.41167346631549095
+        },
+        {
+          "object_id": 69991897,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6209591216149344,
+          "prob_e2": 0.47557314505562187,
+          "novelty_e0": 0.8833502463530969,
+          "novelty_e2": 0.7149549070370567
+        },
+        {
+          "object_id": 72116795,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.11354840622272826,
+          "prob_e2": 0.4166537136933345,
+          "novelty_e0": 0.7223808701373949,
+          "novelty_e2": 0.6172524984310359
+        },
+        {
+          "object_id": 72843509,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.016741775994727263,
+          "prob_e2": 0.033360284924626386,
+          "novelty_e0": 0.638987096917212,
+          "novelty_e2": 0.49780147360429977
+        },
+        {
+          "object_id": 75291278,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.44564572302350525,
+          "prob_e2": 0.30311837931916613,
+          "novelty_e0": 0.8329261044060096,
+          "novelty_e2": 0.6034496292782223
+        },
+        {
+          "object_id": 75617315,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.10945554943601882,
+          "prob_e2": 0.053938217035671865,
+          "novelty_e0": 0.8038352532826899,
+          "novelty_e2": 0.7174586209744108
+        },
+        {
+          "object_id": 76502136,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.17545489169787556,
+          "prob_e2": 0.6770819374361097,
+          "novelty_e0": 0.7320778205118348,
+          "novelty_e2": 0.5184437939474679
+        },
+        {
+          "object_id": 78004281,
+          "triggered": true,
+          "trigger_epoch": 2.0,
+          "prob_e0": 0.8415865403921889,
+          "prob_e2": 0.9852114276091672,
+          "novelty_e0": 0.8639563456042172,
+          "novelty_e2": 0.5885886634500076
+        },
+        {
+          "object_id": 79297710,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0008757300891048304,
+          "prob_e2": 0.001299540021127181,
+          "novelty_e0": 0.5517145435472531,
+          "novelty_e2": 0.41468978897796477
+        },
+        {
+          "object_id": 79653173,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0010651619899359577,
+          "prob_e2": 0.002629876891786054,
+          "novelty_e0": 0.5458963733225892,
+          "novelty_e2": 0.4699049592641668
+        },
+        {
+          "object_id": 80839458,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6655034962876637,
+          "prob_e2": 0.6878936331584105,
+          "novelty_e0": 0.9221380478508564,
+          "novelty_e2": 0.997596712905434
+        },
+        {
+          "object_id": 82634748,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5104254913773931,
+          "prob_e2": 0.5460413123267998,
+          "novelty_e0": 0.8911078066526488,
+          "novelty_e2": 0.6877336623689903
+        },
+        {
+          "object_id": 82688355,
+          "triggered": true,
+          "trigger_epoch": 2.0,
+          "prob_e0": 0.7198011493849591,
+          "prob_e2": 0.9649236764188627,
+          "novelty_e0": 0.8911078066526488,
+          "novelty_e2": 0.6277647570763671
+        },
+        {
+          "object_id": 82726557,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5617491683694907,
+          "prob_e2": 0.7601217049296753,
+          "novelty_e0": 0.8639563456042172,
+          "novelty_e2": 0.6479497728042086
+        },
+        {
+          "object_id": 83300577,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.12134118663057163,
+          "prob_e2": 0.1536557919463381,
+          "novelty_e0": 3.707186060906741,
+          "novelty_e2": 2.625736553284369
+        },
+        {
+          "object_id": 83334904,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.13113947716778146,
+          "prob_e2": 0.21727467998768846,
+          "novelty_e0": 0.796077692983138,
+          "novelty_e2": 0.6126196977010551
+        },
+        {
+          "object_id": 83616213,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7491614395395104,
+          "prob_e2": 0.6511062140479686,
+          "novelty_e0": 0.8465018349302253,
+          "novelty_e2": 0.736595324218507
+        },
+        {
+          "object_id": 87996402,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.17888935038851955,
+          "prob_e2": 0.09565887216164701,
+          "novelty_e0": 3.14282354911434,
+          "novelty_e2": 1.8397830996974136
+        },
+        {
+          "object_id": 89366565,
+          "triggered": true,
+          "trigger_epoch": 0.0,
+          "prob_e0": 0.9544073116762941,
+          "prob_e2": 0.9751218872284716,
+          "novelty_e0": 0.9201986577759684,
+          "novelty_e2": 0.6818543166001719
+        },
+        {
+          "object_id": 89526483,
+          "triggered": true,
+          "trigger_epoch": 2.0,
+          "prob_e0": 0.7406993742110185,
+          "prob_e2": 0.9356305262015563,
+          "novelty_e0": 0.8426230547804495,
+          "novelty_e2": 0.6109544406192855
+        },
+        {
+          "object_id": 90594778,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.05819838179469186,
+          "prob_e2": 0.4024310956560665,
+          "novelty_e0": 0.8232291540315697,
+          "novelty_e2": 0.6243257469978534
+        },
+        {
+          "object_id": 94048705,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.14090139178928288,
+          "prob_e2": 0.04032141390623887,
+          "novelty_e0": 0.807714033432466,
+          "novelty_e2": 0.5660473889293665
+        },
+        {
+          "object_id": 95229272,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00041835821566472644,
+          "prob_e2": 0.0006530709154781586,
+          "novelty_e0": 0.5439569832477013,
+          "novelty_e2": 0.5247486815390914
+        },
+        {
+          "object_id": 95937908,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.530046206794099,
+          "prob_e2": 0.8862555205012507,
+          "novelty_e0": 0.877532076128433,
+          "novelty_e2": 0.5973119167633566
+        },
+        {
+          "object_id": 97513848,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5908898177000429,
+          "prob_e2": 0.7173544384093524,
+          "novelty_e0": 0.8174109838069058,
+          "novelty_e2": 0.5905405059653455
+        },
+        {
+          "object_id": 97600661,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0814506209255225,
+          "prob_e2": 0.10600727379865536,
+          "novelty_e0": 0.7495323311858266,
+          "novelty_e2": 0.6077664665800023
+        },
+        {
+          "object_id": 98479140,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0023600221817946655,
+          "prob_e2": 0.01026279024312667,
+          "novelty_e0": 0.2492535573814808,
+          "novelty_e2": 0.3885737679413919
+        },
+        {
+          "object_id": 99567253,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7571699803622802,
+          "prob_e2": 0.7127985925914175,
+          "novelty_e0": 0.8174109838069058,
+          "novelty_e2": 0.6244999592228363
+        },
+        {
+          "object_id": 100060032,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.20811935745296192,
+          "prob_e2": 0.3439743579188933,
+          "novelty_e0": 3.7207617914309568,
+          "novelty_e2": 2.181196130455633
+        },
+        {
+          "object_id": 100131376,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8600951319578636,
+          "prob_e2": 0.5891975336319338,
+          "novelty_e0": 0.8426230547804495,
+          "novelty_e2": 0.6267719803466186
+        },
+        {
+          "object_id": 100374516,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.041444189274256,
+          "prob_e2": 0.04381730463883602,
+          "novelty_e0": 0.7631080617100424,
+          "novelty_e2": 0.6151162482668593
+        },
+        {
+          "object_id": 101739642,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.47990117439939733,
+          "prob_e2": 0.8275645113870627,
+          "novelty_e0": 0.8445624448553374,
+          "novelty_e2": 0.6664169648057476
+        },
+        {
+          "object_id": 106838481,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.029342194703647025,
+          "prob_e2": 0.07879387289181843,
+          "novelty_e0": 0.642865877066988,
+          "novelty_e2": 0.4767132590871215
+        },
+        {
+          "object_id": 107341823,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.027012846491015163,
+          "prob_e2": 0.09261001562179154,
+          "novelty_e0": 0.79413830290825,
+          "novelty_e2": 0.5742505628330712
+        },
+        {
+          "object_id": 107449552,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.31640188559789967,
+          "prob_e2": 0.41673598457200955,
+          "novelty_e0": 0.8329261044060096,
+          "novelty_e2": 0.7539072608296149
+        },
+        {
+          "object_id": 109248765,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.022668628974602586,
+          "prob_e2": 0.011953230002201207,
+          "novelty_e0": 0.7611686716351544,
+          "novelty_e2": 0.6256162640154938
+        },
+        {
+          "object_id": 111448398,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0003976227948952751,
+          "prob_e2": 0.001215080322760491,
+          "novelty_e0": 0.5749872244459089,
+          "novelty_e2": 0.48479527218044266
+        },
+        {
+          "object_id": 111897751,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0006060703678029937,
+          "prob_e2": 0.0012172675328492926,
+          "novelty_e0": 0.563350883996581,
+          "novelty_e2": 0.562888218749594
+        },
+        {
+          "object_id": 112288426,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.003112232116923588,
+          "prob_e2": 0.008331072324301083,
+          "novelty_e0": 0.6486840472916519,
+          "novelty_e2": 0.6491899500430613
+        },
+        {
+          "object_id": 112291085,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.03718865818462588,
+          "prob_e2": 0.1337455017221352,
+          "novelty_e0": 0.7514717212607146,
+          "novelty_e2": 0.5956961151960992
+        },
+        {
+          "object_id": 112291668,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.06184356626744313,
+          "prob_e2": 0.0718537931093471,
+          "novelty_e0": 4.349124175694661,
+          "novelty_e2": 2.539564881779442
+        },
+        {
+          "object_id": 112709328,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6354741712553919,
+          "prob_e2": 0.8002874074788955,
+          "novelty_e0": 0.8542593952297772,
+          "novelty_e2": 0.6566341115678757
+        },
+        {
+          "object_id": 112727857,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.002361952565760109,
+          "prob_e2": 0.003472404830707656,
+          "novelty_e0": 2.1517952208465845,
+          "novelty_e2": 1.5227253550699151
+        },
+        {
+          "object_id": 113205771,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0008248954929299736,
+          "prob_e2": 0.0012871772420716568,
+          "novelty_e0": 0.5827447847454608,
+          "novelty_e2": 0.5028682662558466
+        },
+        {
+          "object_id": 113547131,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7756159574825021,
+          "prob_e2": 0.904653437366523,
+          "novelty_e0": 0.8426230547804495,
+          "novelty_e2": 0.6605714423607426
+        },
+        {
+          "object_id": 113834840,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.06789051263628648,
+          "prob_e2": 0.3022957672905231,
+          "novelty_e0": 0.796077692983138,
+          "novelty_e2": 0.5581906210451217
+        },
+        {
+          "object_id": 115216047,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0008434877592813131,
+          "prob_e2": 0.0012676514989379058,
+          "novelty_e0": 0.5342600328732613,
+          "novelty_e2": 0.568397781494538
+        },
+        {
+          "object_id": 115218002,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0032316998297175228,
+          "prob_e2": 0.007032989242843385,
+          "novelty_e0": 2.4039159305820217,
+          "novelty_e2": 1.4719292688620662
+        },
+        {
+          "object_id": 116654745,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.887530950550658,
+          "prob_e2": 0.9018107758433972,
+          "novelty_e0": 0.9221380478508564,
+          "novelty_e2": 0.6288127814116734
+        },
+        {
+          "object_id": 119958730,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.806893963608794,
+          "prob_e2": 0.41142005403121334,
+          "novelty_e0": 0.8309867143311216,
+          "novelty_e2": 0.7006476128617996
+        },
+        {
+          "object_id": 120007012,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.28416190489895155,
+          "prob_e2": 0.12805510577707024,
+          "novelty_e0": 0.7456535510360507,
+          "novelty_e2": 0.5496677408140984
+        },
+        {
+          "object_id": 120133856,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.10511520523085673,
+          "prob_e2": 0.14152563874697863,
+          "novelty_e0": 0.7728050120844823,
+          "novelty_e2": 0.5577666197807483
+        },
+        {
+          "object_id": 120295877,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00969781175146133,
+          "prob_e2": 0.007472323859195827,
+          "novelty_e0": 0.6195931961683322,
+          "novelty_e2": 0.5720885232712627
+        },
+        {
+          "object_id": 120627403,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.18680524047624333,
+          "prob_e2": 0.305293046272766,
+          "novelty_e0": 0.716562699912731,
+          "novelty_e2": 0.5105217092401689
+        },
+        {
+          "object_id": 121520516,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0037880327505849768,
+          "prob_e2": 0.017485250514061475,
+          "novelty_e0": 0.638987096917212,
+          "novelty_e2": 0.5790117673077279
+        },
+        {
+          "object_id": 125618442,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.011166849491874173,
+          "prob_e2": 0.06383734190783114,
+          "novelty_e0": 0.6835930686396353,
+          "novelty_e2": 0.5958440387369895
+        },
+        {
+          "object_id": 126864911,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.22027199215312424,
+          "prob_e2": 0.6289421993611567,
+          "novelty_e0": 0.7669868418598184,
+          "novelty_e2": 0.5620261970768003
+        },
+        {
+          "object_id": 127621981,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0006419109799564933,
+          "prob_e2": 0.0012806085345351361,
+          "novelty_e0": 0.5303812527234854,
+          "novelty_e2": 0.3753834805338222
+        },
+        {
+          "object_id": 128110659,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.060884932975502945,
+          "prob_e2": 0.3760879209125163,
+          "novelty_e0": 0.8232291540315697,
+          "novelty_e2": 0.6270274181634213
+        },
+        {
+          "object_id": 128717975,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.09083100909122133,
+          "prob_e2": 0.11963210825166015,
+          "novelty_e0": 3.701367890682077,
+          "novelty_e2": 2.1798577508860344
+        },
+        {
+          "object_id": 128742526,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.000662222315496482,
+          "prob_e2": 0.0010990694982086783,
+          "novelty_e0": 0.6001992954194526,
+          "novelty_e2": 0.5262626492774969
+        },
+        {
+          "object_id": 129808128,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0027826006028989075,
+          "prob_e2": 0.0072227426704006845,
+          "novelty_e0": 0.6564416075912038,
+          "novelty_e2": 0.5719518610071629
+        },
+        {
+          "object_id": 130033455,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6435466483947294,
+          "prob_e2": 0.8350783803188186,
+          "novelty_e0": 0.8445624448553374,
+          "novelty_e2": 0.6448879633130803
+        }
+      ]
+    },
+    "fused_policy": {
+      "name": "Frozen Bias-and-Novelty Policy (v1)",
+      "parameters": {
+        "w_nov": 0.05,
+        "tau": 0.001,
+        "capacity": 5
+      },
+      "performance": {
+        "triggered_kilonovae": 7,
+        "missed_kilonovae": 126,
+        "target_trigger_rate": 0.05263157894736842,
+        "target_trigger_rate_cp_ci_95": [
+          0.02141968024912915,
+          0.10543472857237658
+        ],
+        "mhver": 0.9473684210526315,
+        "mhver_cp_ci_95": [
+          0.8945652714276234,
+          0.9785803197508709
+        ],
+        "mhver_bootstrap_ci_95": [
+          0.9075525210084033,
+          0.9837495160665892
+        ],
+        "false_positive_triggers": 3,
+        "false_trigger_rate": 5.378078950198989e-05,
+        "false_trigger_rate_cp_ci_95": [
+          1.1091029062055897e-05,
+          0.00015716216446137312
+        ],
+        "utility_regret": -1.0,
+        "utility_regret_bootstrap_ci_95": [
+          -12.024999999999999,
+          9.0
+        ],
+        "normalized_regret": -0.1,
+        "policy_utility": 11.0,
+        "policy_utility_bootstrap_ci_95": [
+          1.0,
+          22.024999999999977
+        ],
+        "oracle_utility": 10.0
+      },
+      "loko_jackknife_summary": {
+        "regret_min": -1.0,
+        "regret_max": 1.0,
+        "norm_regret_min": -0.1,
+        "norm_regret_max": 0.1,
+        "mhver_min": 0.946969696969697,
+        "mhver_max": 0.9545454545454546
+      },
+      "kilonova_audit": [
+        {
+          "object_id": 156731,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00022128868039289175,
+          "prob_e2": 0.00023255079779590902,
+          "novelty_e0": 0.5090479618997177,
+          "novelty_e2": 0.8281973095571619
+        },
+        {
+          "object_id": 259823,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.02045307008126509,
+          "prob_e2": 0.004934645087064383,
+          "novelty_e0": 0.6118356358687804,
+          "novelty_e2": 0.7954817078255889
+        },
+        {
+          "object_id": 1053493,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0009241648405527982,
+          "prob_e2": 0.0012359515315624172,
+          "novelty_e0": 0.5206843023490455,
+          "novelty_e2": 0.4807553796331397
+        },
+        {
+          "object_id": 2176152,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0005228894694841074,
+          "prob_e2": 0.0007284593445748647,
+          "novelty_e0": 0.47413894055173406,
+          "novelty_e2": 0.4901818852640798
+        },
+        {
+          "object_id": 2793774,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.24116451784399867,
+          "prob_e2": 0.8270418263971804,
+          "novelty_e0": 0.7514717212607146,
+          "novelty_e2": 0.5275697459617966
+        },
+        {
+          "object_id": 4428523,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0007458312600447929,
+          "prob_e2": 0.000986123433077532,
+          "novelty_e0": 0.13862445759611433,
+          "novelty_e2": 0.43443340534160324
+        },
+        {
+          "object_id": 4683865,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.015984198969087166,
+          "prob_e2": 0.11680003975403068,
+          "novelty_e0": 0.7825019624589222,
+          "novelty_e2": 0.5414885376443974
+        },
+        {
+          "object_id": 4902783,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.31368981095991566,
+          "prob_e2": 0.7527871939409175,
+          "novelty_e0": 0.8290473242562336,
+          "novelty_e2": 0.6256399529403741
+        },
+        {
+          "object_id": 5262481,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.3395963632523239,
+          "prob_e2": 0.5615173422508134,
+          "novelty_e0": 3.7207617914309568,
+          "novelty_e2": 2.176822379763993
+        },
+        {
+          "object_id": 8071229,
+          "triggered": true,
+          "trigger_epoch": 0.0,
+          "prob_e0": 0.9356037990741674,
+          "prob_e2": 0.3791791748938154,
+          "novelty_e0": 0.8891684165777608,
+          "novelty_e2": 0.7388196055678375
+        },
+        {
+          "object_id": 11084451,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0038282960761472124,
+          "prob_e2": 0.013004353880734537,
+          "novelty_e0": 0.6331689266925481,
+          "novelty_e2": 0.5525544927031394
+        },
+        {
+          "object_id": 13783209,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.006626409842126026,
+          "prob_e2": 0.0016387685610946962,
+          "novelty_e0": 0.7340172105867228,
+          "novelty_e2": 0.6086268027306554
+        },
+        {
+          "object_id": 14740738,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0004894434068565956,
+          "prob_e2": 0.0004056978472943104,
+          "novelty_e0": 0.5943811251947886,
+          "novelty_e2": 0.5714874347286533
+        },
+        {
+          "object_id": 15805725,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.24832069516784333,
+          "prob_e2": 0.8629923267486171,
+          "novelty_e0": 0.8426230547804495,
+          "novelty_e2": 0.6400181014814089
+        },
+        {
+          "object_id": 15887434,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.08383647027296469,
+          "prob_e2": 0.11264981127933459,
+          "novelty_e0": 3.577246925889247,
+          "novelty_e2": 2.0916292481365706
+        },
+        {
+          "object_id": 16808559,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8694749712248322,
+          "prob_e2": 0.9312216341276889,
+          "novelty_e0": 0.8620169555293291,
+          "novelty_e2": 0.5581872810485754
+        },
+        {
+          "object_id": 17185635,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7446328079533884,
+          "prob_e2": 0.5157931160800108,
+          "novelty_e0": 0.8852896364279849,
+          "novelty_e2": 0.6783098486598496
+        },
+        {
+          "object_id": 17524511,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.40361746405628013,
+          "prob_e2": 0.6971261902543197,
+          "novelty_e0": 0.8542593952297772,
+          "novelty_e2": 0.7190235242823706
+        },
+        {
+          "object_id": 18770173,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00903194229983522,
+          "prob_e2": 0.006018669068134825,
+          "novelty_e0": 0.6234719763181081,
+          "novelty_e2": 0.5333960302098772
+        },
+        {
+          "object_id": 20470513,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.17722507553446845,
+          "prob_e2": 0.06617040741875503,
+          "novelty_e0": 0.8135322036571299,
+          "novelty_e2": 0.638636606210434
+        },
+        {
+          "object_id": 21087202,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.09014221868558228,
+          "prob_e2": 0.24766419112354035,
+          "novelty_e0": 0.7495323311858266,
+          "novelty_e2": 0.608884490271635
+        },
+        {
+          "object_id": 21120961,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.04605964572147156,
+          "prob_e2": 0.060313675292851573,
+          "novelty_e0": 4.217245650602278,
+          "novelty_e2": 2.4703220764442606
+        },
+        {
+          "object_id": 21600537,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0007183422115044525,
+          "prob_e2": 0.0011646594448458069,
+          "novelty_e0": 0.4993510115252778,
+          "novelty_e2": 0.5742022656811544
+        },
+        {
+          "object_id": 22691576,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.1010794673217258,
+          "prob_e2": 0.1123077638854047,
+          "novelty_e0": 3.600519606787902,
+          "novelty_e2": 2.7050794724140386
+        },
+        {
+          "object_id": 22741669,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.13056912569372084,
+          "prob_e2": 0.24841977640763638,
+          "novelty_e0": 0.7262596502871709,
+          "novelty_e2": 0.5330049825444462
+        },
+        {
+          "object_id": 22919207,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8071374023595308,
+          "prob_e2": 0.8665572936648447,
+          "novelty_e0": 0.8639563456042172,
+          "novelty_e2": 0.6801926002292852
+        },
+        {
+          "object_id": 23719686,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0777748618141396,
+          "prob_e2": 0.17679829823517046,
+          "novelty_e0": 0.7359566006616107,
+          "novelty_e2": 0.6002513229961705
+        },
+        {
+          "object_id": 27196252,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.032311232627210446,
+          "prob_e2": 0.050040065782173064,
+          "novelty_e0": 0.7437141609611626,
+          "novelty_e2": 0.6676975254922131
+        },
+        {
+          "object_id": 28011232,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.009309821005771554,
+          "prob_e2": 0.061128055925609354,
+          "novelty_e0": 0.798017083058026,
+          "novelty_e2": 0.6099333087501979
+        },
+        {
+          "object_id": 31089636,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.10150135503128124,
+          "prob_e2": 0.09364767065930188,
+          "novelty_e0": 0.7534111113356026,
+          "novelty_e2": 0.615867315063468
+        },
+        {
+          "object_id": 32086671,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.056829553028282895,
+          "prob_e2": 0.0847342671714712,
+          "novelty_e0": 3.4977319328188394,
+          "novelty_e2": 2.0612543051659524
+        },
+        {
+          "object_id": 32208438,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.11284565129188771,
+          "prob_e2": 0.0690952549962041,
+          "novelty_e0": 0.7029869693885151,
+          "novelty_e2": 0.5789843837300342
+        },
+        {
+          "object_id": 32920272,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.04172620328658956,
+          "prob_e2": 0.04767887237951406,
+          "novelty_e0": 4.021367253038592,
+          "novelty_e2": 2.3444473642432375
+        },
+        {
+          "object_id": 33107964,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.003043602793916985,
+          "prob_e2": 0.015973609792458165,
+          "novelty_e0": 0.6700173381154196,
+          "novelty_e2": 0.5595539737038754
+        },
+        {
+          "object_id": 33525366,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0008144289523508637,
+          "prob_e2": 0.0024754122654121217,
+          "novelty_e0": 0.22589701096607318,
+          "novelty_e2": 0.4562411962621029
+        },
+        {
+          "object_id": 37495525,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0006452778209338842,
+          "prob_e2": 0.0010756444901927043,
+          "novelty_e0": 0.5478357633974772,
+          "novelty_e2": 0.5536683093487268
+        },
+        {
+          "object_id": 38046883,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.07269695870039733,
+          "prob_e2": 0.12696137382101758,
+          "novelty_e0": 0.7456535510360507,
+          "novelty_e2": 0.6530653149963491
+        },
+        {
+          "object_id": 38176071,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.01899755141658063,
+          "prob_e2": 0.02547250630921332,
+          "novelty_e0": 4.263791012399589,
+          "novelty_e2": 3.0208807290700164
+        },
+        {
+          "object_id": 38657318,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.3504863416593105,
+          "prob_e2": 0.6590097973471781,
+          "novelty_e0": 0.8309867143311216,
+          "novelty_e2": 0.6553772865786884
+        },
+        {
+          "object_id": 39725806,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8719739124910965,
+          "prob_e2": 0.8798337857409446,
+          "novelty_e0": 0.8465018349302253,
+          "novelty_e2": 0.5872862189461926
+        },
+        {
+          "object_id": 40044478,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8101182606589525,
+          "prob_e2": 0.9083521274607284,
+          "novelty_e0": 0.8600775654544411,
+          "novelty_e2": 0.5860467928846368
+        },
+        {
+          "object_id": 40967400,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.005269561029879048,
+          "prob_e2": 0.02325563628706409,
+          "novelty_e0": 0.6292901465427722,
+          "novelty_e2": 0.5587990210581107
+        },
+        {
+          "object_id": 41486298,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.21408244067708887,
+          "prob_e2": 0.3783439498472938,
+          "novelty_e0": 0.7631080617100424,
+          "novelty_e2": 0.6261356912749989
+        },
+        {
+          "object_id": 43623629,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6272559982352239,
+          "prob_e2": 0.9285092207609732,
+          "novelty_e0": 0.9143804875513045,
+          "novelty_e2": 0.6928091236998516
+        },
+        {
+          "object_id": 43843517,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.005908499648496212,
+          "prob_e2": 0.024343861514023048,
+          "novelty_e0": 0.6448052671418759,
+          "novelty_e2": 0.5664071636817488
+        },
+        {
+          "object_id": 44039698,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.010318863333774301,
+          "prob_e2": 0.04311702327877824,
+          "novelty_e0": 0.7378959907364987,
+          "novelty_e2": 0.6164620416611029
+        },
+        {
+          "object_id": 44467865,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0004686216689679557,
+          "prob_e2": 0.0005319285714507768,
+          "novelty_e0": 0.5458963733225892,
+          "novelty_e2": 0.5040061790962654
+        },
+        {
+          "object_id": 44912814,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5500615399864953,
+          "prob_e2": 0.8001631213862607,
+          "novelty_e0": 0.8969259768773128,
+          "novelty_e2": 0.5664811208616026
+        },
+        {
+          "object_id": 45563525,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00039585206805968384,
+          "prob_e2": 0.000576050451336199,
+          "novelty_e0": 0.5090479618997177,
+          "novelty_e2": 0.4031676093016768
+        },
+        {
+          "object_id": 46005191,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.000764734485215126,
+          "prob_e2": 0.0007920984219452555,
+          "novelty_e0": 0.5071085718248297,
+          "novelty_e2": 0.5145263808022437
+        },
+        {
+          "object_id": 46309240,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8184518880775248,
+          "prob_e2": 0.6560216282436072,
+          "novelty_e0": 0.8581381753795532,
+          "novelty_e2": 0.7031932779194041
+        },
+        {
+          "object_id": 47369282,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0007951134047596765,
+          "prob_e2": 0.002202512770703414,
+          "novelty_e0": 0.028163088844251612,
+          "novelty_e2": 0.35080402079016293
+        },
+        {
+          "object_id": 47486590,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.15298698622604776,
+          "prob_e2": 0.16120753335304255,
+          "novelty_e0": 3.7886404440520365,
+          "novelty_e2": 2.687423381883546
+        },
+        {
+          "object_id": 52217172,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0004094052947078796,
+          "prob_e2": 0.0012267049124612577,
+          "novelty_e0": 0.5148661321243816,
+          "novelty_e2": 0.5412400769668997
+        },
+        {
+          "object_id": 52701896,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5976300251071907,
+          "prob_e2": 0.42131022010001734,
+          "novelty_e0": 0.8193503738817938,
+          "novelty_e2": 0.6094175625766157
+        },
+        {
+          "object_id": 53181529,
+          "triggered": true,
+          "trigger_epoch": 0.0,
+          "prob_e0": 0.9446646579500344,
+          "prob_e2": 0.9497175199046638,
+          "novelty_e0": 0.8445624448553374,
+          "novelty_e2": 0.6595871702788979
+        },
+        {
+          "object_id": 54576546,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.04632918411872381,
+          "prob_e2": 0.4993782225888348,
+          "novelty_e0": 0.7223808701373949,
+          "novelty_e2": 0.6248137055586827
+        },
+        {
+          "object_id": 54857603,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.006347550697031115,
+          "prob_e2": 0.008545125083519704,
+          "novelty_e0": 0.7844413525338102,
+          "novelty_e2": 0.6228210007952814
+        },
+        {
+          "object_id": 56498084,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0015600137014050515,
+          "prob_e2": 0.0018659066497190297,
+          "novelty_e0": 0.5808053946705728,
+          "novelty_e2": 0.5827272838948161
+        },
+        {
+          "object_id": 57921774,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7900622460297689,
+          "prob_e2": 0.9306760655780522,
+          "novelty_e0": 0.8406836647055616,
+          "novelty_e2": 0.6014554054531804
+        },
+        {
+          "object_id": 58673309,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0023218496319242768,
+          "prob_e2": 0.00427077616193614,
+          "novelty_e0": 0.6913506289391873,
+          "novelty_e2": 0.5881310041407963
+        },
+        {
+          "object_id": 58987552,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.001006365755515431,
+          "prob_e2": 0.0022203475982125287,
+          "novelty_e0": 0.09216296131555464,
+          "novelty_e2": 0.2262850350883756
+        },
+        {
+          "object_id": 59948874,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6349369654164861,
+          "prob_e2": 0.7132479741243075,
+          "novelty_e0": 0.873653295978657,
+          "novelty_e2": 0.6752312671215998
+        },
+        {
+          "object_id": 61290425,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6436895460547167,
+          "prob_e2": 0.8827080175024837,
+          "novelty_e0": 0.8465018349302253,
+          "novelty_e2": 0.5724334894584603
+        },
+        {
+          "object_id": 63263529,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.4658030626723123,
+          "prob_e2": 0.5884525843979764,
+          "novelty_e0": 0.8193503738817938,
+          "novelty_e2": 0.702379380617608
+        },
+        {
+          "object_id": 63331532,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0005552504190418407,
+          "prob_e2": 0.001461565573092696,
+          "novelty_e0": 0.43922991920375054,
+          "novelty_e2": 0.46778537894081756
+        },
+        {
+          "object_id": 64724318,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.05657744039837135,
+          "prob_e2": 0.07439680239111247,
+          "novelty_e0": 0.7049263594634031,
+          "novelty_e2": 0.6047809473232804
+        },
+        {
+          "object_id": 65711410,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0023430282651889438,
+          "prob_e2": 0.0026909286941628665,
+          "novelty_e0": 0.557532713771917,
+          "novelty_e2": 0.47739303591071
+        },
+        {
+          "object_id": 66462779,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.04467172854414437,
+          "prob_e2": 0.042697241209799994,
+          "novelty_e0": 0.7805625723840343,
+          "novelty_e2": 0.6075919021726165
+        },
+        {
+          "object_id": 69302706,
+          "triggered": true,
+          "trigger_epoch": 2.0,
+          "prob_e0": 0.6546619135320156,
+          "prob_e2": 0.9537723844089723,
+          "novelty_e0": 0.9085623173266406,
+          "novelty_e2": 0.6025221767972502
+        },
+        {
+          "object_id": 69402900,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0018176789312740107,
+          "prob_e2": 0.0018302564436910866,
+          "novelty_e0": 0.5439569832477013,
+          "novelty_e2": 0.41167346631549095
+        },
+        {
+          "object_id": 69991897,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6209591216149344,
+          "prob_e2": 0.47557314505562187,
+          "novelty_e0": 0.8833502463530969,
+          "novelty_e2": 0.7149549070370567
+        },
+        {
+          "object_id": 72116795,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.11354840622272826,
+          "prob_e2": 0.4166537136933345,
+          "novelty_e0": 0.7223808701373949,
+          "novelty_e2": 0.6172524984310359
+        },
+        {
+          "object_id": 72843509,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.016741775994727263,
+          "prob_e2": 0.033360284924626386,
+          "novelty_e0": 0.638987096917212,
+          "novelty_e2": 0.49780147360429977
+        },
+        {
+          "object_id": 75291278,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.44564572302350525,
+          "prob_e2": 0.30311837931916613,
+          "novelty_e0": 0.8329261044060096,
+          "novelty_e2": 0.6034496292782223
+        },
+        {
+          "object_id": 75617315,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.10945554943601882,
+          "prob_e2": 0.053938217035671865,
+          "novelty_e0": 0.8038352532826899,
+          "novelty_e2": 0.7174586209744108
+        },
+        {
+          "object_id": 76502136,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.17545489169787556,
+          "prob_e2": 0.6770819374361097,
+          "novelty_e0": 0.7320778205118348,
+          "novelty_e2": 0.5184437939474679
+        },
+        {
+          "object_id": 78004281,
+          "triggered": true,
+          "trigger_epoch": 2.0,
+          "prob_e0": 0.8415865403921889,
+          "prob_e2": 0.9852114276091672,
+          "novelty_e0": 0.8639563456042172,
+          "novelty_e2": 0.5885886634500076
+        },
+        {
+          "object_id": 79297710,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0008757300891048304,
+          "prob_e2": 0.001299540021127181,
+          "novelty_e0": 0.5517145435472531,
+          "novelty_e2": 0.41468978897796477
+        },
+        {
+          "object_id": 79653173,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0010651619899359577,
+          "prob_e2": 0.002629876891786054,
+          "novelty_e0": 0.5458963733225892,
+          "novelty_e2": 0.4699049592641668
+        },
+        {
+          "object_id": 80839458,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6655034962876637,
+          "prob_e2": 0.6878936331584105,
+          "novelty_e0": 0.9221380478508564,
+          "novelty_e2": 0.997596712905434
+        },
+        {
+          "object_id": 82634748,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5104254913773931,
+          "prob_e2": 0.5460413123267998,
+          "novelty_e0": 0.8911078066526488,
+          "novelty_e2": 0.6877336623689903
+        },
+        {
+          "object_id": 82688355,
+          "triggered": true,
+          "trigger_epoch": 2.0,
+          "prob_e0": 0.7198011493849591,
+          "prob_e2": 0.9649236764188627,
+          "novelty_e0": 0.8911078066526488,
+          "novelty_e2": 0.6277647570763671
+        },
+        {
+          "object_id": 82726557,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5617491683694907,
+          "prob_e2": 0.7601217049296753,
+          "novelty_e0": 0.8639563456042172,
+          "novelty_e2": 0.6479497728042086
+        },
+        {
+          "object_id": 83300577,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.12134118663057163,
+          "prob_e2": 0.1536557919463381,
+          "novelty_e0": 3.707186060906741,
+          "novelty_e2": 2.625736553284369
+        },
+        {
+          "object_id": 83334904,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.13113947716778146,
+          "prob_e2": 0.21727467998768846,
+          "novelty_e0": 0.796077692983138,
+          "novelty_e2": 0.6126196977010551
+        },
+        {
+          "object_id": 83616213,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7491614395395104,
+          "prob_e2": 0.6511062140479686,
+          "novelty_e0": 0.8465018349302253,
+          "novelty_e2": 0.736595324218507
+        },
+        {
+          "object_id": 87996402,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.17888935038851955,
+          "prob_e2": 0.09565887216164701,
+          "novelty_e0": 3.14282354911434,
+          "novelty_e2": 1.8397830996974136
+        },
+        {
+          "object_id": 89366565,
+          "triggered": true,
+          "trigger_epoch": 0.0,
+          "prob_e0": 0.9544073116762941,
+          "prob_e2": 0.9751218872284716,
+          "novelty_e0": 0.9201986577759684,
+          "novelty_e2": 0.6818543166001719
+        },
+        {
+          "object_id": 89526483,
+          "triggered": true,
+          "trigger_epoch": 2.0,
+          "prob_e0": 0.7406993742110185,
+          "prob_e2": 0.9356305262015563,
+          "novelty_e0": 0.8426230547804495,
+          "novelty_e2": 0.6109544406192855
+        },
+        {
+          "object_id": 90594778,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.05819838179469186,
+          "prob_e2": 0.4024310956560665,
+          "novelty_e0": 0.8232291540315697,
+          "novelty_e2": 0.6243257469978534
+        },
+        {
+          "object_id": 94048705,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.14090139178928288,
+          "prob_e2": 0.04032141390623887,
+          "novelty_e0": 0.807714033432466,
+          "novelty_e2": 0.5660473889293665
+        },
+        {
+          "object_id": 95229272,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00041835821566472644,
+          "prob_e2": 0.0006530709154781586,
+          "novelty_e0": 0.5439569832477013,
+          "novelty_e2": 0.5247486815390914
+        },
+        {
+          "object_id": 95937908,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.530046206794099,
+          "prob_e2": 0.8862555205012507,
+          "novelty_e0": 0.877532076128433,
+          "novelty_e2": 0.5973119167633566
+        },
+        {
+          "object_id": 97513848,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5908898177000429,
+          "prob_e2": 0.7173544384093524,
+          "novelty_e0": 0.8174109838069058,
+          "novelty_e2": 0.5905405059653455
+        },
+        {
+          "object_id": 97600661,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0814506209255225,
+          "prob_e2": 0.10600727379865536,
+          "novelty_e0": 0.7495323311858266,
+          "novelty_e2": 0.6077664665800023
+        },
+        {
+          "object_id": 98479140,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0023600221817946655,
+          "prob_e2": 0.01026279024312667,
+          "novelty_e0": 0.2492535573814808,
+          "novelty_e2": 0.3885737679413919
+        },
+        {
+          "object_id": 99567253,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7571699803622802,
+          "prob_e2": 0.7127985925914175,
+          "novelty_e0": 0.8174109838069058,
+          "novelty_e2": 0.6244999592228363
+        },
+        {
+          "object_id": 100060032,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.20811935745296192,
+          "prob_e2": 0.3439743579188933,
+          "novelty_e0": 3.7207617914309568,
+          "novelty_e2": 2.181196130455633
+        },
+        {
+          "object_id": 100131376,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8600951319578636,
+          "prob_e2": 0.5891975336319338,
+          "novelty_e0": 0.8426230547804495,
+          "novelty_e2": 0.6267719803466186
+        },
+        {
+          "object_id": 100374516,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.041444189274256,
+          "prob_e2": 0.04381730463883602,
+          "novelty_e0": 0.7631080617100424,
+          "novelty_e2": 0.6151162482668593
+        },
+        {
+          "object_id": 101739642,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.47990117439939733,
+          "prob_e2": 0.8275645113870627,
+          "novelty_e0": 0.8445624448553374,
+          "novelty_e2": 0.6664169648057476
+        },
+        {
+          "object_id": 106838481,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.029342194703647025,
+          "prob_e2": 0.07879387289181843,
+          "novelty_e0": 0.642865877066988,
+          "novelty_e2": 0.4767132590871215
+        },
+        {
+          "object_id": 107341823,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.027012846491015163,
+          "prob_e2": 0.09261001562179154,
+          "novelty_e0": 0.79413830290825,
+          "novelty_e2": 0.5742505628330712
+        },
+        {
+          "object_id": 107449552,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.31640188559789967,
+          "prob_e2": 0.41673598457200955,
+          "novelty_e0": 0.8329261044060096,
+          "novelty_e2": 0.7539072608296149
+        },
+        {
+          "object_id": 109248765,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.022668628974602586,
+          "prob_e2": 0.011953230002201207,
+          "novelty_e0": 0.7611686716351544,
+          "novelty_e2": 0.6256162640154938
+        },
+        {
+          "object_id": 111448398,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0003976227948952751,
+          "prob_e2": 0.001215080322760491,
+          "novelty_e0": 0.5749872244459089,
+          "novelty_e2": 0.48479527218044266
+        },
+        {
+          "object_id": 111897751,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0006060703678029937,
+          "prob_e2": 0.0012172675328492926,
+          "novelty_e0": 0.563350883996581,
+          "novelty_e2": 0.562888218749594
+        },
+        {
+          "object_id": 112288426,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.003112232116923588,
+          "prob_e2": 0.008331072324301083,
+          "novelty_e0": 0.6486840472916519,
+          "novelty_e2": 0.6491899500430613
+        },
+        {
+          "object_id": 112291085,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.03718865818462588,
+          "prob_e2": 0.1337455017221352,
+          "novelty_e0": 0.7514717212607146,
+          "novelty_e2": 0.5956961151960992
+        },
+        {
+          "object_id": 112291668,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.06184356626744313,
+          "prob_e2": 0.0718537931093471,
+          "novelty_e0": 4.349124175694661,
+          "novelty_e2": 2.539564881779442
+        },
+        {
+          "object_id": 112709328,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6354741712553919,
+          "prob_e2": 0.8002874074788955,
+          "novelty_e0": 0.8542593952297772,
+          "novelty_e2": 0.6566341115678757
+        },
+        {
+          "object_id": 112727857,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.002361952565760109,
+          "prob_e2": 0.003472404830707656,
+          "novelty_e0": 2.1517952208465845,
+          "novelty_e2": 1.5227253550699151
+        },
+        {
+          "object_id": 113205771,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0008248954929299736,
+          "prob_e2": 0.0012871772420716568,
+          "novelty_e0": 0.5827447847454608,
+          "novelty_e2": 0.5028682662558466
+        },
+        {
+          "object_id": 113547131,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7756159574825021,
+          "prob_e2": 0.904653437366523,
+          "novelty_e0": 0.8426230547804495,
+          "novelty_e2": 0.6605714423607426
+        },
+        {
+          "object_id": 113834840,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.06789051263628648,
+          "prob_e2": 0.3022957672905231,
+          "novelty_e0": 0.796077692983138,
+          "novelty_e2": 0.5581906210451217
+        },
+        {
+          "object_id": 115216047,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0008434877592813131,
+          "prob_e2": 0.0012676514989379058,
+          "novelty_e0": 0.5342600328732613,
+          "novelty_e2": 0.568397781494538
+        },
+        {
+          "object_id": 115218002,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0032316998297175228,
+          "prob_e2": 0.007032989242843385,
+          "novelty_e0": 2.4039159305820217,
+          "novelty_e2": 1.4719292688620662
+        },
+        {
+          "object_id": 116654745,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.887530950550658,
+          "prob_e2": 0.9018107758433972,
+          "novelty_e0": 0.9221380478508564,
+          "novelty_e2": 0.6288127814116734
+        },
+        {
+          "object_id": 119958730,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.806893963608794,
+          "prob_e2": 0.41142005403121334,
+          "novelty_e0": 0.8309867143311216,
+          "novelty_e2": 0.7006476128617996
+        },
+        {
+          "object_id": 120007012,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.28416190489895155,
+          "prob_e2": 0.12805510577707024,
+          "novelty_e0": 0.7456535510360507,
+          "novelty_e2": 0.5496677408140984
+        },
+        {
+          "object_id": 120133856,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.10511520523085673,
+          "prob_e2": 0.14152563874697863,
+          "novelty_e0": 0.7728050120844823,
+          "novelty_e2": 0.5577666197807483
+        },
+        {
+          "object_id": 120295877,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00969781175146133,
+          "prob_e2": 0.007472323859195827,
+          "novelty_e0": 0.6195931961683322,
+          "novelty_e2": 0.5720885232712627
+        },
+        {
+          "object_id": 120627403,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.18680524047624333,
+          "prob_e2": 0.305293046272766,
+          "novelty_e0": 0.716562699912731,
+          "novelty_e2": 0.5105217092401689
+        },
+        {
+          "object_id": 121520516,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0037880327505849768,
+          "prob_e2": 0.017485250514061475,
+          "novelty_e0": 0.638987096917212,
+          "novelty_e2": 0.5790117673077279
+        },
+        {
+          "object_id": 125618442,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.011166849491874173,
+          "prob_e2": 0.06383734190783114,
+          "novelty_e0": 0.6835930686396353,
+          "novelty_e2": 0.5958440387369895
+        },
+        {
+          "object_id": 126864911,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.22027199215312424,
+          "prob_e2": 0.6289421993611567,
+          "novelty_e0": 0.7669868418598184,
+          "novelty_e2": 0.5620261970768003
+        },
+        {
+          "object_id": 127621981,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0006419109799564933,
+          "prob_e2": 0.0012806085345351361,
+          "novelty_e0": 0.5303812527234854,
+          "novelty_e2": 0.3753834805338222
+        },
+        {
+          "object_id": 128110659,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.060884932975502945,
+          "prob_e2": 0.3760879209125163,
+          "novelty_e0": 0.8232291540315697,
+          "novelty_e2": 0.6270274181634213
+        },
+        {
+          "object_id": 128717975,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.09083100909122133,
+          "prob_e2": 0.11963210825166015,
+          "novelty_e0": 3.701367890682077,
+          "novelty_e2": 2.1798577508860344
+        },
+        {
+          "object_id": 128742526,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.000662222315496482,
+          "prob_e2": 0.0010990694982086783,
+          "novelty_e0": 0.6001992954194526,
+          "novelty_e2": 0.5262626492774969
+        },
+        {
+          "object_id": 129808128,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0027826006028989075,
+          "prob_e2": 0.0072227426704006845,
+          "novelty_e0": 0.6564416075912038,
+          "novelty_e2": 0.5719518610071629
+        },
+        {
+          "object_id": 130033455,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6435466483947294,
+          "prob_e2": 0.8350783803188186,
+          "novelty_e0": 0.8445624448553374,
+          "novelty_e2": 0.6448879633130803
+        }
+      ]
+    },
+    "novelty_ablation": {
+      "name": "Novelty Ablation (w_nov = 0.00)",
+      "parameters": {
+        "w_nov": 0.0,
+        "tau": 0.001,
+        "capacity": 5
+      },
+      "performance": {
+        "triggered_kilonovae": 7,
+        "missed_kilonovae": 126,
+        "target_trigger_rate": 0.05263157894736842,
+        "target_trigger_rate_cp_ci_95": [
+          0.02141968024912915,
+          0.10543472857237658
+        ],
+        "mhver": 0.9473684210526315,
+        "mhver_cp_ci_95": [
+          0.8945652714276234,
+          0.9785803197508709
+        ],
+        "mhver_bootstrap_ci_95": [
+          0.9062386775362319,
+          0.982612443778111
+        ],
+        "false_positive_triggers": 3,
+        "false_trigger_rate": 5.378078950198989e-05,
+        "false_trigger_rate_cp_ci_95": [
+          1.1091029062055897e-05,
+          0.00015716216446137312
+        ],
+        "utility_regret": -1.0,
+        "utility_regret_bootstrap_ci_95": [
+          -13.0,
+          10.0
+        ],
+        "normalized_regret": -0.1,
+        "policy_utility": 11.0,
+        "policy_utility_bootstrap_ci_95": [
+          0.0,
+          23.0
+        ],
+        "oracle_utility": 10.0
+      },
+      "loko_jackknife_summary": {
+        "regret_min": -1.0,
+        "regret_max": 1.0,
+        "norm_regret_min": -0.1,
+        "norm_regret_max": 0.1,
+        "mhver_min": 0.946969696969697,
+        "mhver_max": 0.9545454545454546
+      },
+      "kilonova_audit": [
+        {
+          "object_id": 156731,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00022128868039289175,
+          "prob_e2": 0.00023255079779590902,
+          "novelty_e0": 0.5090479618997177,
+          "novelty_e2": 0.8281973095571619
+        },
+        {
+          "object_id": 259823,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.02045307008126509,
+          "prob_e2": 0.004934645087064383,
+          "novelty_e0": 0.6118356358687804,
+          "novelty_e2": 0.7954817078255889
+        },
+        {
+          "object_id": 1053493,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0009241648405527982,
+          "prob_e2": 0.0012359515315624172,
+          "novelty_e0": 0.5206843023490455,
+          "novelty_e2": 0.4807553796331397
+        },
+        {
+          "object_id": 2176152,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0005228894694841074,
+          "prob_e2": 0.0007284593445748647,
+          "novelty_e0": 0.47413894055173406,
+          "novelty_e2": 0.4901818852640798
+        },
+        {
+          "object_id": 2793774,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.24116451784399867,
+          "prob_e2": 0.8270418263971804,
+          "novelty_e0": 0.7514717212607146,
+          "novelty_e2": 0.5275697459617966
+        },
+        {
+          "object_id": 4428523,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0007458312600447929,
+          "prob_e2": 0.000986123433077532,
+          "novelty_e0": 0.13862445759611433,
+          "novelty_e2": 0.43443340534160324
+        },
+        {
+          "object_id": 4683865,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.015984198969087166,
+          "prob_e2": 0.11680003975403068,
+          "novelty_e0": 0.7825019624589222,
+          "novelty_e2": 0.5414885376443974
+        },
+        {
+          "object_id": 4902783,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.31368981095991566,
+          "prob_e2": 0.7527871939409175,
+          "novelty_e0": 0.8290473242562336,
+          "novelty_e2": 0.6256399529403741
+        },
+        {
+          "object_id": 5262481,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.3395963632523239,
+          "prob_e2": 0.5615173422508134,
+          "novelty_e0": 3.7207617914309568,
+          "novelty_e2": 2.176822379763993
+        },
+        {
+          "object_id": 8071229,
+          "triggered": true,
+          "trigger_epoch": 0.0,
+          "prob_e0": 0.9356037990741674,
+          "prob_e2": 0.3791791748938154,
+          "novelty_e0": 0.8891684165777608,
+          "novelty_e2": 0.7388196055678375
+        },
+        {
+          "object_id": 11084451,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0038282960761472124,
+          "prob_e2": 0.013004353880734537,
+          "novelty_e0": 0.6331689266925481,
+          "novelty_e2": 0.5525544927031394
+        },
+        {
+          "object_id": 13783209,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.006626409842126026,
+          "prob_e2": 0.0016387685610946962,
+          "novelty_e0": 0.7340172105867228,
+          "novelty_e2": 0.6086268027306554
+        },
+        {
+          "object_id": 14740738,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0004894434068565956,
+          "prob_e2": 0.0004056978472943104,
+          "novelty_e0": 0.5943811251947886,
+          "novelty_e2": 0.5714874347286533
+        },
+        {
+          "object_id": 15805725,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.24832069516784333,
+          "prob_e2": 0.8629923267486171,
+          "novelty_e0": 0.8426230547804495,
+          "novelty_e2": 0.6400181014814089
+        },
+        {
+          "object_id": 15887434,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.08383647027296469,
+          "prob_e2": 0.11264981127933459,
+          "novelty_e0": 3.577246925889247,
+          "novelty_e2": 2.0916292481365706
+        },
+        {
+          "object_id": 16808559,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8694749712248322,
+          "prob_e2": 0.9312216341276889,
+          "novelty_e0": 0.8620169555293291,
+          "novelty_e2": 0.5581872810485754
+        },
+        {
+          "object_id": 17185635,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7446328079533884,
+          "prob_e2": 0.5157931160800108,
+          "novelty_e0": 0.8852896364279849,
+          "novelty_e2": 0.6783098486598496
+        },
+        {
+          "object_id": 17524511,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.40361746405628013,
+          "prob_e2": 0.6971261902543197,
+          "novelty_e0": 0.8542593952297772,
+          "novelty_e2": 0.7190235242823706
+        },
+        {
+          "object_id": 18770173,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00903194229983522,
+          "prob_e2": 0.006018669068134825,
+          "novelty_e0": 0.6234719763181081,
+          "novelty_e2": 0.5333960302098772
+        },
+        {
+          "object_id": 20470513,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.17722507553446845,
+          "prob_e2": 0.06617040741875503,
+          "novelty_e0": 0.8135322036571299,
+          "novelty_e2": 0.638636606210434
+        },
+        {
+          "object_id": 21087202,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.09014221868558228,
+          "prob_e2": 0.24766419112354035,
+          "novelty_e0": 0.7495323311858266,
+          "novelty_e2": 0.608884490271635
+        },
+        {
+          "object_id": 21120961,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.04605964572147156,
+          "prob_e2": 0.060313675292851573,
+          "novelty_e0": 4.217245650602278,
+          "novelty_e2": 2.4703220764442606
+        },
+        {
+          "object_id": 21600537,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0007183422115044525,
+          "prob_e2": 0.0011646594448458069,
+          "novelty_e0": 0.4993510115252778,
+          "novelty_e2": 0.5742022656811544
+        },
+        {
+          "object_id": 22691576,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.1010794673217258,
+          "prob_e2": 0.1123077638854047,
+          "novelty_e0": 3.600519606787902,
+          "novelty_e2": 2.7050794724140386
+        },
+        {
+          "object_id": 22741669,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.13056912569372084,
+          "prob_e2": 0.24841977640763638,
+          "novelty_e0": 0.7262596502871709,
+          "novelty_e2": 0.5330049825444462
+        },
+        {
+          "object_id": 22919207,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8071374023595308,
+          "prob_e2": 0.8665572936648447,
+          "novelty_e0": 0.8639563456042172,
+          "novelty_e2": 0.6801926002292852
+        },
+        {
+          "object_id": 23719686,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0777748618141396,
+          "prob_e2": 0.17679829823517046,
+          "novelty_e0": 0.7359566006616107,
+          "novelty_e2": 0.6002513229961705
+        },
+        {
+          "object_id": 27196252,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.032311232627210446,
+          "prob_e2": 0.050040065782173064,
+          "novelty_e0": 0.7437141609611626,
+          "novelty_e2": 0.6676975254922131
+        },
+        {
+          "object_id": 28011232,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.009309821005771554,
+          "prob_e2": 0.061128055925609354,
+          "novelty_e0": 0.798017083058026,
+          "novelty_e2": 0.6099333087501979
+        },
+        {
+          "object_id": 31089636,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.10150135503128124,
+          "prob_e2": 0.09364767065930188,
+          "novelty_e0": 0.7534111113356026,
+          "novelty_e2": 0.615867315063468
+        },
+        {
+          "object_id": 32086671,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.056829553028282895,
+          "prob_e2": 0.0847342671714712,
+          "novelty_e0": 3.4977319328188394,
+          "novelty_e2": 2.0612543051659524
+        },
+        {
+          "object_id": 32208438,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.11284565129188771,
+          "prob_e2": 0.0690952549962041,
+          "novelty_e0": 0.7029869693885151,
+          "novelty_e2": 0.5789843837300342
+        },
+        {
+          "object_id": 32920272,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.04172620328658956,
+          "prob_e2": 0.04767887237951406,
+          "novelty_e0": 4.021367253038592,
+          "novelty_e2": 2.3444473642432375
+        },
+        {
+          "object_id": 33107964,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.003043602793916985,
+          "prob_e2": 0.015973609792458165,
+          "novelty_e0": 0.6700173381154196,
+          "novelty_e2": 0.5595539737038754
+        },
+        {
+          "object_id": 33525366,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0008144289523508637,
+          "prob_e2": 0.0024754122654121217,
+          "novelty_e0": 0.22589701096607318,
+          "novelty_e2": 0.4562411962621029
+        },
+        {
+          "object_id": 37495525,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0006452778209338842,
+          "prob_e2": 0.0010756444901927043,
+          "novelty_e0": 0.5478357633974772,
+          "novelty_e2": 0.5536683093487268
+        },
+        {
+          "object_id": 38046883,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.07269695870039733,
+          "prob_e2": 0.12696137382101758,
+          "novelty_e0": 0.7456535510360507,
+          "novelty_e2": 0.6530653149963491
+        },
+        {
+          "object_id": 38176071,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.01899755141658063,
+          "prob_e2": 0.02547250630921332,
+          "novelty_e0": 4.263791012399589,
+          "novelty_e2": 3.0208807290700164
+        },
+        {
+          "object_id": 38657318,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.3504863416593105,
+          "prob_e2": 0.6590097973471781,
+          "novelty_e0": 0.8309867143311216,
+          "novelty_e2": 0.6553772865786884
+        },
+        {
+          "object_id": 39725806,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8719739124910965,
+          "prob_e2": 0.8798337857409446,
+          "novelty_e0": 0.8465018349302253,
+          "novelty_e2": 0.5872862189461926
+        },
+        {
+          "object_id": 40044478,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8101182606589525,
+          "prob_e2": 0.9083521274607284,
+          "novelty_e0": 0.8600775654544411,
+          "novelty_e2": 0.5860467928846368
+        },
+        {
+          "object_id": 40967400,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.005269561029879048,
+          "prob_e2": 0.02325563628706409,
+          "novelty_e0": 0.6292901465427722,
+          "novelty_e2": 0.5587990210581107
+        },
+        {
+          "object_id": 41486298,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.21408244067708887,
+          "prob_e2": 0.3783439498472938,
+          "novelty_e0": 0.7631080617100424,
+          "novelty_e2": 0.6261356912749989
+        },
+        {
+          "object_id": 43623629,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6272559982352239,
+          "prob_e2": 0.9285092207609732,
+          "novelty_e0": 0.9143804875513045,
+          "novelty_e2": 0.6928091236998516
+        },
+        {
+          "object_id": 43843517,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.005908499648496212,
+          "prob_e2": 0.024343861514023048,
+          "novelty_e0": 0.6448052671418759,
+          "novelty_e2": 0.5664071636817488
+        },
+        {
+          "object_id": 44039698,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.010318863333774301,
+          "prob_e2": 0.04311702327877824,
+          "novelty_e0": 0.7378959907364987,
+          "novelty_e2": 0.6164620416611029
+        },
+        {
+          "object_id": 44467865,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0004686216689679557,
+          "prob_e2": 0.0005319285714507768,
+          "novelty_e0": 0.5458963733225892,
+          "novelty_e2": 0.5040061790962654
+        },
+        {
+          "object_id": 44912814,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5500615399864953,
+          "prob_e2": 0.8001631213862607,
+          "novelty_e0": 0.8969259768773128,
+          "novelty_e2": 0.5664811208616026
+        },
+        {
+          "object_id": 45563525,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00039585206805968384,
+          "prob_e2": 0.000576050451336199,
+          "novelty_e0": 0.5090479618997177,
+          "novelty_e2": 0.4031676093016768
+        },
+        {
+          "object_id": 46005191,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.000764734485215126,
+          "prob_e2": 0.0007920984219452555,
+          "novelty_e0": 0.5071085718248297,
+          "novelty_e2": 0.5145263808022437
+        },
+        {
+          "object_id": 46309240,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8184518880775248,
+          "prob_e2": 0.6560216282436072,
+          "novelty_e0": 0.8581381753795532,
+          "novelty_e2": 0.7031932779194041
+        },
+        {
+          "object_id": 47369282,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0007951134047596765,
+          "prob_e2": 0.002202512770703414,
+          "novelty_e0": 0.028163088844251612,
+          "novelty_e2": 0.35080402079016293
+        },
+        {
+          "object_id": 47486590,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.15298698622604776,
+          "prob_e2": 0.16120753335304255,
+          "novelty_e0": 3.7886404440520365,
+          "novelty_e2": 2.687423381883546
+        },
+        {
+          "object_id": 52217172,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0004094052947078796,
+          "prob_e2": 0.0012267049124612577,
+          "novelty_e0": 0.5148661321243816,
+          "novelty_e2": 0.5412400769668997
+        },
+        {
+          "object_id": 52701896,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5976300251071907,
+          "prob_e2": 0.42131022010001734,
+          "novelty_e0": 0.8193503738817938,
+          "novelty_e2": 0.6094175625766157
+        },
+        {
+          "object_id": 53181529,
+          "triggered": true,
+          "trigger_epoch": 0.0,
+          "prob_e0": 0.9446646579500344,
+          "prob_e2": 0.9497175199046638,
+          "novelty_e0": 0.8445624448553374,
+          "novelty_e2": 0.6595871702788979
+        },
+        {
+          "object_id": 54576546,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.04632918411872381,
+          "prob_e2": 0.4993782225888348,
+          "novelty_e0": 0.7223808701373949,
+          "novelty_e2": 0.6248137055586827
+        },
+        {
+          "object_id": 54857603,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.006347550697031115,
+          "prob_e2": 0.008545125083519704,
+          "novelty_e0": 0.7844413525338102,
+          "novelty_e2": 0.6228210007952814
+        },
+        {
+          "object_id": 56498084,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0015600137014050515,
+          "prob_e2": 0.0018659066497190297,
+          "novelty_e0": 0.5808053946705728,
+          "novelty_e2": 0.5827272838948161
+        },
+        {
+          "object_id": 57921774,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7900622460297689,
+          "prob_e2": 0.9306760655780522,
+          "novelty_e0": 0.8406836647055616,
+          "novelty_e2": 0.6014554054531804
+        },
+        {
+          "object_id": 58673309,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0023218496319242768,
+          "prob_e2": 0.00427077616193614,
+          "novelty_e0": 0.6913506289391873,
+          "novelty_e2": 0.5881310041407963
+        },
+        {
+          "object_id": 58987552,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.001006365755515431,
+          "prob_e2": 0.0022203475982125287,
+          "novelty_e0": 0.09216296131555464,
+          "novelty_e2": 0.2262850350883756
+        },
+        {
+          "object_id": 59948874,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6349369654164861,
+          "prob_e2": 0.7132479741243075,
+          "novelty_e0": 0.873653295978657,
+          "novelty_e2": 0.6752312671215998
+        },
+        {
+          "object_id": 61290425,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6436895460547167,
+          "prob_e2": 0.8827080175024837,
+          "novelty_e0": 0.8465018349302253,
+          "novelty_e2": 0.5724334894584603
+        },
+        {
+          "object_id": 63263529,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.4658030626723123,
+          "prob_e2": 0.5884525843979764,
+          "novelty_e0": 0.8193503738817938,
+          "novelty_e2": 0.702379380617608
+        },
+        {
+          "object_id": 63331532,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0005552504190418407,
+          "prob_e2": 0.001461565573092696,
+          "novelty_e0": 0.43922991920375054,
+          "novelty_e2": 0.46778537894081756
+        },
+        {
+          "object_id": 64724318,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.05657744039837135,
+          "prob_e2": 0.07439680239111247,
+          "novelty_e0": 0.7049263594634031,
+          "novelty_e2": 0.6047809473232804
+        },
+        {
+          "object_id": 65711410,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0023430282651889438,
+          "prob_e2": 0.0026909286941628665,
+          "novelty_e0": 0.557532713771917,
+          "novelty_e2": 0.47739303591071
+        },
+        {
+          "object_id": 66462779,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.04467172854414437,
+          "prob_e2": 0.042697241209799994,
+          "novelty_e0": 0.7805625723840343,
+          "novelty_e2": 0.6075919021726165
+        },
+        {
+          "object_id": 69302706,
+          "triggered": true,
+          "trigger_epoch": 2.0,
+          "prob_e0": 0.6546619135320156,
+          "prob_e2": 0.9537723844089723,
+          "novelty_e0": 0.9085623173266406,
+          "novelty_e2": 0.6025221767972502
+        },
+        {
+          "object_id": 69402900,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0018176789312740107,
+          "prob_e2": 0.0018302564436910866,
+          "novelty_e0": 0.5439569832477013,
+          "novelty_e2": 0.41167346631549095
+        },
+        {
+          "object_id": 69991897,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6209591216149344,
+          "prob_e2": 0.47557314505562187,
+          "novelty_e0": 0.8833502463530969,
+          "novelty_e2": 0.7149549070370567
+        },
+        {
+          "object_id": 72116795,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.11354840622272826,
+          "prob_e2": 0.4166537136933345,
+          "novelty_e0": 0.7223808701373949,
+          "novelty_e2": 0.6172524984310359
+        },
+        {
+          "object_id": 72843509,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.016741775994727263,
+          "prob_e2": 0.033360284924626386,
+          "novelty_e0": 0.638987096917212,
+          "novelty_e2": 0.49780147360429977
+        },
+        {
+          "object_id": 75291278,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.44564572302350525,
+          "prob_e2": 0.30311837931916613,
+          "novelty_e0": 0.8329261044060096,
+          "novelty_e2": 0.6034496292782223
+        },
+        {
+          "object_id": 75617315,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.10945554943601882,
+          "prob_e2": 0.053938217035671865,
+          "novelty_e0": 0.8038352532826899,
+          "novelty_e2": 0.7174586209744108
+        },
+        {
+          "object_id": 76502136,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.17545489169787556,
+          "prob_e2": 0.6770819374361097,
+          "novelty_e0": 0.7320778205118348,
+          "novelty_e2": 0.5184437939474679
+        },
+        {
+          "object_id": 78004281,
+          "triggered": true,
+          "trigger_epoch": 2.0,
+          "prob_e0": 0.8415865403921889,
+          "prob_e2": 0.9852114276091672,
+          "novelty_e0": 0.8639563456042172,
+          "novelty_e2": 0.5885886634500076
+        },
+        {
+          "object_id": 79297710,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0008757300891048304,
+          "prob_e2": 0.001299540021127181,
+          "novelty_e0": 0.5517145435472531,
+          "novelty_e2": 0.41468978897796477
+        },
+        {
+          "object_id": 79653173,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0010651619899359577,
+          "prob_e2": 0.002629876891786054,
+          "novelty_e0": 0.5458963733225892,
+          "novelty_e2": 0.4699049592641668
+        },
+        {
+          "object_id": 80839458,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6655034962876637,
+          "prob_e2": 0.6878936331584105,
+          "novelty_e0": 0.9221380478508564,
+          "novelty_e2": 0.997596712905434
+        },
+        {
+          "object_id": 82634748,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5104254913773931,
+          "prob_e2": 0.5460413123267998,
+          "novelty_e0": 0.8911078066526488,
+          "novelty_e2": 0.6877336623689903
+        },
+        {
+          "object_id": 82688355,
+          "triggered": true,
+          "trigger_epoch": 2.0,
+          "prob_e0": 0.7198011493849591,
+          "prob_e2": 0.9649236764188627,
+          "novelty_e0": 0.8911078066526488,
+          "novelty_e2": 0.6277647570763671
+        },
+        {
+          "object_id": 82726557,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5617491683694907,
+          "prob_e2": 0.7601217049296753,
+          "novelty_e0": 0.8639563456042172,
+          "novelty_e2": 0.6479497728042086
+        },
+        {
+          "object_id": 83300577,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.12134118663057163,
+          "prob_e2": 0.1536557919463381,
+          "novelty_e0": 3.707186060906741,
+          "novelty_e2": 2.625736553284369
+        },
+        {
+          "object_id": 83334904,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.13113947716778146,
+          "prob_e2": 0.21727467998768846,
+          "novelty_e0": 0.796077692983138,
+          "novelty_e2": 0.6126196977010551
+        },
+        {
+          "object_id": 83616213,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7491614395395104,
+          "prob_e2": 0.6511062140479686,
+          "novelty_e0": 0.8465018349302253,
+          "novelty_e2": 0.736595324218507
+        },
+        {
+          "object_id": 87996402,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.17888935038851955,
+          "prob_e2": 0.09565887216164701,
+          "novelty_e0": 3.14282354911434,
+          "novelty_e2": 1.8397830996974136
+        },
+        {
+          "object_id": 89366565,
+          "triggered": true,
+          "trigger_epoch": 0.0,
+          "prob_e0": 0.9544073116762941,
+          "prob_e2": 0.9751218872284716,
+          "novelty_e0": 0.9201986577759684,
+          "novelty_e2": 0.6818543166001719
+        },
+        {
+          "object_id": 89526483,
+          "triggered": true,
+          "trigger_epoch": 2.0,
+          "prob_e0": 0.7406993742110185,
+          "prob_e2": 0.9356305262015563,
+          "novelty_e0": 0.8426230547804495,
+          "novelty_e2": 0.6109544406192855
+        },
+        {
+          "object_id": 90594778,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.05819838179469186,
+          "prob_e2": 0.4024310956560665,
+          "novelty_e0": 0.8232291540315697,
+          "novelty_e2": 0.6243257469978534
+        },
+        {
+          "object_id": 94048705,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.14090139178928288,
+          "prob_e2": 0.04032141390623887,
+          "novelty_e0": 0.807714033432466,
+          "novelty_e2": 0.5660473889293665
+        },
+        {
+          "object_id": 95229272,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00041835821566472644,
+          "prob_e2": 0.0006530709154781586,
+          "novelty_e0": 0.5439569832477013,
+          "novelty_e2": 0.5247486815390914
+        },
+        {
+          "object_id": 95937908,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.530046206794099,
+          "prob_e2": 0.8862555205012507,
+          "novelty_e0": 0.877532076128433,
+          "novelty_e2": 0.5973119167633566
+        },
+        {
+          "object_id": 97513848,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.5908898177000429,
+          "prob_e2": 0.7173544384093524,
+          "novelty_e0": 0.8174109838069058,
+          "novelty_e2": 0.5905405059653455
+        },
+        {
+          "object_id": 97600661,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0814506209255225,
+          "prob_e2": 0.10600727379865536,
+          "novelty_e0": 0.7495323311858266,
+          "novelty_e2": 0.6077664665800023
+        },
+        {
+          "object_id": 98479140,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0023600221817946655,
+          "prob_e2": 0.01026279024312667,
+          "novelty_e0": 0.2492535573814808,
+          "novelty_e2": 0.3885737679413919
+        },
+        {
+          "object_id": 99567253,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7571699803622802,
+          "prob_e2": 0.7127985925914175,
+          "novelty_e0": 0.8174109838069058,
+          "novelty_e2": 0.6244999592228363
+        },
+        {
+          "object_id": 100060032,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.20811935745296192,
+          "prob_e2": 0.3439743579188933,
+          "novelty_e0": 3.7207617914309568,
+          "novelty_e2": 2.181196130455633
+        },
+        {
+          "object_id": 100131376,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.8600951319578636,
+          "prob_e2": 0.5891975336319338,
+          "novelty_e0": 0.8426230547804495,
+          "novelty_e2": 0.6267719803466186
+        },
+        {
+          "object_id": 100374516,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.041444189274256,
+          "prob_e2": 0.04381730463883602,
+          "novelty_e0": 0.7631080617100424,
+          "novelty_e2": 0.6151162482668593
+        },
+        {
+          "object_id": 101739642,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.47990117439939733,
+          "prob_e2": 0.8275645113870627,
+          "novelty_e0": 0.8445624448553374,
+          "novelty_e2": 0.6664169648057476
+        },
+        {
+          "object_id": 106838481,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.029342194703647025,
+          "prob_e2": 0.07879387289181843,
+          "novelty_e0": 0.642865877066988,
+          "novelty_e2": 0.4767132590871215
+        },
+        {
+          "object_id": 107341823,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.027012846491015163,
+          "prob_e2": 0.09261001562179154,
+          "novelty_e0": 0.79413830290825,
+          "novelty_e2": 0.5742505628330712
+        },
+        {
+          "object_id": 107449552,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.31640188559789967,
+          "prob_e2": 0.41673598457200955,
+          "novelty_e0": 0.8329261044060096,
+          "novelty_e2": 0.7539072608296149
+        },
+        {
+          "object_id": 109248765,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.022668628974602586,
+          "prob_e2": 0.011953230002201207,
+          "novelty_e0": 0.7611686716351544,
+          "novelty_e2": 0.6256162640154938
+        },
+        {
+          "object_id": 111448398,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0003976227948952751,
+          "prob_e2": 0.001215080322760491,
+          "novelty_e0": 0.5749872244459089,
+          "novelty_e2": 0.48479527218044266
+        },
+        {
+          "object_id": 111897751,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0006060703678029937,
+          "prob_e2": 0.0012172675328492926,
+          "novelty_e0": 0.563350883996581,
+          "novelty_e2": 0.562888218749594
+        },
+        {
+          "object_id": 112288426,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.003112232116923588,
+          "prob_e2": 0.008331072324301083,
+          "novelty_e0": 0.6486840472916519,
+          "novelty_e2": 0.6491899500430613
+        },
+        {
+          "object_id": 112291085,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.03718865818462588,
+          "prob_e2": 0.1337455017221352,
+          "novelty_e0": 0.7514717212607146,
+          "novelty_e2": 0.5956961151960992
+        },
+        {
+          "object_id": 112291668,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.06184356626744313,
+          "prob_e2": 0.0718537931093471,
+          "novelty_e0": 4.349124175694661,
+          "novelty_e2": 2.539564881779442
+        },
+        {
+          "object_id": 112709328,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6354741712553919,
+          "prob_e2": 0.8002874074788955,
+          "novelty_e0": 0.8542593952297772,
+          "novelty_e2": 0.6566341115678757
+        },
+        {
+          "object_id": 112727857,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.002361952565760109,
+          "prob_e2": 0.003472404830707656,
+          "novelty_e0": 2.1517952208465845,
+          "novelty_e2": 1.5227253550699151
+        },
+        {
+          "object_id": 113205771,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0008248954929299736,
+          "prob_e2": 0.0012871772420716568,
+          "novelty_e0": 0.5827447847454608,
+          "novelty_e2": 0.5028682662558466
+        },
+        {
+          "object_id": 113547131,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.7756159574825021,
+          "prob_e2": 0.904653437366523,
+          "novelty_e0": 0.8426230547804495,
+          "novelty_e2": 0.6605714423607426
+        },
+        {
+          "object_id": 113834840,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.06789051263628648,
+          "prob_e2": 0.3022957672905231,
+          "novelty_e0": 0.796077692983138,
+          "novelty_e2": 0.5581906210451217
+        },
+        {
+          "object_id": 115216047,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0008434877592813131,
+          "prob_e2": 0.0012676514989379058,
+          "novelty_e0": 0.5342600328732613,
+          "novelty_e2": 0.568397781494538
+        },
+        {
+          "object_id": 115218002,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0032316998297175228,
+          "prob_e2": 0.007032989242843385,
+          "novelty_e0": 2.4039159305820217,
+          "novelty_e2": 1.4719292688620662
+        },
+        {
+          "object_id": 116654745,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.887530950550658,
+          "prob_e2": 0.9018107758433972,
+          "novelty_e0": 0.9221380478508564,
+          "novelty_e2": 0.6288127814116734
+        },
+        {
+          "object_id": 119958730,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.806893963608794,
+          "prob_e2": 0.41142005403121334,
+          "novelty_e0": 0.8309867143311216,
+          "novelty_e2": 0.7006476128617996
+        },
+        {
+          "object_id": 120007012,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.28416190489895155,
+          "prob_e2": 0.12805510577707024,
+          "novelty_e0": 0.7456535510360507,
+          "novelty_e2": 0.5496677408140984
+        },
+        {
+          "object_id": 120133856,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.10511520523085673,
+          "prob_e2": 0.14152563874697863,
+          "novelty_e0": 0.7728050120844823,
+          "novelty_e2": 0.5577666197807483
+        },
+        {
+          "object_id": 120295877,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.00969781175146133,
+          "prob_e2": 0.007472323859195827,
+          "novelty_e0": 0.6195931961683322,
+          "novelty_e2": 0.5720885232712627
+        },
+        {
+          "object_id": 120627403,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.18680524047624333,
+          "prob_e2": 0.305293046272766,
+          "novelty_e0": 0.716562699912731,
+          "novelty_e2": 0.5105217092401689
+        },
+        {
+          "object_id": 121520516,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0037880327505849768,
+          "prob_e2": 0.017485250514061475,
+          "novelty_e0": 0.638987096917212,
+          "novelty_e2": 0.5790117673077279
+        },
+        {
+          "object_id": 125618442,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.011166849491874173,
+          "prob_e2": 0.06383734190783114,
+          "novelty_e0": 0.6835930686396353,
+          "novelty_e2": 0.5958440387369895
+        },
+        {
+          "object_id": 126864911,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.22027199215312424,
+          "prob_e2": 0.6289421993611567,
+          "novelty_e0": 0.7669868418598184,
+          "novelty_e2": 0.5620261970768003
+        },
+        {
+          "object_id": 127621981,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0006419109799564933,
+          "prob_e2": 0.0012806085345351361,
+          "novelty_e0": 0.5303812527234854,
+          "novelty_e2": 0.3753834805338222
+        },
+        {
+          "object_id": 128110659,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.060884932975502945,
+          "prob_e2": 0.3760879209125163,
+          "novelty_e0": 0.8232291540315697,
+          "novelty_e2": 0.6270274181634213
+        },
+        {
+          "object_id": 128717975,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.09083100909122133,
+          "prob_e2": 0.11963210825166015,
+          "novelty_e0": 3.701367890682077,
+          "novelty_e2": 2.1798577508860344
+        },
+        {
+          "object_id": 128742526,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.000662222315496482,
+          "prob_e2": 0.0010990694982086783,
+          "novelty_e0": 0.6001992954194526,
+          "novelty_e2": 0.5262626492774969
+        },
+        {
+          "object_id": 129808128,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.0027826006028989075,
+          "prob_e2": 0.0072227426704006845,
+          "novelty_e0": 0.6564416075912038,
+          "novelty_e2": 0.5719518610071629
+        },
+        {
+          "object_id": 130033455,
+          "triggered": false,
+          "trigger_epoch": null,
+          "prob_e0": 0.6435466483947294,
+          "prob_e2": 0.8350783803188186,
+          "novelty_e0": 0.8445624448553374,
+          "novelty_e2": 0.6448879633130803
+        }
+      ]
+    }
+  }
+}

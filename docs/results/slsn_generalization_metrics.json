@@ -1,1 +1,98 @@
-{}
+{
+  "diagnostic_target": "SLSN-I (class 95)",
+  "evaluation_cohort": {
+    "total_objects": 55915,
+    "slsn_count": 35782,
+    "kn_count": 133,
+    "sn_ia_count": 20000
+  },
+  "epochs_evaluated": [
+    0.0,
+    2.0,
+    5.0,
+    10.0
+  ],
+  "policies": {
+    "naive_baseline": {
+      "name": "naive_baseline",
+      "w_nov": 0.0,
+      "tau": 0.001,
+      "capacity": 5,
+      "slsn_triggered_total": 10,
+      "slsn_trigger_rate_total": 0.00027947012464367557,
+      "slsn_trigger_rate_total_cp_ci_95": [
+        0.00013402466245453345,
+        0.000513895252836763
+      ],
+      "slsn_triggered_by_h2": 10,
+      "slsn_trigger_rate_by_h2": 0.00027947012464367557,
+      "slsn_trigger_rate_by_h2_cp_ci_95": [
+        0.00013402466245453345,
+        0.000513895252836763
+      ],
+      "non_slsn_triggers": 0,
+      "false_trigger_rate": 0.0,
+      "false_trigger_rate_cp_ci_95": [
+        0.0,
+        0.00018320873820690698
+      ],
+      "utility_regret": 20.0,
+      "normalized_regret": 2.0,
+      "policy_utility": -10.0
+    },
+    "fused_policy": {
+      "name": "fused_policy",
+      "w_nov": 0.05,
+      "tau": 0.001,
+      "capacity": 5,
+      "slsn_triggered_total": 10,
+      "slsn_trigger_rate_total": 0.00027947012464367557,
+      "slsn_trigger_rate_total_cp_ci_95": [
+        0.00013402466245453345,
+        0.000513895252836763
+      ],
+      "slsn_triggered_by_h2": 10,
+      "slsn_trigger_rate_by_h2": 0.00027947012464367557,
+      "slsn_trigger_rate_by_h2_cp_ci_95": [
+        0.00013402466245453345,
+        0.000513895252836763
+      ],
+      "non_slsn_triggers": 0,
+      "false_trigger_rate": 0.0,
+      "false_trigger_rate_cp_ci_95": [
+        0.0,
+        0.00018320873820690698
+      ],
+      "utility_regret": 20.0,
+      "normalized_regret": 2.0,
+      "policy_utility": -10.0
+    },
+    "novelty_ablation": {
+      "name": "novelty_ablation",
+      "w_nov": 0.0,
+      "tau": 0.001,
+      "capacity": 5,
+      "slsn_triggered_total": 10,
+      "slsn_trigger_rate_total": 0.00027947012464367557,
+      "slsn_trigger_rate_total_cp_ci_95": [
+        0.00013402466245453345,
+        0.000513895252836763
+      ],
+      "slsn_triggered_by_h2": 10,
+      "slsn_trigger_rate_by_h2": 0.00027947012464367557,
+      "slsn_trigger_rate_by_h2_cp_ci_95": [
+        0.00013402466245453345,
+        0.000513895252836763
+      ],
+      "non_slsn_triggers": 0,
+      "false_trigger_rate": 0.0,
+      "false_trigger_rate_cp_ci_95": [
+        0.0,
+        0.00018320873820690698
+      ],
+      "utility_regret": 20.0,
+      "normalized_regret": 2.0,
+      "policy_utility": -10.0
+    }
+  }
+}

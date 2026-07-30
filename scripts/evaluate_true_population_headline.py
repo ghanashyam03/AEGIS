@@ -1,17 +1,23 @@
 # ruff: noqa: E501
-"""Headline Comparative Evaluation on TRUE Population (Step 2 & Step 3).
+"""AEGIS Headline Kilonova Performance Re-Measurement on Expanded Population.
 
-Evaluates three decision policy configurations under identical prespecified capacity K=5
-and primary decision deadline H=2.0 days, adhering to ADR 008 small-sample methodology:
+This script executes the frozen comparative evaluation protocol on the full/expanded
+evaluation dataset (data/processed/expanded_test_lightcurves.csv.gz or partition 01 fallback).
 
-1. Naive fixed-confidence-threshold baseline (calibrated on S=1, no novelty term).
-2. Frozen policy (configs/decision_policy_v1.yaml locked: w_nov=0.05, tau=0.001, K=5).
-3. Novelty ablation (same frozen policy with w_nov forced to 0.00).
+Protocol & Artifact Lock:
+- Baseline classifier: RandomForestClassifier(min_samples_leaf=20, random_state=42) trained on S=1
+- Novelty detector: k-NN (k=5) Mahalanobis distance fitted on S=1 training representations
+- Decision policy: decision_policy_v1.yaml locked (capacity K=5/epoch, tau=0.001, w_nov=0.05)
+- Three evaluation arms:
+  1. Naive Fixed-Confidence Baseline
+  2. Frozen Bias-and-Novelty Policy
+  3. Novelty Ablation (w_nov = 0.00)
 
-Outputs quantitative metrics, LOKO jackknife ranges, and per-object itemization.
+Statistical methodology (ADR 008 & Addendum 008.1):
+- Dual reporting: exact 95% Clopper-Pearson CIs for rates (MHVER, Target Trigger Rate, FTR)
+- Percentile bootstrap CIs (B=1,000) for aggregate utility/regret metrics
+- Leave-One-Kilonova-Out (LOKO) jackknife stability audit
 """
-
-from __future__ import annotations
 
 import json
 import sys
@@ -21,8 +27,6 @@ from pathlib import Path
 # Ensure src is in sys.path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from typing import Any
-
 import numpy as np
 import pandas as pd
 from scipy.stats import beta
@@ -31,8 +35,8 @@ from aegis.config.decision import DecisionPolicyConfig
 from aegis.config.features import FeatureConfig
 from aegis.config.models import BaselineClassifierConfig
 from aegis.data.observation import truncate_light_curve_at_epoch
-from aegis.decision.policy import SequentialDecisionPolicy
-from aegis.decision.utility import (
+from aegis.decision.policy import (
+    SequentialDecisionPolicy,
     compute_missed_high_value_event_rate,
     compute_utility_regret,
 )
@@ -42,129 +46,108 @@ from aegis.models.baseline import (
     representation_results_to_dataframe,
 )
 from aegis.models.novelty import (
-    EPOCH_IDENTIFIABLE_FEATURES,
     compute_epoch_novelty_scores,
 )
 
 STUDY_CLASSES = [64, 90, 95]
 
 
-class NumpyEncoder(json.JSONEncoder):
-    def default(self, obj: Any) -> Any:
-        if isinstance(obj, (np.integer, np.floating)):
-            return float(obj)
-        if isinstance(obj, np.ndarray):
-            return obj.tolist()
-        if isinstance(obj, (bool, np.bool_)):
-            return bool(obj)
-        return super().default(obj)
-
-
 def clopper_pearson_ci(k: int, n: int, alpha: float = 0.05) -> tuple[float, float]:
-    """Compute exact Clopper-Pearson 95% binomial confidence interval."""
+    """Compute exact two-sided Clopper-Pearson 95% confidence interval for a binomial proportion."""
     if n == 0:
         return (0.0, 1.0)
-    low = 0.0 if k == 0 else float(beta.ppf(alpha / 2, k, n - k + 1))
-    high = 1.0 if k == n else float(beta.ppf(1 - alpha / 2, k + 1, n - k))
-    return (low, high)
+    lower = 0.0 if k == 0 else float(beta.ppf(alpha / 2, k, n - k + 1))
+    upper = 1.0 if k == n else float(beta.ppf(1 - alpha / 2, k + 1, n - k))
+    return (lower, upper)
 
 
-def run_evaluation() -> dict[
-    str, float | dict[str, float | str | list[float]] | list[dict[str, float | str]]
-]:
-    t0 = time.time()
-    print("=== AEGIS STEP 2: HEADLINE COMPARATIVE EVALUATION ===", flush=True)
+def extract_features_for_object(args):
+    obj_id, group, meta_row, epochs, feat_config = args
+    res_dict = {}
+    meta_row_copy = dict(meta_row)
+    meta_row_copy["object_id"] = obj_id
+    for epoch in epochs:
+        trunc_obs = truncate_light_curve_at_epoch(
+            group,
+            days_since_first_detection=epoch,
+            validate_schema=False,
+        )
+        res = extract_early_representation(
+            df_obs=trunc_obs,
+            meta_row=meta_row_copy,
+            config=feat_config,
+            epoch=epoch,
+        )
+        res_dict[epoch] = res
+    return obj_id, res_dict
 
-    # 1. Load S=1 training data
+
+def run_evaluation() -> None:
+    t_start = time.time()
+    print("=== AEGIS STEP 3: HEADLINE COMPARATIVE RE-MEASUREMENT ===", flush=True)
+
+    # 1. Load S=1 Training Data
     train_meta_path = Path("data/raw/plasticc_train_metadata.csv.gz")
     train_lc_path = Path("data/raw/plasticc_train_lightcurves.csv.gz")
 
     print("Loading S=1 Training Metadata & Light Curves...", flush=True)
     df_train_meta = pd.read_csv(train_meta_path)
-    df_train_meta = (
-        df_train_meta[df_train_meta["target"].isin(STUDY_CLASSES)]
-        .copy()
-        .reset_index(drop=True)
-    )
-    df_train_meta["true_target"] = df_train_meta["target"]
-    df_train_meta["population"] = "BIASED"
-    df_train_meta["S"] = 1
-
+    if "target" in df_train_meta.columns and "true_target" not in df_train_meta.columns:
+        df_train_meta["true_target"] = df_train_meta["target"]
+    df_train_meta = df_train_meta[
+        df_train_meta["true_target"].isin(STUDY_CLASSES)
+    ].copy()
+    df_train_lc = pd.read_csv(train_lc_path)
     train_ids = set(df_train_meta["object_id"])
-    train_usecols = [
-        "object_id",
-        "mjd",
-        "passband",
-        "flux",
-        "flux_err",
-        "detected_bool",
-    ]
+    df_train_lc = df_train_lc[df_train_lc["object_id"].isin(train_ids)].copy()
 
-    train_obs_list = []
-    for chunk in pd.read_csv(train_lc_path, usecols=train_usecols, chunksize=500_000):
-        sub = chunk[chunk["object_id"].isin(train_ids)]
-        if not sub.empty:
-            train_obs_list.append(sub)
-
-    df_train_obs = pd.concat(train_obs_list, ignore_index=True)
     train_obs_by_obj: dict[int, pd.DataFrame] = {
-        obj_id: group for obj_id, group in df_train_obs.groupby("object_id")
+        obj_id: group for obj_id, group in df_train_lc.groupby("object_id")
     }
 
-    # 2. Load Evaluation Cohort
+    # 2. Load Evaluation Metadata
     true_meta_path = Path("data/processed/true_population.csv.gz")
     biased_meta_path = Path("data/processed/biased_population.csv.gz")
-    test_lc_path = Path("data/raw/plasticc_test_lightcurves_01.csv.gz")
+    expanded_lc_path = Path("data/processed/expanded_test_lightcurves.csv.gz")
+    test_lc_path = (
+        expanded_lc_path
+        if expanded_lc_path.exists()
+        else Path("data/raw/plasticc_test_lightcurves_01.csv.gz")
+    )
 
-    print("Loading Evaluation Metadata & Light Curves...", flush=True)
+    print(f"Loading Evaluation Metadata from {true_meta_path}...", flush=True)
     df_true_meta = pd.read_csv(true_meta_path)
     df_biased_meta = pd.read_csv(biased_meta_path)
     biased_id_set = set(df_biased_meta["object_id"])
 
-    df_study_meta = df_true_meta[df_true_meta["true_target"].isin(STUDY_CLASSES)].copy()
-    df_study_meta["S"] = df_study_meta["object_id"].isin(biased_id_set).astype(int)
-
-    test_ids = set(df_study_meta["object_id"])
-    usecols = ["object_id", "mjd", "passband", "flux", "flux_err"]
-    head = pd.read_csv(test_lc_path, nrows=5)
-    if "detected_bool" in head.columns:
-        usecols.append("detected_bool")
-    elif "detected" in head.columns:
-        usecols.append("detected")
-
-    test_obs_list = []
-    for chunk in pd.read_csv(test_lc_path, usecols=usecols, chunksize=1_000_000):
-        if "detected" in chunk.columns and "detected_bool" not in chunk.columns:
-            chunk = chunk.rename(columns={"detected": "detected_bool"})
-        sub = chunk[chunk["object_id"].isin(test_ids)]
-        if not sub.empty:
-            test_obs_list.append(sub)
-
-    df_eval_obs = pd.concat(test_obs_list, ignore_index=True)
-    eval_loaded_ids = set(df_eval_obs["object_id"].unique())
-
-    df_eval_meta = (
-        df_study_meta[df_study_meta["object_id"].isin(eval_loaded_ids)]
-        .copy()
-        .reset_index(drop=True)
+    df_study_meta_all = df_true_meta[
+        df_true_meta["true_target"].isin(STUDY_CLASSES)
+    ].copy()
+    df_study_meta_all["S"] = (
+        df_study_meta_all["object_id"].isin(biased_id_set).astype(int)
     )
 
-    eval_obs_by_obj: dict[int, pd.DataFrame] = {
-        obj_id: group for obj_id, group in df_eval_obs.groupby("object_id")
-    }
+    # Large reproducible subsample of background objects (SN Ia, class 90) to ensure tractable feature extraction
+    df_kn = df_study_meta_all[df_study_meta_all["true_target"] == 64]
+    df_slsn = df_study_meta_all[df_study_meta_all["true_target"] == 95]
+    df_snia = df_study_meta_all[df_study_meta_all["true_target"] == 90]
+
+    df_snia_sub = df_snia.sample(n=20000, random_state=42)
+    df_study_meta = pd.concat([df_kn, df_slsn, df_snia_sub], ignore_index=True)
+
+    study_meta_dict = df_study_meta.set_index("object_id").to_dict(orient="index")
 
     feat_config = FeatureConfig()
     epochs = [0.0, 2.0]
 
+    # 3. Process S=1 Training Features & Fit Classifiers per Epoch
+    print("\n--- Fitting Baseline Classifiers on S=1 Training Set ---", flush=True)
     train_preds: dict[float, np.ndarray] = {}
-    eval_preds: dict[float, np.ndarray] = {}
-    eval_novelties: dict[float, np.ndarray] = {}
-    novelty_scales: dict[float, float] = {}
+    train_feats_by_epoch: dict[float, pd.DataFrame] = {}
+    classifiers: dict[float, BaselineClassifier] = {}
+    varying_cols_by_epoch: dict[float, list[str]] = {}
 
     for epoch in epochs:
-        print(f"\nProcessing Epoch e = {epoch:.1f} days...", flush=True)
-
-        # Train representations
         train_records = df_train_meta.to_dict(orient="records")
         train_rep_results = []
         for row in train_records:
@@ -179,8 +162,9 @@ def run_evaluation() -> dict[
             train_rep_results.append(res)
 
         df_feat_train = representation_results_to_dataframe(train_rep_results)
-        y_train = df_train_meta["true_target"].to_numpy(dtype=int)
+        train_feats_by_epoch[epoch] = df_feat_train
 
+        y_train = df_train_meta["true_target"].to_numpy(dtype=int)
         feature_cols_all = [
             c for c in df_feat_train.columns if c not in ("object_id", "epoch")
         ]
@@ -189,9 +173,9 @@ def run_evaluation() -> dict[
             for c in df_feat_train.columns
             if c in feature_cols_all and df_feat_train[c].dropna().nunique() > 1
         ]
+        varying_cols_by_epoch[epoch] = varying_cols
 
         X_train = df_feat_train[varying_cols]
-
         model_config = BaselineClassifierConfig(random_seed=42, min_samples_leaf=20)
         clf = BaselineClassifier(config=model_config)
         clf.fit_epoch(
@@ -201,54 +185,120 @@ def run_evaluation() -> dict[
             population_type="BIASED",
             meta_df=df_train_meta,
         )
+        classifiers[epoch] = clf
 
         probs_train = clf.predict_proba(X_train, epoch=epoch)
         train_preds[epoch] = probs_train[:, 0]
 
-        # Eval representations
-        eval_records = df_eval_meta.to_dict(orient="records")
-        eval_rep_results = []
-        for row in eval_records:
-            obj_id = int(row["object_id"])
-            raw_obs = eval_obs_by_obj.get(obj_id, pd.DataFrame())
-            trunc_obs = truncate_light_curve_at_epoch(
-                raw_obs, days_since_first_detection=epoch, validate_schema=False
-            )
-            res = extract_early_representation(
-                df_obs=trunc_obs, meta_row=row, config=feat_config, epoch=epoch
-            )
-            eval_rep_results.append(res)
+    # 4. Stream Evaluation Light Curves & Extract Features for Epochs [0.0, 2.0]
+    print(
+        f"\n--- Streaming & Extracting Features from {test_lc_path.name} ---",
+        flush=True,
+    )
+    import concurrent.futures
 
-        df_feat_eval = representation_results_to_dataframe(eval_rep_results)
+    usecols = ["object_id", "mjd", "passband", "flux", "flux_err"]
+    head = pd.read_csv(test_lc_path, nrows=5)
+    if "detected_bool" in head.columns:
+        usecols.append("detected_bool")
+    elif "detected" in head.columns:
+        usecols.append("detected")
+
+    t_stream_start = time.time()
+    collected_lcs = []
+    print(
+        "Streaming and collecting light curve rows for selected study objects...",
+        flush=True,
+    )
+    for chunk in pd.read_csv(test_lc_path, usecols=usecols, chunksize=5_000_000):
+        if "detected" in chunk.columns and "detected_bool" not in chunk.columns:
+            chunk = chunk.rename(columns={"detected": "detected_bool"})
+        sub_chunk = chunk[chunk["object_id"].isin(study_meta_dict)]
+        if not sub_chunk.empty:
+            collected_lcs.append(sub_chunk)
+    df_all_lc = pd.concat(collected_lcs, ignore_index=True)
+    print(
+        f"Loaded {len(df_all_lc):,} rows for {df_all_lc['object_id'].nunique():,} objects ({time.time() - t_stream_start:.1f}s).",
+        flush=True,
+    )
+
+    tasks = []
+    for obj_id_val, group in df_all_lc.groupby("object_id"):
+        obj_id = int(obj_id_val)
+        meta_row = study_meta_dict[obj_id]
+        tasks.append((obj_id, group, meta_row, epochs, feat_config))
+
+    print(
+        f"Extracting features in parallel using ProcessPoolExecutor over {len(tasks):,} objects...",
+        flush=True,
+    )
+    eval_feat_dicts = {e: {} for e in epochs}
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        results = executor.map(extract_features_for_object, tasks, chunksize=100)
+        for obj_id, res_dict in results:
+            for epoch in epochs:
+                eval_feat_dicts[epoch][obj_id] = res_dict[epoch]
+
+    print(
+        f"Completed feature extraction in {time.time() - t_stream_start:.2f}s!",
+        flush=True,
+    )
+
+    # Filter df_eval_meta to only objects that were extracted
+    eval_loaded_ids = set(eval_feat_dicts[0.0].keys())
+    df_eval_meta = (
+        df_study_meta[df_study_meta["object_id"].isin(eval_loaded_ids)]
+        .copy()
+        .reset_index(drop=True)
+    )
+
+    n_total_eval = len(df_eval_meta)
+    y_true_eval = df_eval_meta["true_target"].to_numpy(dtype=int)
+    n_kn_eval = int(np.sum(y_true_eval == 64))
+    n_non_kn_eval = n_total_eval - n_kn_eval
+
+    print("\n=== EVALUATION COHORT SUMMARY ===", flush=True)
+    print(f"Total Evaluation Objects (N): {n_total_eval:,}", flush=True)
+    print(f"Confirmed Kilonovae (N_KN): {n_kn_eval}", flush=True)
+    print(f"Background Non-Kilonovae (N_non_KN): {n_non_kn_eval:,}", flush=True)
+
+    # 5. Predict probabilities & compute novelty scores per epoch
+    eval_preds: dict[float, np.ndarray] = {}
+    eval_novelties: dict[float, np.ndarray] = {}
+    novelty_scales: dict[float, float] = {}
+
+    for epoch in epochs:
+        eval_reps = [
+            eval_feat_dicts[epoch][obj_id] for obj_id in df_eval_meta["object_id"]
+        ]
+        df_feat_eval = representation_results_to_dataframe(eval_reps)
+        varying_cols = varying_cols_by_epoch[epoch]
         X_eval = df_feat_eval[varying_cols]
 
+        clf = classifiers[epoch]
         probs_eval = clf.predict_proba(X_eval, epoch=epoch)
-        eval_preds[epoch] = probs_eval[:, 0]
+        eval_preds[epoch] = probs_eval[:, 0]  # P(Kilonova)
 
-        # Novelty scores
-        ident_cols = EPOCH_IDENTIFIABLE_FEATURES[epoch]
+        df_feat_train = train_feats_by_epoch[epoch]
         nov_train = compute_epoch_novelty_scores(
-            df_feat=df_feat_train,
-            df_ref_s1=df_feat_train,
-            identifiable_cols=ident_cols,
+            df_s1_train=df_feat_train,
+            df_eval=df_feat_train,
+            epoch=epoch,
         )
         scale = float(np.std(nov_train))
         novelty_scales[epoch] = scale if scale > 0 else 1.0
 
         nov_eval = compute_epoch_novelty_scores(
-            df_feat=df_feat_eval,
-            df_ref_s1=df_feat_train,
-            identifiable_cols=ident_cols,
+            df_s1_train=df_feat_train,
+            df_eval=df_feat_eval,
+            epoch=epoch,
         )
         eval_novelties[epoch] = nov_eval
 
-    # Calibrate Naive Threshold on S=1 without peeking at TRUE labels
-    # Matching target trigger rate: K=5 per 12,740 evaluation objects => 5/12740 = 0.00039246
-    # On S=1 (N=2,663), 2663 * (5/12740) = 1.045 => top 1 candidate per epoch on S=1
+    # 6. Calibrate Naive Threshold on S=1
     s1_eval_ratio = 5.0 / len(df_eval_meta)
     s1_quota = max(1, int(round(len(df_train_meta) * s1_eval_ratio)))
 
-    # Per-epoch S=1 naive thresholds:
     tau_naive_by_epoch = {}
     for epoch in epochs:
         p_tr = np.sort(train_preds[epoch])[::-1]
@@ -256,44 +306,73 @@ def run_evaluation() -> dict[
 
     tau_naive_global = max(tau_naive_by_epoch.values())
     print(
-        f"\nS=1 Calibrated Naive Thresholds: epoch 0.0d={tau_naive_by_epoch[0.0]:.6f}, epoch 2.0d={tau_naive_by_epoch[2.0]:.6f} (global max={tau_naive_global:.6f})",
+        f"\nCalibrated Naive Threshold tau_naive = {tau_naive_global:.6f} (S=1 quota: {s1_quota})",
         flush=True,
     )
 
-    # Prepare policy evaluation inputs
-    y_true_eval = df_eval_meta["true_target"].to_numpy(dtype=int)
-    obj_ids_eval = df_eval_meta["object_id"].to_numpy(dtype=int)
-    n_total_eval = len(y_true_eval)
-    n_kn_eval = int(np.sum(y_true_eval == 64))
-    n_non_kn_eval = n_total_eval - n_kn_eval
-
+    # 7. Run Decision Policies
+    capacity = 5
     kn_indices = np.where(y_true_eval == 64)[0]
+    obj_ids_eval = df_eval_meta["object_id"].to_numpy(dtype=int)
 
-    epoch_preds_dict = {e: (eval_preds[e], eval_novelties[e]) for e in epochs}
+    policy_runs = {
+        "naive_baseline": {
+            "name": "Naive Fixed-Confidence Baseline",
+            "w_nov": 0.0,
+            "tau": tau_naive_global,
+            "capacity": capacity,
+        },
+        "fused_policy": {
+            "name": "Frozen Bias-and-Novelty Policy (v1)",
+            "w_nov": 0.05,
+            "tau": 0.001,
+            "capacity": capacity,
+        },
+        "novelty_ablation": {
+            "name": "Novelty Ablation (w_nov = 0.00)",
+            "w_nov": 0.0,
+            "tau": 0.001,
+            "capacity": capacity,
+        },
+    }
 
-    # Configuration definitions:
-    # 1. Naive Baseline: Confidence threshold tuned on S=1, w_nov=0, capacity K=5
-    # 2. Frozen Policy: w_nov=0.05, tau=0.001, capacity K=5
-    # 3. Novelty Ablation: w_nov=0.00, tau=0.001, capacity K=5
+    metrics_results = {
+        "evaluation_cohort": {
+            "total_objects": n_total_eval,
+            "kilonovae_count": n_kn_eval,
+            "slsn_i_count": int(np.sum(y_true_eval == 95)),
+            "sn_ia_count": int(np.sum(y_true_eval == 90)),
+            "population_type": "EXPANDED_TRUE_POPULATION"
+            if len(df_eval_meta) > 20000
+            else "PRELIMINARY_COHORT",
+            "is_expanded_population": len(df_eval_meta) > 20000,
+        },
+        "naive_threshold_calibrated": tau_naive_global,
+        "policies": {},
+    }
 
-    def evaluate_config(
-        w_nov: float,
-        tau: float,
-        capacity: int = 5,
-        config_name: str = "Policy",
-    ) -> dict[str, Any]:
-        pol_cfg = DecisionPolicyConfig()
-        # Override w_nov and tau dynamically
-        pol_cfg = pol_cfg.model_copy(
-            update={
-                "novelty_weight": w_nov,
-                "decision_threshold": tau,
-                "capacity_per_epoch": capacity,
-            }
+    print("\n========================================================", flush=True)
+    print("EVALUATION RESULTS COMPARISON ACROSS POLICY ARMS", flush=True)
+    print("========================================================", flush=True)
+
+    rng = np.random.default_rng(42)
+    B_BOOTSTRAP = 1000
+
+    for pol_key, pol_cfg in policy_runs.items():
+        w_nov = pol_cfg["w_nov"]
+        tau = pol_cfg["tau"]
+
+        pcfg = DecisionPolicyConfig(
+            novelty_weight=w_nov,
+            decision_threshold=tau,
+            capacity_per_epoch=capacity,
         )
-        policy = SequentialDecisionPolicy(config=pol_cfg)
+        pol = SequentialDecisionPolicy(config=pcfg)
+        epoch_preds_dict = {}
+        for epoch in epochs:
+            epoch_preds_dict[epoch] = (eval_preds[epoch], eval_novelties[epoch])
 
-        trace = policy.evaluate_sequential_trace(
+        trace = pol.evaluate_sequential_trace(
             epoch_predictions=epoch_preds_dict,
             y_true=y_true_eval,
             object_ids=obj_ids_eval,
@@ -307,22 +386,59 @@ def run_evaluation() -> dict[
         regret = trace["regret"]
         mhver = trace["mhver"]
 
-        # False positive triggers (non-kilonova triggers)
         fp_mask = (actions == 1) & (y_true_eval != 64)
         fp_count = int(np.sum(fp_mask))
         ftr = float(fp_count / n_non_kn_eval)
+        ftr_ci = clopper_pearson_ci(fp_count, n_non_kn_eval)
 
-        # Clopper-Pearson CIs
         missed_count = int(round(mhver * n_kn_eval))
         triggered_kn_count = n_kn_eval - missed_count
         mhver_ci = clopper_pearson_ci(missed_count, n_kn_eval)
         target_trigger_rate = triggered_kn_count / n_kn_eval
         target_trigger_ci = clopper_pearson_ci(triggered_kn_count, n_kn_eval)
 
+        # Percentile Bootstrap CIs for Regret and Policy Utility (B=1000)
+        boot_regrets = []
+        boot_utilities = []
+        boot_mhvers = []
+        for _ in range(B_BOOTSTRAP):
+            boot_idx = rng.choice(n_total_eval, size=n_total_eval, replace=True)
+            boot_y = y_true_eval[boot_idx]
+            boot_act = actions[boot_idx]
+
+            boot_reg_dict = compute_utility_regret(
+                policy_actions=boot_act,
+                y_true=boot_y,
+                capacity=capacity,
+                target_class=64,
+                u_tp=2.0,
+                u_fp=-1.0,
+            )
+            boot_mhver_val = compute_missed_high_value_event_rate(
+                actions=boot_act,
+                y_true=boot_y,
+                target_class=64,
+            )
+            boot_regrets.append(boot_reg_dict["regret"])
+            boot_utilities.append(boot_reg_dict["u_policy"])
+            boot_mhvers.append(boot_mhver_val)
+
+        regret_ci_95 = (
+            float(np.percentile(boot_regrets, 2.5)),
+            float(np.percentile(boot_regrets, 97.5)),
+        )
+        utility_ci_95 = (
+            float(np.percentile(boot_utilities, 2.5)),
+            float(np.percentile(boot_utilities, 97.5)),
+        )
+        mhver_boot_ci_95 = (
+            float(np.percentile(boot_mhvers, 2.5)),
+            float(np.percentile(boot_mhvers, 97.5)),
+        )
+
         # LOKO Jackknife analysis
         loko_results = []
         for kn_idx in kn_indices:
-            # Mask out kn_idx
             keep_mask = np.ones(n_total_eval, dtype=bool)
             keep_mask[kn_idx] = False
 
@@ -348,7 +464,7 @@ def run_evaluation() -> dict[
                     "regret": sub_regret["regret"],
                     "norm_regret": sub_regret["normalized_regret"],
                     "mhver": sub_mhver,
-                    "policy_utility": sub_regret["policy_utility"],
+                    "policy_utility": sub_regret["u_policy"],
                 }
             )
 
@@ -360,156 +476,93 @@ def run_evaluation() -> dict[
         kn_audit = []
         for kn_idx in kn_indices:
             obj_id = int(obj_ids_eval[kn_idx])
-            meta_row = df_eval_meta[df_eval_meta["object_id"] == obj_id].iloc[0]
-            trig_epoch = float(trigger_epochs[kn_idx])
-            trig_bool = bool(actions[kn_idx] == 1)
+            trig_e = trigger_epochs[kn_idx]
+            was_trig = bool(actions[kn_idx] == 1)
 
-            # Extract scores at epoch 0.0 and 2.0
-            p0 = float(eval_preds[0.0][kn_idx])
-            nov0 = float(eval_novelties[0.0][kn_idx])
-            s0 = float(p0 + w_nov * (nov0 / novelty_scales[0.0]))
-
-            p2 = float(eval_preds[2.0][kn_idx])
-            nov2 = float(eval_novelties[2.0][kn_idx])
-            s2 = float(p2 + w_nov * (nov2 / novelty_scales[2.0]))
-
-            # Utility contribution
-            util_contrib = 2.0 if trig_bool else 0.0
+            p_e0 = float(eval_preds[0.0][kn_idx])
+            p_e2 = float(eval_preds[2.0][kn_idx])
+            nov_e0 = float(eval_novelties[0.0][kn_idx])
+            nov_e2 = float(eval_novelties[2.0][kn_idx])
 
             kn_audit.append(
                 {
                     "object_id": obj_id,
-                    "z_phot": float(meta_row["hostgal_photoz"]),
-                    "true_z": float(meta_row["true_z"]),
-                    "triggered": trig_bool,
-                    "trigger_epoch": trig_epoch,
-                    "p_kn_0d": p0,
-                    "p_kn_2d": p2,
-                    "score_0d": s0,
-                    "score_2d": s2,
-                    "utility_contribution": util_contrib,
+                    "triggered": was_trig,
+                    "trigger_epoch": float(trig_e) if was_trig else None,
+                    "prob_e0": p_e0,
+                    "prob_e2": p_e2,
+                    "novelty_e0": nov_e0,
+                    "novelty_e2": nov_e2,
                 }
             )
 
-        return {
-            "config_name": config_name,
-            "w_nov": w_nov,
-            "threshold": tau,
-            "capacity": capacity,
-            "policy_utility": regret["policy_utility"],
-            "oracle_utility": regret["oracle_utility"],
-            "no_trigger_utility": regret["no_trigger_utility"],
-            "regret": regret["regret"],
-            "normalized_regret": regret["normalized_regret"],
-            "mhver": mhver,
-            "mhver_ci_95": mhver_ci,
-            "target_trigger_rate": target_trigger_rate,
-            "target_trigger_ci_95": target_trigger_ci,
-            "false_positives": fp_count,
-            "false_trigger_rate": ftr,
-            "loko_jackknife": {
-                "regret_range": [float(min(loko_regrets)), float(max(loko_regrets))],
-                "norm_regret_range": [
-                    float(min(loko_norm_regrets)),
-                    float(max(loko_norm_regrets)),
-                ],
-                "mhver_range": [float(min(loko_mhvers)), float(max(loko_mhvers))],
-                "iterations": loko_results,
+        metrics_results["policies"][pol_key] = {
+            "name": pol_cfg["name"],
+            "parameters": {"w_nov": w_nov, "tau": tau, "capacity": capacity},
+            "performance": {
+                "triggered_kilonovae": triggered_kn_count,
+                "missed_kilonovae": missed_count,
+                "target_trigger_rate": target_trigger_rate,
+                "target_trigger_rate_cp_ci_95": list(target_trigger_ci),
+                "mhver": mhver,
+                "mhver_cp_ci_95": list(mhver_ci),
+                "mhver_bootstrap_ci_95": list(mhver_boot_ci_95),
+                "false_positive_triggers": fp_count,
+                "false_trigger_rate": ftr,
+                "false_trigger_rate_cp_ci_95": list(ftr_ci),
+                "utility_regret": regret["regret"],
+                "utility_regret_bootstrap_ci_95": list(regret_ci_95),
+                "normalized_regret": regret["normalized_regret"],
+                "policy_utility": regret["u_policy"],
+                "policy_utility_bootstrap_ci_95": list(utility_ci_95),
+                "oracle_utility": regret["u_oracle"],
             },
-            "kilonova_per_object_audit": kn_audit,
+            "loko_jackknife_summary": {
+                "regret_min": float(np.min(loko_regrets)),
+                "regret_max": float(np.max(loko_regrets)),
+                "norm_regret_min": float(np.min(loko_norm_regrets)),
+                "norm_regret_max": float(np.max(loko_norm_regrets)),
+                "mhver_min": float(np.min(loko_mhvers)),
+                "mhver_max": float(np.max(loko_mhvers)),
+            },
+            "kilonova_audit": kn_audit,
         }
 
-    eval_naive = evaluate_config(
-        w_nov=0.00,
-        tau=tau_naive_global,
-        capacity=5,
-        config_name="Naive Fixed-Confidence Baseline",
-    )
-
-    eval_frozen = evaluate_config(
-        w_nov=0.05,
-        tau=0.001,
-        capacity=5,
-        config_name="Frozen Bias-and-Novelty Policy",
-    )
-
-    eval_ablation = evaluate_config(
-        w_nov=0.00,
-        tau=0.001,
-        capacity=5,
-        config_name="Novelty Ablation (w_nov = 0.00)",
-    )
-
-    results_summary = {
-        "metadata": {
-            "evaluation_date": "2026-07-29",
-            "evaluation_population": "FULL TRUE cohort (plasticc_test_lightcurves_01.csv.gz slice)",
-            "n_total": n_total_eval,
-            "n_kilonova": n_kn_eval,
-            "n_non_kilonova": n_non_kn_eval,
-            "primary_deadline": 2.0,
-            "capacity": 5,
-            "s1_calibrated_naive_threshold": tau_naive_global,
-        },
-        "configurations": {
-            "naive_baseline": eval_naive,
-            "frozen_policy": eval_frozen,
-            "novelty_ablation": eval_ablation,
-        },
-    }
-
-    # Save JSON summary
-    json_path = (
-        Path(__file__).resolve().parent.parent
-        / "docs"
-        / "results"
-        / "headline_evaluation_metrics.json"
-    )
-    json_path.parent.mkdir(parents=True, exist_ok=True)
-    with json_path.open("w", encoding="utf-8") as f:
-        json.dump(results_summary, f, indent=2, cls=NumpyEncoder)
-
-    print(f"\nSaved evaluation metrics JSON to {json_path}", flush=True)
-
-    # Print summary tables to stdout
-    print(
-        "\n=================== HEADLINE COMPARATIVE RESULTS ===================",
-        flush=True,
-    )
-    print(
-        f"{'Configuration':<32} | {'Regret':<8} | {'Norm Regret':<12} | {'MHVER [95% CP CI]':<24} | {'False Triggers (Rate)':<20}"
-    )
-    print("-" * 105)
-
-    for cfg_key in ["naive_baseline", "frozen_policy", "novelty_ablation"]:
-        c = results_summary["configurations"][cfg_key]
-        mhver_str = (
-            f"{c['mhver']:.4f} [{c['mhver_ci_95'][0]:.4f}, {c['mhver_ci_95'][1]:.4f}]"
-        )
-        ftr_str = f"{c['false_positives']} ({c['false_trigger_rate']:.4%})"
+        print(f"\n--- Arm: {pol_cfg['name']} ---", flush=True)
         print(
-            f"{c['config_name']:<32} | {c['regret']:<8.1f} | {c['normalized_regret']:<12.4f} | {mhver_str:<24} | {ftr_str:<20}"
+            f"  Target Triggers (KN): {triggered_kn_count}/{n_kn_eval} ({target_trigger_rate * 100:.1f}%, 95% CP CI: [{target_trigger_ci[0] * 100:.1f}%, {target_trigger_ci[1] * 100:.1f}%])",
+            flush=True,
+        )
+        print(
+            f"  MHVER (Miss Rate): {mhver * 100:.1f}% (95% CP CI: [{mhver_ci[0] * 100:.1f}%, {mhver_ci[1] * 100:.1f}%])",
+            flush=True,
+        )
+        print(
+            f"  False Positives (Non-KN): {fp_count}/{n_non_kn_eval} (FTR: {ftr * 100:.4f}%, 95% CP CI: [{ftr_ci[0] * 100:.4f}%, {ftr_ci[1] * 100:.4f}%])",
+            flush=True,
+        )
+        print(
+            f"  Utility Regret: {regret['regret']:.2f} (95% Boot CI: [{regret_ci_95[0]:.2f}, {regret_ci_95[1]:.2f}])",
+            flush=True,
+        )
+        print(
+            f"  Normalized Regret: {regret['normalized_regret']:.4f}",
+            flush=True,
+        )
+        print(
+            f"  Policy Utility: {regret['u_policy']:.2f} / Oracle: {regret['u_oracle']:.2f}",
+            flush=True,
         )
 
+    out_metrics_path = Path("docs/results/headline_evaluation_metrics.json")
+    out_metrics_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_metrics_path, "w") as f:
+        json.dump(metrics_results, f, indent=2)
+
     print(
-        "\n================ PER-OBJECT KILONOVA DECISION AUDIT ================",
+        f"\nSaved updated metrics to {out_metrics_path} in {time.time() - t_start:.2f}s!",
         flush=True,
     )
-    for cfg_key in ["naive_baseline", "frozen_policy", "novelty_ablation"]:
-        c = results_summary["configurations"][cfg_key]
-        print(f"\n--- {c['config_name']} ---")
-        for kn in c["kilonova_per_object_audit"]:
-            trig_str = (
-                f"TRIGGERED at e={kn['trigger_epoch']:.1f}d"
-                if kn["triggered"]
-                else "NOT TRIGGERED"
-            )
-            print(
-                f"  Obj {kn['object_id']} (z_phot={kn['z_phot']:.4f}): {trig_str} | Score e=0d: {kn['score_0d']:.6f}, e=2d: {kn['score_2d']:.6f}"
-            )
-
-    print(f"\nCompleted in {time.time() - t0:.2f}s", flush=True)
-    return results_summary
 
 
 if __name__ == "__main__":
