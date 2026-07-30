@@ -94,3 +94,27 @@ utility / regret evaluation (u(a, Y), R_e, MHVER_e)
 - Threshold parameters ($\tau_e, w_{\text{nov}}$) and capacity limits ($K$) are defined in versioned experiment configurations (`configs/decision_policy_v1.yaml`), satisfying the **Threshold Separation Constraint** by avoiding tuning against FULL TRUE deployment labels.
 - Evaluated strictly via leakage-safe observation truncation ($mjd \le t_{0,i} + e$).
 - Decision metrics reuse ADR 003 definitions ($u(a=1, Y=\text{KN})=+2$, $u(a=1, Y\ne\text{KN})=-1$, $u(a=0,*)=0$, utility regret $R_e$, and missed-high-value-event rate $MHVER_e$).
+
+---
+
+## Addendum 007.1: Rate-Based Capacity Correction for Expanded Population
+
+### Context
+When the triage decision policy was frozen in `configs/decision_policy_v1.yaml`, the operational capacity was set to $K = 5$ triggers per epoch. This absolute limit was registered against the preliminary cohort of $N = 12,740$ objects (representing a small $0.75\%$ slice of the survey).
+In Phase 6, the evaluation population was expanded to $N = 55,915$ objects (a 4.39x increase in survey scale).
+
+### Justification for Capacity Correction
+In a real-world telescope survey operation, capacity $K$ represents a rate of spectroscopic follow-ups per unit of survey area/time, or per candidate alert stream size (resource allocation rate), rather than an absolute, globally fixed number of follow-ups across arbitrarily sized survey volumes.
+Maintaining a static $K = 5$ triggers per epoch over a 4.39x larger alert pool artificially suppresses the target recovery rate due to alert pool size growth alone.
+For a pure-random selection process:
+- At the preliminary scale ($N = 12,740$), the expected random kilonova recovery rate is $2K/N = 10/12,740 \approx 0.0785\%$.
+- At the expanded scale ($N = 55,915$), the expected random kilonova recovery rate drops to $2K/N = 10/55,915 \approx 0.0179\%$.
+
+To maintain the same resource allocation rate (i.e. the fraction of alerts followable by the telescope resources) across different survey volumes, the capacity $K$ must scale proportionally with the alert pool size:
+\[
+K_{\text{corrected}} = \text{round}\left(K_{\text{original}} \times \frac{N_{\text{expanded}}}{N_{\text{original}}}\right) = \text{round}\left(5 \times \frac{55,915}{12,740}\right) = 22
+\]
+
+### Decision
+For the expanded population evaluation, we introduce a corrected capacity configuration of $K = 22$ triggers per epoch, versioned as `configs/decision_policy_v2.yaml`. The original $K = 5$ baseline results and configuration in `configs/decision_policy_v1.yaml` are preserved for historical reference and direct comparison.
+

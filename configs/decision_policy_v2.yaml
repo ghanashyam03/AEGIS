@@ -1,0 +1,47 @@
+# ==============================================================================
+# RATE-CORRECTED EXPERIMENT CONFIGURATION (v2.0.0)
+# Lock Status: LOCKED_PRE_EVALUATION
+# ==============================================================================
+# Rationale: Capacity K is corrected from 5 to 22 per epoch to maintain the same
+# resource allocation rate (follow-up fraction) over the 4.39x expanded pool size
+# as established in ADR 007.1.
+# ==============================================================================
+
+version: "v2.0.0-corrected"
+lock_status: "LOCKED_PRE_EVALUATION"
+random_seed: 42
+
+epochs:
+  - 0.0
+  - 2.0
+  - 7.0
+
+primary_deadline: 2.0
+target_class: 64
+
+probability_source: "uncorrected_baseline"
+
+# Corrected operational trigger capacity K per epoch
+capacity_per_epoch: 22
+
+# Relative weight of normalized novelty score in combined score S_e
+novelty_weight: 0.05
+
+# Minimum score threshold tau_e required to trigger an alert
+decision_threshold: 0.001
+
+# Reference cost ratio parameters (ADR 003 Primary: 2:1 ratio)
+u_tp: 2.0
+u_fp: -1.0
+
+# Pre-specified sensitivity companion cost ratios
+sensitivity_cost_ratios:
+  - ratio_name: "1:1"
+    u_tp: 1.0
+    u_fp: -1.0
+  - ratio_name: "2:1"
+    u_tp: 2.0
+    u_fp: -1.0
+  - ratio_name: "5:1"
+    u_tp: 5.0
+    u_fp: -1.0

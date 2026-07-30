@@ -1,0 +1,133 @@
+{
+  "evaluation_cohort": {
+    "total_objects": 55915,
+    "kilonovae_count": 133,
+    "slsn_i_count": 35782,
+    "sn_ia_count": 20000,
+    "population_type": "EXPANDED_TRUE_POPULATION",
+    "is_expanded_population": true
+  },
+  "naive_threshold_calibrated": 0.979503868904216,
+  "policies": {
+    "naive_baseline": {
+      "name": "Naive Fixed-Confidence Baseline (K=22)",
+      "parameters": {
+        "w_nov": 0.0,
+        "tau": 0.979503868904216,
+        "capacity": 22
+      },
+      "performance": {
+        "triggered_kilonovae": 1,
+        "missed_kilonovae": 132,
+        "target_trigger_rate": 0.007518796992481203,
+        "target_trigger_rate_cp_ci_95": [
+          0.00019034134131638213,
+          0.04117911502590165
+        ],
+        "mhver": 0.9924812030075187,
+        "mhver_cp_ci_95": [
+          0.9588208849740983,
+          0.9998096586586837
+        ],
+        "false_positive_triggers": 0,
+        "false_trigger_rate": 0.0,
+        "false_trigger_rate_cp_ci_95": [
+          0.0,
+          6.612809658099774e-05
+        ],
+        "utility_regret": 42.0,
+        "utility_regret_bootstrap_ci_95": [
+          38.0,
+          44.0
+        ],
+        "normalized_regret": 0.9545454545454546,
+        "policy_utility": 2.0,
+        "policy_utility_bootstrap_ci_95": [
+          0.0,
+          6.0
+        ],
+        "oracle_utility": 44.0
+      }
+    },
+    "fused_policy": {
+      "name": "Frozen Bias-and-Novelty Policy (v2, K=22)",
+      "parameters": {
+        "w_nov": 0.05,
+        "tau": 0.001,
+        "capacity": 22
+      },
+      "performance": {
+        "triggered_kilonovae": 19,
+        "missed_kilonovae": 114,
+        "target_trigger_rate": 0.14285714285714285,
+        "target_trigger_rate_cp_ci_95": [
+          0.08825399430033211,
+          0.21406762003738308
+        ],
+        "mhver": 0.8571428571428571,
+        "mhver_cp_ci_95": [
+          0.7859323799626169,
+          0.9117460056996679
+        ],
+        "false_positive_triggers": 25,
+        "false_trigger_rate": 0.00044817324584991574,
+        "false_trigger_rate_cp_ci_95": [
+          0.0002900544307795398,
+          0.0006615215205012207
+        ],
+        "utility_regret": 31.0,
+        "utility_regret_bootstrap_ci_95": [
+          12.0,
+          50.0
+        ],
+        "normalized_regret": 0.7045454545454546,
+        "policy_utility": 13.0,
+        "policy_utility_bootstrap_ci_95": [
+          -6.0,
+          32.0
+        ],
+        "oracle_utility": 44.0
+      }
+    },
+    "novelty_ablation": {
+      "name": "Novelty Ablation (w_nov = 0.00, K=22)",
+      "parameters": {
+        "w_nov": 0.0,
+        "tau": 0.001,
+        "capacity": 22
+      },
+      "performance": {
+        "triggered_kilonovae": 19,
+        "missed_kilonovae": 114,
+        "target_trigger_rate": 0.14285714285714285,
+        "target_trigger_rate_cp_ci_95": [
+          0.08825399430033211,
+          0.21406762003738308
+        ],
+        "mhver": 0.8571428571428571,
+        "mhver_cp_ci_95": [
+          0.7859323799626169,
+          0.9117460056996679
+        ],
+        "false_positive_triggers": 25,
+        "false_trigger_rate": 0.00044817324584991574,
+        "false_trigger_rate_cp_ci_95": [
+          0.0002900544307795398,
+          0.0006615215205012207
+        ],
+        "utility_regret": 31.0,
+        "utility_regret_bootstrap_ci_95": [
+          11.0,
+          50.0
+        ],
+        "normalized_regret": 0.7045454545454546,
+        "policy_utility": 13.0,
+        "policy_utility_bootstrap_ci_95": [
+          -6.0,
+          33.0
+        ],
+        "oracle_utility": 44.0
+      }
+    }
+  }
+}
