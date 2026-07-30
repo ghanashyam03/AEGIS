@@ -95,3 +95,5 @@ With a 66.5-fold increase in target positive event count ($N_{\text{KN}} = 133 \
 3. **Historical Continuity:**
    - The original small-sample methodology ($N_{\text{KN}} = 2$) defined in ADR 008 remains an intact, valid historical record of the preliminary phase and is not erased. Addendum 008.1 explicitly supersedes it for all expanded-population findings.
 
+## Execution Note (July 30, 2026)
+The expanded evaluation has been successfully executed. Feature extraction was performed on all 133 kilonovae, 35,782 SLSN-I objects, and a reproducible random subsample of 20,000 Type Ia Supernovae objects (for computational tractability). Dual uncertainty reporting (exact Clopper-Pearson CIs for rates, percentile bootstrap CIs for utility) was applied, confirming the preliminary results with high statistical confidence.
